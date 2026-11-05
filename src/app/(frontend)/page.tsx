@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import React from 'react'
 
+import { Bean } from '@/components/site/Coffee'
 import { CTASection } from '@/components/site/CTASection'
 import { HomeHero } from '@/components/site/HomeHero'
 import { PriceBrewer, type BrewOption } from '@/components/site/PriceBrewer'
@@ -76,18 +77,25 @@ export default async function HomePage() {
     })
     .filter((o): o is BrewOption => o !== null)
 
+  const location = settings?.contact?.location?.split('·')[0]?.trim() || 'South Africa'
+  const cheapest = [...brew].sort(
+    (a, b) => Number(a.from.replace(/\D/g, '')) - Number(b.from.replace(/\D/g, '')),
+  )[0]
   const facts = [
+    { label: 'Based in', value: location },
+    ...(cheapest ? [{ label: 'Published prices', value: `From ${cheapest.from}` }] : []),
     {
-      label: 'Based in',
-      value: settings?.contact?.location?.split('·')[0]?.trim() || 'South Africa',
+      label: 'You work with',
+      value: founder ? `${founder.name}, directly` : 'The developer, directly',
     },
-    { label: 'Working with', value: 'Clients in South Africa and abroad' },
-    { label: 'Led by', value: founder ? `${founder.name}, ${founder.role}` : 'A senior developer' },
   ]
+  const fromBy = new Map(brew.map((o) => [o.id, o]))
 
   return (
     <>
       <HomeHero
+        brands={experience.slice(0, 4)}
+        facts={facts}
         heading={home?.heroHeading || 'Digital experiences. Engineered to grow.'}
         primary={{
           label: home?.primaryCta?.label || 'Start a Project',
@@ -100,112 +108,100 @@ export default async function HomePage() {
         subheading={home?.heroSubheading}
       />
 
-      {/* The studio: three plain facts beside one wide paragraph, then the founder's record. */}
-      {home?.positioning && (
-        <Section aria-labelledby="studio-title" tone="raised">
-          <div className="container grid gap-12 lg:grid-cols-12 lg:gap-8">
-            <Reveal className="lg:col-span-3" stagger>
-              <h2 className="text-h3" id="studio-title">
-                The studio
-              </h2>
-              <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 lg:grid-cols-1">
-                {facts.map((f) => (
-                  <div key={f.label}>
-                    <dt className="text-sm text-muted-foreground">{f.label}</dt>
-                    <dd className="mt-0.5 font-semibold">{f.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </Reveal>
-            <div className="lg:col-span-8 lg:col-start-5">
-              <Reveal>
-                <p className="text-[clamp(1.375rem,1.1rem+0.9vw,1.875rem)] font-semibold leading-[1.25] tracking-[-0.015em]">
-                  {home.positioning}
-                </p>
-              </Reveal>
-              {experience.length > 0 && (
-                <Reveal className="mt-14 md:mt-20" delay={80}>
-                  <h3 className="font-semibold">Brands the founder has built for</h3>
-                  <ul className="mt-4 columns-2 gap-x-10 text-lg text-muted-foreground sm:columns-3">
-                    {experience.map((brand) => (
-                      <li className="py-1" key={brand}>
-                        {brand}
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="mt-4 text-sm text-muted-foreground">
-                    Work by the founder before AR Tech Dogs, not studio client work.
-                  </p>
-                </Reveal>
-              )}
-            </div>
-          </div>
-        </Section>
-      )}
-
-      {/* What we build: an index of names, no boxes. The whole row is the link. */}
+      {/* What we build: six tiles, each with its published starting price. The tile is the link. */}
       {services.length > 0 && (
-        <Section aria-labelledby="services-title">
+        <Section aria-labelledby="services-title" className="pt-8 md:pt-12">
           <div className="container">
             <SectionHeader
               id="services-title"
               lead="From a focused landing page to an enterprise Shopify Plus platform, with support that continues after launch."
               title="What we build"
             />
-            <ul className="grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
-              {services.map((s, i) => (
-                <Reveal as="li" delay={(i % 3) * 70} key={s.id}>
-                  <Link
-                    className="group -mx-4 block rounded-[var(--radius-lg)] px-4 py-6 transition-[background-color,transform] duration-200 ease-[var(--ease-out-quart)] hover:bg-card active:scale-[0.99] md:py-8"
-                    href={`/solutions/${s.slug}`}
-                  >
-                    <h3 className="text-h3 flex items-center gap-2">
-                      {s.title}
-                      <span
-                        aria-hidden
-                        className="text-brand-text opacity-0 transition-[opacity,transform] duration-200 ease-[var(--ease-out-quart)] -translate-x-1 group-hover:translate-x-0 group-hover:opacity-100"
-                      >
-                        <ArrowRight className="size-[1.05em]" strokeWidth={2.25} />
-                      </span>
-                    </h3>
-                    <p className="mt-2 leading-relaxed text-muted-foreground">{s.summary}</p>
-                  </Link>
-                </Reveal>
-              ))}
+            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {services.map((s, i) => {
+                const price = fromBy.get(s.id)
+                return (
+                  <Reveal as="li" className="h-full" delay={(i % 3) * 70} key={s.id}>
+                    <Link
+                      className="group flex h-full flex-col rounded-[var(--radius-xl)] bg-card p-7 transition-[background-color,transform,box-shadow] duration-300 ease-[var(--ease-out-quart)] hover:-translate-y-1 hover:bg-popover hover:shadow-[var(--shadow-float)] active:scale-[0.99] md:p-8"
+                      href={`/solutions/${s.slug}`}
+                    >
+                      <h3 className="text-h3">{s.title}</h3>
+                      <p className="mt-3 flex-1 leading-relaxed text-muted-foreground">
+                        {s.summary}
+                      </p>
+                      <p className="mt-8 flex items-center justify-between gap-4 text-[0.9375rem] font-semibold">
+                        <span>
+                          {price
+                            ? `From ${price.from}${price.monthly ? ' a month' : ''}`
+                            : 'Custom quote'}
+                        </span>
+                        <span
+                          aria-hidden
+                          className="flex size-10 items-center justify-center rounded-full bg-background transition-[background-color,color,transform] duration-300 ease-[var(--ease-out-quart)] group-hover:translate-x-0.5 group-hover:bg-primary group-hover:text-primary-foreground"
+                        >
+                          <ArrowRight className="size-[1.05em]" strokeWidth={2.25} />
+                        </span>
+                      </p>
+                    </Link>
+                  </Reveal>
+                )
+              })}
             </ul>
           </div>
         </Section>
       )}
 
-      {/* Why: the claim set large, the reasons as a table pushed to the right. */}
-      {(company?.differentiators?.length ?? 0) > 0 && (
+      {/* The studio: the claim, who is behind it, and the reasons, each marked with a bean. */}
+      {(home?.positioning || (company?.differentiators?.length ?? 0) > 0) && (
         <Section aria-labelledby="why-title" tone="raised">
-          <div className="container">
-            <Reveal>
-              <h2 className="text-h1 max-w-[16ch]" id="why-title">
-                Built properly, by the person you speak to.
-              </h2>
-            </Reveal>
-            <div className="mt-14 grid gap-10 md:mt-20 lg:grid-cols-12">
-              <Reveal className="lg:col-span-4" delay={60}>
-                <p className="text-lead">
-                  Senior-level development without agency overhead. You talk to the person who
-                  writes the code.
-                </p>
+          <div className="container grid gap-14 lg:grid-cols-12 lg:gap-10">
+            <div className="lg:col-span-6">
+              <Reveal>
+                <h2 className="text-h1 max-w-[14ch]" id="why-title">
+                  Built properly, by the person you speak to.
+                </h2>
               </Reveal>
-              <dl className="lg:col-span-7 lg:col-start-6">
+              {home?.positioning && (
+                <Reveal delay={60}>
+                  <p className="text-lead mt-8 max-w-[42ch]">{home.positioning}</p>
+                </Reveal>
+              )}
+              {experience.length > 0 && (
+                <Reveal className="mt-12" delay={120}>
+                  <h3 className="text-sm text-muted-foreground">
+                    Brands the founder has built for, before AR Tech Dogs
+                  </h3>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {experience.map((brand) => (
+                      <li
+                        className="rounded-full bg-background px-4 py-2 text-[0.9375rem] font-semibold"
+                        key={brand}
+                      >
+                        {brand}
+                      </li>
+                    ))}
+                  </ul>
+                </Reveal>
+              )}
+            </div>
+            {(company?.differentiators?.length ?? 0) > 0 && (
+              <dl className="grid gap-3 self-start lg:col-span-6">
                 {company.differentiators!.map((d, i) => (
                   <Reveal
-                    className="grid gap-1 py-4 sm:grid-cols-[minmax(0,14rem)_1fr] sm:gap-8"
-                    delay={i * 50}
+                    className="flex gap-4 rounded-[var(--radius-xl)] bg-background p-6"
+                    delay={i * 60}
                     key={d.title}
                   >
-                    <dt className="font-semibold">{d.title}</dt>
-                    <dd className="text-muted-foreground">{d.description}</dd>
+                    <Bean className="mt-1 size-5 shrink-0 text-roast" />
+                    <div>
+                      <dt className="font-semibold">{d.title}</dt>
+                      <dd className="mt-1 text-muted-foreground">{d.description}</dd>
+                    </div>
                   </Reveal>
                 ))}
               </dl>
-            </div>
+            )}
           </div>
         </Section>
       )}
@@ -281,21 +277,15 @@ export default async function HomePage() {
                 How it fits together
               </Link>
             </Reveal>
-            <Reveal className="lg:col-span-8" delay={80}>
-              <p className="text-[clamp(1.375rem,1.1rem+0.9vw,1.875rem)] font-semibold leading-[1.3] tracking-[-0.015em]">
-                {partners.map((p, i) => (
-                  <React.Fragment key={p.id}>
-                    <span className="text-muted-foreground transition-colors duration-150 hover:text-foreground">
-                      {p.name}
-                    </span>
-                    {i < partners.length - 1 ? (
-                      <span className="text-muted-foreground">, </span>
-                    ) : (
-                      <span className="text-muted-foreground">.</span>
-                    )}
-                  </React.Fragment>
-                ))}
-              </p>
+            <Reveal as="ul" className="flex flex-wrap content-start gap-2 lg:col-span-8" delay={80}>
+              {partners.map((p) => (
+                <li
+                  className="rounded-full bg-card px-4 py-2.5 text-[0.9375rem] font-semibold"
+                  key={p.id}
+                >
+                  {p.name}
+                </li>
+              ))}
             </Reveal>
           </div>
         </Section>

@@ -71,7 +71,7 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
             className="-m-2 flex min-h-11 items-center rounded-lg p-2"
             href="/"
           >
-            <Logo priority />
+            <Logo priority tagline />
           </Link>
 
           <nav aria-label="Main" className="hidden lg:block">

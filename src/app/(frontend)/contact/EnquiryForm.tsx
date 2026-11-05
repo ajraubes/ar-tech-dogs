@@ -3,6 +3,7 @@
 import { ArrowRight } from 'lucide-react'
 import React, { useActionState, useEffect, useRef, useState } from 'react'
 
+import { CupLoader, Steam } from '@/components/site/Coffee'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -104,14 +105,19 @@ export const EnquiryForm: React.FC<{
         role="status"
         tabIndex={-1}
       >
-        <span className="flex size-12 items-center justify-center rounded-full bg-primary/15 text-brand-text">
-          <svg aria-hidden className="size-6" fill="none" viewBox="0 0 24 24">
+        {/* A fresh cup, still steaming: the one celebratory moment on the site. */}
+        <span className="relative flex size-16 items-end justify-center rounded-full bg-brand pb-3 text-espresso">
+          <Steam className="absolute left-1/2 top-1 w-6 -translate-x-1/2" />
+          <svg aria-hidden className="size-7" fill="none" viewBox="0 0 24 24">
             <path
-              d="m5 12.5 4.5 4.5L19 7.5"
+              d="M4 7h13v6.5A5.5 5.5 0 0 1 11.5 19h-2A5.5 5.5 0 0 1 4 13.5V7Z"
+              fill="currentColor"
+            />
+            <path
+              d="M17 9h1.5a2.5 2.5 0 0 1 0 5H17"
               stroke="currentColor"
               strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
+              strokeWidth="1.75"
             />
           </svg>
         </span>
@@ -250,10 +256,7 @@ export const EnquiryForm: React.FC<{
         >
           {pending ? (
             <>
-              <span
-                aria-hidden
-                className="size-4 animate-spin rounded-full border-2 border-current border-r-transparent"
-              />
+              <CupLoader />
               Sending…
             </>
           ) : (

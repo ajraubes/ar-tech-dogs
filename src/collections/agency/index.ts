@@ -1,0 +1,8 @@
+export { Capabilities } from './Capabilities'
+export { Enquiries } from './Enquiries'
+export { Packages } from './Packages'
+export { Partners } from './Partners'
+export { Projects } from './Projects'
+export { Services } from './Services'
+export { TeamMembers } from './TeamMembers'
+export { Testimonials } from './Testimonials'

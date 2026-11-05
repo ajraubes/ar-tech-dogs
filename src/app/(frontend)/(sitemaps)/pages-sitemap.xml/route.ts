@@ -31,20 +31,56 @@ const getPagesSitemap = unstable_cache(
 
     const dateFallback = new Date().toISOString()
 
-    const defaultSitemap = [
-      {
-        loc: `${SITE_URL}/search`,
-        lastmod: dateFallback,
-      },
-      {
-        loc: `${SITE_URL}/posts`,
-        lastmod: dateFallback,
-      },
+    const staticRoutes = [
+      '/',
+      '/about',
+      '/meet-the-team',
+      '/solutions',
+      '/capabilities',
+      '/our-work',
+      '/ecosystem',
+      '/pricing',
+      '/contact',
+      '/posts',
+    ]
+    const defaultSitemap = staticRoutes.map((route) => ({
+      loc: `${SITE_URL}${route === '/' ? '/' : route}`,
+      lastmod: dateFallback,
+    }))
+
+    const [services, projects] = await Promise.all([
+      payload.find({
+        collection: 'services',
+        depth: 0,
+        limit: 100,
+        pagination: false,
+        select: { slug: true, updatedAt: true },
+      }),
+      payload.find({
+        collection: 'projects',
+        overrideAccess: false,
+        draft: false,
+        depth: 0,
+        limit: 200,
+        pagination: false,
+        where: { _status: { equals: 'published' } },
+        select: { slug: true, updatedAt: true },
+      }),
+    ])
+    const agencySitemap = [
+      ...services.docs.map((d) => ({
+        loc: `${SITE_URL}/solutions/${d.slug}`,
+        lastmod: d.updatedAt || dateFallback,
+      })),
+      ...projects.docs.map((d) => ({
+        loc: `${SITE_URL}/our-work/${d.slug}`,
+        lastmod: d.updatedAt || dateFallback,
+      })),
     ]
 
     const sitemap = results.docs
       ? results.docs
-          .filter((page) => Boolean(page?.slug))
+          .filter((page) => Boolean(page?.slug) && page.slug !== 'home')
           .map((page) => {
             return {
               loc: page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${page?.slug}`,
@@ -53,7 +89,7 @@ const getPagesSitemap = unstable_cache(
           })
       : []
 
-    return [...defaultSitemap, ...sitemap]
+    return [...defaultSitemap, ...agencySitemap, ...sitemap]
   },
   ['pages-sitemap'],
   {

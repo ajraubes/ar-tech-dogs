@@ -42,7 +42,7 @@
   --breakpoint-md: 48rem;
   --breakpoint-lg: 64rem;
   --breakpoint-xl: 80rem;
-  --breakpoint-2xl: 86rem;
+  --breakpoint-2xl: 96rem;
   --font-mono: var(--font-geist-mono);
   --font-sans: var(--font-geist-sans);
 }
@@ -51,7 +51,7 @@
   .container {
     width: 100%;
     margin-inline: auto;
-    padding-inline: 1rem;
+    padding-inline: 1.25rem;
   }
 
   @variant sm {
@@ -81,86 +81,71 @@
 
   @variant 2xl {
     .container {
-      max-width: var(--breakpoint-2xl);
+      max-width: 88rem;
     }
   }
 }
 
-:root {
-  --background: oklch(100% 0 0deg);
-  --foreground: oklch(14.5% 0 0deg);
-  --card: oklch(96.5% 0.005 265deg);
-  --card-foreground: oklch(14.5% 0 0deg);
-  --popover: oklch(100% 0 0deg);
-  --popover-foreground: oklch(14.5% 0 0deg);
-  --primary: oklch(20.5% 0 0deg);
-  --primary-foreground: oklch(98.5% 0 0deg);
-  --secondary: oklch(97% 0 0deg);
-  --secondary-foreground: oklch(20.5% 0 0deg);
-  --muted: oklch(97% 0 0deg);
-  --muted-foreground: oklch(55.6% 0 0deg);
-  --accent: oklch(97% 0 0deg);
-  --accent-foreground: oklch(20.5% 0 0deg);
-  --destructive: oklch(57.7% 0.245 27.325deg);
-  --destructive-foreground: oklch(57.7% 0.245 27.325deg);
-  --border: oklch(92.2% 0 0deg);
-  --input: oklch(92.2% 0 0deg);
-  --ring: oklch(70.8% 0 0deg);
-  --chart-1: oklch(64.6% 0.222 41.116deg);
-  --chart-2: oklch(60% 0.118 184.704deg);
-  --chart-3: oklch(39.8% 0.07 227.392deg);
-  --chart-4: oklch(82.8% 0.189 84.429deg);
-  --chart-5: oklch(76.9% 0.188 70.08deg);
-  --radius: 0.625rem;
-  --sidebar: oklch(98.5% 0 0deg);
-  --sidebar-foreground: oklch(14.5% 0 0deg);
-  --sidebar-primary: oklch(20.5% 0 0deg);
-  --sidebar-primary-foreground: oklch(98.5% 0 0deg);
-  --sidebar-accent: oklch(97% 0 0deg);
-  --sidebar-accent-foreground: oklch(20.5% 0 0deg);
-  --sidebar-border: oklch(92.2% 0 0deg);
-  --sidebar-ring: oklch(70.8% 0 0deg);
-  --success: oklch(78% 0.08 200deg);
-  --warning: oklch(89% 0.1 75deg);
-  --error: oklch(75% 0.15 25deg);
+/*
+ * AR Tech Dogs design tokens.
+ * Dark charcoal is the default surface. Warm-white sections opt in with data-theme="light".
+ * Accent is electric orange; text on orange is always charcoal (white on orange fails contrast).
+ */
+:root,
+[data-theme='dark'] {
+  --background: oklch(15.5% 0.004 286deg); /* #0e0e11 charcoal */
+  --foreground: oklch(96% 0.008 80deg); /* #f5f2ec warm off-white */
+  --card: oklch(19.5% 0.005 286deg); /* #17171b */
+  --card-foreground: var(--foreground);
+  --popover: oklch(19.5% 0.005 286deg);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(69% 0.2 42deg); /* #ff6a1f electric orange */
+  --primary-foreground: oklch(15.5% 0.004 286deg);
+  --secondary: oklch(23% 0.005 286deg); /* dark grey */
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(23% 0.005 286deg);
+  --muted-foreground: oklch(72% 0.008 80deg); /* 7.9:1 on background */
+  --accent: oklch(25% 0.006 286deg);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(63% 0.21 25deg);
+  --destructive-foreground: oklch(70% 0.19 25deg);
+  --border: oklch(100% 0 0deg / 9%);
+  --border-strong: oklch(100% 0 0deg / 16%);
+  --input: oklch(100% 0 0deg / 14%);
+  --ring: oklch(69% 0.2 42deg);
+  --brand-text: oklch(72% 0.18 45deg); /* orange for small text on dark */
+  --radius: 0.75rem;
+  --success: oklch(72% 0.15 155deg);
+  --warning: oklch(80% 0.14 80deg);
+  --error: oklch(65% 0.2 25deg);
+  --shadow-card: 0 1px 0 0 oklch(100% 0 0deg / 4%) inset, 0 24px 48px -24px oklch(0% 0 0deg / 60%);
+  --grid-line: oklch(100% 0 0deg / 5%);
+  color-scheme: dark;
 }
 
-[data-theme='dark'] {
-  --background: oklch(14.5% 0 0deg);
-  --foreground: oklch(98.5% 0 0deg);
-  --card: oklch(17% 0 0deg);
-  --card-foreground: oklch(98.5% 0 0deg);
-  --popover: oklch(14.5% 0 0deg);
-  --popover-foreground: oklch(98.5% 0 0deg);
-  --primary: oklch(98.5% 0 0deg);
-  --primary-foreground: oklch(20.5% 0 0deg);
-  --secondary: oklch(26.9% 0 0deg);
-  --secondary-foreground: oklch(98.5% 0 0deg);
-  --muted: oklch(26.9% 0 0deg);
-  --muted-foreground: oklch(70.8% 0 0deg);
-  --accent: oklch(26.9% 0 0deg);
-  --accent-foreground: oklch(98.5% 0 0deg);
-  --destructive: oklch(39.6% 0.141 25.723deg);
-  --destructive-foreground: oklch(63.7% 0.237 25.331deg);
-  --border: oklch(26.9% 0 0deg);
-  --input: oklch(26.9% 0 0deg);
-  --ring: oklch(43.9% 0 0deg);
-  --chart-1: oklch(48.8% 0.243 264.376deg);
-  --chart-2: oklch(69.6% 0.17 162.48deg);
-  --chart-3: oklch(76.9% 0.188 70.08deg);
-  --chart-4: oklch(62.7% 0.265 303.9deg);
-  --chart-5: oklch(64.5% 0.246 16.439deg);
-  --sidebar: oklch(20.5% 0 0deg);
-  --sidebar-foreground: oklch(98.5% 0 0deg);
-  --sidebar-primary: oklch(48.8% 0.243 264.376deg);
-  --sidebar-primary-foreground: oklch(98.5% 0 0deg);
-  --sidebar-accent: oklch(26.9% 0 0deg);
-  --sidebar-accent-foreground: oklch(98.5% 0 0deg);
-  --sidebar-border: oklch(26.9% 0 0deg);
-  --sidebar-ring: oklch(43.9% 0 0deg);
-  --success: oklch(28% 0.1 200deg);
-  --warning: oklch(35% 0.08 70deg);
-  --error: oklch(45% 0.1 25deg);
+[data-theme='light'] {
+  --background: oklch(96.5% 0.008 80deg); /* #f6f3ee warm white */
+  --foreground: oklch(17% 0.005 286deg);
+  --card: oklch(99% 0.004 80deg);
+  --card-foreground: var(--foreground);
+  --popover: oklch(99% 0.004 80deg);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(69% 0.2 42deg);
+  --primary-foreground: oklch(15.5% 0.004 286deg);
+  --secondary: oklch(92% 0.008 80deg);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(92% 0.008 80deg);
+  --muted-foreground: oklch(42% 0.008 286deg); /* 8.6:1 on background */
+  --accent: oklch(92% 0.008 80deg);
+  --accent-foreground: var(--foreground);
+  --border: oklch(0% 0 0deg / 9%);
+  --border-strong: oklch(0% 0 0deg / 16%);
+  --input: oklch(0% 0 0deg / 16%);
+  --ring: oklch(58% 0.19 42deg);
+  --brand-text: oklch(52% 0.17 40deg); /* darker orange: 5:1 on warm white */
+  --shadow-card: 0 1px 2px oklch(0% 0 0deg / 4%), 0 16px 32px -20px oklch(0% 0 0deg / 18%);
+  --grid-line: oklch(0% 0 0deg / 5%);
+  color-scheme: light;
 }
 
 @theme inline {
@@ -183,42 +168,195 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
+  --color-border-strong: var(--border-strong);
+  --color-brand-text: var(--brand-text);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: 6rem;
+  }
   body {
-    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    @apply bg-background text-foreground flex flex-col;
+    min-height: 100vh;
+    min-height: 100dvh;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
   }
 }
 
-html {
-  opacity: 0;
+/* Type scale: fluid, on a 4px rhythm. One scale for the whole site. */
+@layer components {
+  .text-display {
+    font-size: clamp(2.75rem, 1.6rem + 5.2vw, 6.5rem);
+    line-height: 0.96;
+    letter-spacing: -0.045em;
+    font-weight: 600;
+  }
+  .text-h1 {
+    font-size: clamp(2.25rem, 1.6rem + 3vw, 4.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+  }
+  .text-h2 {
+    font-size: clamp(1.875rem, 1.4rem + 2vw, 3.25rem);
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+  }
+  .text-h3 {
+    font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+  .text-lead {
+    font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.3125rem);
+    line-height: 1.6;
+    color: var(--muted-foreground);
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Subtle technical grid that fades out toward the edges. */
+  .bg-grid {
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
+  }
+
+  .surface {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+  }
 }
 
-html[data-theme='dark'],
-html[data-theme='light'] {
-  opacity: initial;
+/* ----- Motion ----- */
+
+/* Hero headline: words rise in on load. Pure CSS, so it never blocks rendering. */
+@keyframes word-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+.word-rise > span {
+  display: inline-block;
+  animation: word-rise 900ms var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 70ms + 80ms);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fade-up {
+  animation: fade-up 800ms var(--ease-out-expo) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+/*
+ * Scroll reveal. Content is only hidden when JS has run (html.js), so the page is
+ * fully readable without JavaScript and in crawlers.
+ */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 700ms var(--ease-out-expo),
+    transform 700ms var(--ease-out-expo);
+  transition-delay: var(--delay, 0ms);
+}
+html.js [data-reveal][data-visible='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+/* FAQ disclosure height animation (supported browsers; others just open instantly). */
+details.faq::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 350ms var(--ease-out-quart),
+    content-visibility 350ms allow-discrete;
+}
+details.faq[open]::details-content {
+  block-size: auto;
+}
+:root {
+  interpolate-size: allow-keywords;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
 }

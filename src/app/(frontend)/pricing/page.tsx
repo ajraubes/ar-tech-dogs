@@ -34,7 +34,6 @@ export default async function PricingPage() {
   return (
     <>
       <PageHero
-        eyebrow="Pricing"
         lead="Starting prices for every service, with what is included at each level. Once-off and monthly prices are labelled clearly."
         title="Transparent pricing. No surprises."
       >
@@ -44,7 +43,7 @@ export default async function PricingPage() {
               {groups.map(({ service }) => (
                 <li key={service.id}>
                   <Link
-                    className="inline-flex h-10 items-center rounded-full border border-border px-4 text-sm transition-colors hover:border-border-strong hover:bg-foreground/[0.04]"
+                    className="inline-flex h-11 items-center rounded-full bg-background px-5 text-[0.9375rem] font-semibold transition-[background-color,transform] duration-200 hover:bg-secondary active:scale-[0.96]"
                     href={`#${service.slug}`}
                   >
                     {service.shortTitle || service.title}
@@ -60,13 +59,12 @@ export default async function PricingPage() {
         groups.map(({ service, items }, i) => (
           <Section
             aria-labelledby={`${service.slug}-title`}
-            className={i > 0 ? 'border-t border-border' : undefined}
+            tone={i % 2 ? 'raised' : 'base'}
             id={service.slug ?? undefined}
             key={service.id}
           >
             <div className="container">
               <SectionHeader
-                eyebrow={service.number}
                 id={`${service.slug}-title`}
                 lead={service.summary}
                 title={service.title}
@@ -75,7 +73,7 @@ export default async function PricingPage() {
                   className="-my-2 inline-flex min-h-11 items-center text-sm font-medium underline-offset-4 hover:underline"
                   href={`/solutions/${service.slug}`}
                 >
-                  About this service →
+                  About this service
                 </Link>
               </SectionHeader>
               <PackageGrid packages={items} serviceTitle={service.title} />
@@ -94,7 +92,7 @@ export default async function PricingPage() {
 
       {settings?.pricingNote && (
         <div className="container pb-8">
-          <p className="max-w-3xl rounded-xl border border-border bg-card p-6 text-sm leading-relaxed text-muted-foreground">
+          <p className="max-w-3xl text-[0.9375rem] leading-relaxed text-muted-foreground">
             {settings.pricingNote}
           </p>
         </div>

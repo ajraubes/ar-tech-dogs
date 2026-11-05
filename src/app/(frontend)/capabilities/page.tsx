@@ -19,35 +19,29 @@ export default async function CapabilitiesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Capabilities"
         lead="Solutions are what you buy. Capabilities are how we build it: the engineering behind every project."
         title="Engineering depth, end to end."
       />
       <section className="py-20 md:py-28">
         <div className="container">
           {capabilities.length ? (
-            <ol className="divide-y divide-border border-y border-border">
-              {capabilities.map((c, i) => (
+            <ol className="space-y-4">
+              {capabilities.map((c) => (
                 <Reveal
                   as="li"
-                  className="grid gap-4 py-10 md:grid-cols-12 md:gap-8 md:py-12"
+                  className="grid gap-4 rounded-[var(--radius-xl)] bg-card p-7 md:grid-cols-12 md:gap-8 md:p-10"
                   key={c.id}
                 >
-                  <span className="font-mono text-sm text-muted-foreground tabular md:col-span-1">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h2 className="text-h3 md:col-span-4" id={c.slug ?? undefined}>
+                  <h2 className="text-h3 md:col-span-5" id={c.slug ?? undefined}>
                     {c.title}
                   </h2>
                   <div className="md:col-span-7">
-                    <p className="text-[1.0625rem] leading-relaxed text-muted-foreground">
-                      {c.summary}
-                    </p>
+                    <p className="text-lg leading-relaxed text-muted-foreground">{c.summary}</p>
                     {values(c.items).length > 0 && (
                       <ul className="mt-5 flex flex-wrap gap-2">
                         {values(c.items).map((item) => (
                           <li
-                            className="rounded-full border border-border px-3 py-1 font-mono text-[0.8125rem]"
+                            className="rounded-full bg-background px-3.5 py-1.5 text-base"
                             key={item}
                           >
                             {item}

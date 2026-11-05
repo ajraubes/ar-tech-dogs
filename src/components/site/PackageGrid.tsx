@@ -19,7 +19,7 @@ const Price = ({ pkg }: { pkg: Package }) => {
   }
   return (
     <div>
-      <p className="text-xs text-muted-foreground">Starting from</p>
+      <p className="text-sm text-muted-foreground">Starting from</p>
       <p className="mt-1 flex items-baseline gap-2">
         <span className="text-h2 tabular">
           {formatPrice(pkg.price)}
@@ -49,34 +49,29 @@ export const PackageGrid: React.FC<{
           <Reveal
             as="li"
             className={cn(
-              'relative flex flex-col rounded-2xl border p-6 md:p-8',
-              pkg.featured
-                ? 'border-primary/50 bg-card shadow-[0_0_0_1px_color-mix(in_oklch,var(--primary)_25%,transparent),var(--shadow-card)]'
-                : 'border-border bg-card',
+              'relative flex flex-col rounded-[var(--radius-xl)] p-7 md:p-9',
+              !pkg.featured && 'bg-card',
             )}
+            dark={pkg.featured ?? false}
             delay={i * 60}
             key={pkg.id}
           >
             <div className="flex min-h-6 items-center justify-between gap-3">
               {pkg.tier && <p className="eyebrow">{pkg.tier}</p>}
               {pkg.featured && (
-                <span className="rounded-full bg-primary px-2.5 py-1 text-[0.6875rem] font-semibold uppercase tracking-wider text-primary-foreground">
-                  Popular
-                </span>
+                <span className="text-sm font-semibold text-brand-text">Most chosen</span>
               )}
             </div>
             <h3 className="text-h3 mt-4">{pkg.name}</h3>
-            <p className="mt-2 min-h-12 text-[0.9375rem] leading-relaxed text-muted-foreground">
-              {pkg.description}
-            </p>
-            <div className="mt-6 border-t border-border pt-6">
+            <p className="mt-2 min-h-12 leading-relaxed text-muted-foreground">{pkg.description}</p>
+            <div className="mt-8">
               <Price pkg={pkg} />
             </div>
             <div className="mt-6 flex-1">
               {pkg.includesPrevious && (
-                <p className="mb-3 text-sm font-medium">{pkg.includesPrevious}</p>
+                <p className="mb-3 text-[0.9375rem] font-semibold">{pkg.includesPrevious}</p>
               )}
-              <ul className="space-y-3 text-[0.9375rem]">
+              <ul className="space-y-3">
                 {values(pkg.features).map((f) => (
                   <li className="flex gap-3" key={f}>
                     <svg
@@ -110,7 +105,9 @@ export const PackageGrid: React.FC<{
         ))}
       </ul>
       {note && (
-        <p className="mt-8 max-w-3xl text-sm leading-relaxed text-muted-foreground">{note}</p>
+        <p className="mt-10 max-w-3xl text-[0.9375rem] leading-relaxed text-muted-foreground">
+          {note}
+        </p>
       )}
     </div>
   )

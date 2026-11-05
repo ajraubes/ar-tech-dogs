@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from 'next'
 
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
-import { GeistSans } from 'geist/font/sans'
 import localFont from 'next/font/local'
 import React from 'react'
 
@@ -18,18 +17,18 @@ import { draftMode } from 'next/headers'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
-// Self-hosted so builds never depend on Google Fonts being reachable.
-const lexend = localFont({
-  src: '../../fonts/Lexend.woff2',
-  variable: '--font-lexend',
-  weight: '400 700',
+// Barlow, the face of the logo's wordmark. Self-hosted so builds never depend on Google Fonts.
+const barlow = localFont({
+  src: [
+    { path: '../../fonts/Barlow-400.woff2', weight: '400', style: 'normal' },
+    { path: '../../fonts/Barlow-500.woff2', weight: '500', style: 'normal' },
+    { path: '../../fonts/Barlow-600.woff2', weight: '600', style: 'normal' },
+    { path: '../../fonts/Barlow-700.woff2', weight: '700', style: 'normal' },
+    { path: '../../fonts/Barlow-800.woff2', weight: '800', style: 'normal' },
+  ],
+  variable: '--font-barlow',
   display: 'swap',
-})
-const lexendExa = localFont({
-  src: '../../fonts/Lexend-Exa.woff2',
-  variable: '--font-lexend-exa',
-  weight: '600 800',
-  display: 'swap',
+  fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
 })
 
 // Render on request (cached via unstable_cache), so builds never connect to the database.
@@ -42,8 +41,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html
-      className={cn(GeistSans.variable, GeistMono.variable, lexend.variable, lexendExa.variable)}
-      data-theme="dark"
+      className={cn(barlow.variable, GeistMono.variable)}
+      data-theme="light"
       lang="en-ZA"
       suppressHydrationWarning
     >
@@ -55,6 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="/favicon.ico" rel="icon" sizes="16x16 32x32 48x48" />
         <link href="/favicon-64.png" rel="icon" sizes="64x64" type="image/png" />
         <link href="/apple-touch-icon.png" rel="apple-touch-icon" />
+        <link href="/site.webmanifest" rel="manifest" />
       </head>
       <body>
         <Providers>
@@ -76,8 +76,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             name: settings?.siteName || 'AR Tech Dogs',
             description: settings?.defaultDescription || undefined,
             url,
-            logo: `${url}/brand/logo-light.png`,
-            slogan: 'Build · Innovate · Scale',
+            logo: `${url}/brand/logo.png`,
+            slogan: 'Design. Develop. Deliver, one sip at a time.',
             email: settings?.contact?.email || undefined,
             telephone: settings?.contact?.phone || undefined,
             areaServed: ['ZA', 'Worldwide'],
@@ -91,8 +91,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 
 export const viewport: Viewport = {
-  themeColor: '#070c14',
-  colorScheme: 'dark',
+  themeColor: '#f2eee3',
+  colorScheme: 'light',
   viewportFit: 'cover',
 }
 

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { ArrowUpRight } from 'lucide-react'
 import React from 'react'
 
 import { Media } from '@/components/Media'
@@ -30,8 +31,8 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
 }
 
 const Block = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <Reveal className="grid gap-4 border-t border-border py-10 md:grid-cols-12">
-    <h2 className="eyebrow md:col-span-4">{title}</h2>
+  <Reveal className="grid gap-4 py-10 md:grid-cols-12">
+    <h2 className="text-h3 md:col-span-4">{title}</h2>
     <div className="md:col-span-8">{children}</div>
   </Reveal>
 )
@@ -47,12 +48,15 @@ export default async function ProjectPage({ params }: Args) {
 
   return (
     <>
-      <PageHero
-        eyebrow={`${categoryLabel(project.category)}${project.industry ? ` · ${project.industry}` : ''}`}
-        lead={project.summary}
-        title={project.title}
-      >
+      <PageHero lead={project.summary} title={project.title}>
         <dl className="flex flex-wrap gap-x-10 gap-y-4 text-sm">
+          <div>
+            <dt className="text-muted-foreground">Type</dt>
+            <dd className="mt-1 font-medium">
+              {categoryLabel(project.category)}
+              {project.industry ? `, ${project.industry}` : ''}
+            </dd>
+          </div>
           <div>
             <dt className="text-muted-foreground">Client</dt>
             <dd className="mt-1 font-medium">{project.client}</dd>
@@ -67,7 +71,9 @@ export default async function ProjectPage({ params }: Args) {
             <div className="self-end">
               <Button asChild size="sm" variant="outline">
                 <a href={project.liveUrl} rel="noopener noreferrer" target="_blank">
-                  Visit live site ↗<span className="sr-only"> (opens in a new tab)</span>
+                  Visit live site{' '}
+                  <ArrowUpRight aria-hidden className="size-[1.05em]" strokeWidth={2.25} />
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </Button>
             </div>
@@ -77,7 +83,7 @@ export default async function ProjectPage({ params }: Args) {
 
       {project.heroImage && typeof project.heroImage === 'object' && (
         <div className="container pt-12">
-          <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-border bg-secondary">
+          <div className="relative aspect-[16/9] overflow-hidden rounded-[var(--radius-xl)] bg-card">
             <Media
               fill
               imgClassName="object-cover"
@@ -116,10 +122,7 @@ export default async function ProjectPage({ params }: Args) {
           <Block title="Technologies">
             <ul className="flex flex-wrap gap-2">
               {tech.map((t) => (
-                <li
-                  className="rounded-full border border-border px-3 py-1 font-mono text-[0.8125rem]"
-                  key={t}
-                >
+                <li className="rounded-full bg-card px-3.5 py-1.5 text-base" key={t}>
                   {t}
                 </li>
               ))}
@@ -141,7 +144,7 @@ export default async function ProjectPage({ params }: Args) {
               (g) =>
                 typeof g.image === 'object' && (
                   <div
-                    className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-secondary"
+                    className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-xl)] bg-card"
                     key={g.id}
                   >
                     <Media

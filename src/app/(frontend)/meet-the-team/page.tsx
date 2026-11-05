@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ArrowUpRight } from 'lucide-react'
 import React from 'react'
 
 import { Media } from '@/components/Media'
@@ -24,9 +25,7 @@ const initials = (name: string) =>
     .toUpperCase()
 
 const Portrait = ({ member, className }: { member: TeamMember; className: string }) => (
-  <div
-    className={`relative overflow-hidden rounded-2xl border border-border bg-secondary ${className}`}
-  >
+  <div className={`relative overflow-hidden rounded-[var(--radius-xl)] bg-card ${className}`}>
     {member.photo && typeof member.photo === 'object' ? (
       <Media
         fill
@@ -35,8 +34,8 @@ const Portrait = ({ member, className }: { member: TeamMember; className: string
         size="(min-width: 1024px) 400px, 100vw"
       />
     ) : (
-      <div className="bg-grid absolute inset-0 flex items-center justify-center">
-        <span className="text-display text-foreground/15">{initials(member.name)}</span>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="text-display text-foreground/20">{initials(member.name)}</span>
       </div>
     )}
   </div>
@@ -50,7 +49,6 @@ export default async function TeamPage() {
   return (
     <>
       <PageHero
-        eyebrow="Meet the Team"
         lead="A founder-led development studio. You work directly with a senior developer, supported by trusted specialists when a project needs them."
         title="Senior-led. Hands-on."
       />
@@ -62,17 +60,17 @@ export default async function TeamPage() {
               <Portrait className="aspect-[4/5]" member={founder} />
             </Reveal>
             <Reveal className="lg:col-span-7" delay={80}>
-              <p className="eyebrow">{founder.role}</p>
-              <h2 className="text-h2 mt-4" id="founder-title">
+              <h2 className="text-h2" id="founder-title">
                 {founder.name}
               </h2>
+              <p className="mt-2 text-lg font-semibold text-brand-text">{founder.role}</p>
               <p className="text-lead mt-6 whitespace-pre-line">{founder.bio}</p>
               {values(founder.expertise).length > 0 && (
                 <>
-                  <h3 className="eyebrow mt-10">Expertise</h3>
+                  <h3 className="text-h3 mt-10">Expertise</h3>
                   <ul className="mt-4 flex flex-wrap gap-2">
                     {values(founder.expertise).map((e) => (
-                      <li className="rounded-full border border-border px-3 py-1 text-sm" key={e}>
+                      <li className="rounded-full bg-card px-3.5 py-1.5 text-base" key={e}>
                         {e}
                       </li>
                     ))}
@@ -81,9 +79,9 @@ export default async function TeamPage() {
               )}
               {values(founder.experience).length > 0 && (
                 <>
-                  <h3 className="eyebrow mt-10">Brands worked on</h3>
-                  <p className="mt-4 text-lg tracking-tight">
-                    {values(founder.experience).join(' · ')}
+                  <h3 className="text-h3 mt-10">Brands worked on</h3>
+                  <p className="mt-4 text-xl font-semibold tracking-[-0.01em]">
+                    {values(founder.experience).join(', ')}
                   </p>
                   <p className="mt-2 text-xs text-muted-foreground">
                     Founder experience before AR Tech Dogs, not AR Tech Dogs client work.
@@ -100,7 +98,8 @@ export default async function TeamPage() {
                         rel="noopener noreferrer"
                         target="_blank"
                       >
-                        {l.label} ↗
+                        {l.label}{' '}
+                        <ArrowUpRight aria-hidden className="size-[1.05em]" strokeWidth={2.25} />
                       </a>
                     </li>
                   ))}
@@ -121,9 +120,7 @@ export default async function TeamPage() {
                   <Portrait className="aspect-square" member={m} />
                   <h3 className="mt-5 text-lg font-semibold tracking-tight">{m.name}</h3>
                   <p className="text-sm text-muted-foreground">{m.role}</p>
-                  <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
-                    {m.bio}
-                  </p>
+                  <p className="mt-3 text-base leading-relaxed text-muted-foreground">{m.bio}</p>
                 </Reveal>
               ))}
             </ul>
@@ -132,10 +129,9 @@ export default async function TeamPage() {
       )}
 
       {(company?.teamModel?.length ?? 0) > 0 && (
-        <Section aria-labelledby="model-title" tone="light">
+        <Section aria-labelledby="model-title" tone="raised">
           <div className="container">
             <SectionHeader
-              eyebrow="How we staff projects"
               id="model-title"
               lead="The right specialists for each project, led by the same senior developer from start to finish."
               title="Small core. Trusted specialists."
@@ -144,12 +140,12 @@ export default async function TeamPage() {
               {company.teamModel!.map((r, i) => (
                 <Reveal
                   as="li"
-                  className="rounded-2xl border border-border bg-card p-6 md:p-8"
+                  className="rounded-[var(--radius-xl)] bg-background p-7 md:p-9"
                   delay={i * 60}
                   key={r.role}
                 >
                   <h3 className="text-lg font-semibold tracking-tight">{r.role}</h3>
-                  <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                     {r.description}
                   </p>
                 </Reveal>

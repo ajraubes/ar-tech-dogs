@@ -3,23 +3,24 @@ import React from 'react'
 
 import { Reveal } from './Reveal'
 
-/** Vertical rhythm for every page section: 96px mobile, 128px desktop. */
+export type SectionTone = 'base' | 'raised' | 'dark' | 'gold'
+
+/**
+ * Vertical rhythm for every page section: 80px on phones, 128px on desktop.
+ * Tones change the whole field colour; sections never need a dividing line.
+ */
 export const Section: React.FC<{
   children: React.ReactNode
   className?: string
   id?: string
-  tone?: 'dark' | 'light' | 'raised'
+  tone?: SectionTone
   'aria-labelledby'?: string
-}> = ({ children, className, id, tone = 'dark', ...rest }) => (
+  'aria-label'?: string
+}> = ({ children, className, id, tone = 'base', ...rest }) => (
   <section
     {...rest}
-    className={cn(
-      'relative py-24 md:py-32',
-      tone === 'raised' && 'bg-card',
-      tone === 'light' && 'bg-background text-foreground',
-      className,
-    )}
-    data-theme={tone === 'light' ? 'light' : undefined}
+    className={cn('relative py-20 md:py-32', tone === 'raised' && 'bg-card', className)}
+    data-theme={tone === 'dark' ? 'dark' : tone === 'gold' ? 'gold' : undefined}
     id={id}
   >
     {children}
@@ -27,22 +28,21 @@ export const Section: React.FC<{
 )
 
 export const SectionHeader: React.FC<{
-  eyebrow?: string
   title: string
   lead?: string | null
   id?: string
   align?: 'left' | 'center'
   className?: string
   children?: React.ReactNode
-}> = ({ eyebrow, title, lead, id, align = 'left', className, children }) => (
+}> = ({ title, lead, id, align = 'left', className, children }) => (
   <Reveal
     className={cn(
       'mb-12 flex flex-col gap-5 md:mb-16',
       align === 'center' ? 'mx-auto max-w-3xl items-center text-center' : 'max-w-3xl',
       className,
     )}
+    stagger
   >
-    {eyebrow && <p className="eyebrow">{eyebrow}</p>}
     <h2 className="text-h2" id={id}>
       {title}
     </h2>

@@ -2260,7 +2260,7 @@ export interface SiteSetting {
      */
     bookingUrl?: string | null;
     /**
-     * Where new project enquiries are emailed. Needs an email adapter configured in payload.config.ts.
+     * Where new project enquiries are emailed. Falls back to the contact email above. Sending needs the SMTP_* variables set on the server.
      */
     notificationEmail?: string | null;
   };

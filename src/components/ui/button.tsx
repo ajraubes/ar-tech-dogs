@@ -7,9 +7,9 @@ import * as React from 'react'
 
 const buttonVariants = cva(
   [
-    'relative inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium select-none',
-    'transition-[background-color,color,border-color,box-shadow,transform] duration-200 ease-out',
-    'active:scale-[0.97] active:duration-75',
+    'relative inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold select-none',
+    'transition-[background-color,color,border-color,transform] duration-200 ease-[var(--ease-out-quart)]',
+    'active:scale-[0.97] active:duration-100',
     'disabled:pointer-events-none disabled:opacity-50',
     "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0",
     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
@@ -17,20 +17,19 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          'rounded-full bg-primary text-primary-foreground shadow-[0_1px_0_0_rgb(255_255_255/0.25)_inset,0_8px_24px_-8px_color-mix(in_oklch,var(--primary)_60%,transparent)] hover:bg-[color-mix(in_oklch,var(--primary)_88%,white)]',
+        default: 'rounded-full bg-primary text-primary-foreground hover:bg-primary-hover',
         destructive: 'rounded-full bg-destructive text-white hover:bg-destructive/90',
         outline:
-          'rounded-full border border-border-strong bg-transparent text-foreground hover:bg-foreground/[0.06] hover:border-foreground/30',
-        secondary: 'rounded-full bg-secondary text-secondary-foreground hover:bg-accent',
-        ghost: 'rounded-full text-foreground hover:bg-foreground/[0.06]',
-        link: 'text-foreground underline-offset-4 decoration-primary/60 hover:underline active:scale-100',
+          'rounded-full border-[1.5px] border-foreground/80 bg-transparent text-foreground hover:bg-foreground hover:text-background',
+        secondary: 'rounded-full bg-card text-secondary-foreground hover:bg-secondary',
+        ghost: 'rounded-full text-foreground hover:bg-card',
+        link: 'text-foreground underline underline-offset-4 decoration-foreground/30 hover:decoration-foreground active:scale-100',
       },
       size: {
         clear: '',
-        sm: 'h-10 px-4 text-sm',
-        default: 'h-11 px-5 text-[0.9375rem]',
-        lg: 'h-12 px-6 text-base md:h-14 md:px-7',
+        sm: 'h-11 px-5 text-[0.9375rem]',
+        default: 'h-12 px-6 text-base',
+        lg: 'h-14 px-7 text-[1.0625rem]',
         icon: 'size-11 rounded-full',
       },
     },

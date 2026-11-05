@@ -2,17 +2,24 @@
 
 import React, { useEffect, useRef } from 'react'
 
+type RevealTag = 'div' | 'li' | 'section' | 'article' | 'ul' | 'ol'
+
 /**
- * Fades and lifts children into view once, when they enter the viewport.
- * Hidden state lives in CSS (html.js [data-reveal]) so no-JS visitors see everything.
+ * Lifts content into view once, as it enters the viewport.
+ * The hidden state lives in CSS (html.js [data-reveal]), so visitors without JS see everything.
+ * With `stagger`, direct children arrive one after another (heading, then text, then the rest).
  */
 export const Reveal: React.FC<{
-  as?: 'div' | 'li' | 'section' | 'article'
+  as?: RevealTag
   children: React.ReactNode
   className?: string
   delay?: number
-}> = ({ as: Tag = 'div', children, className, delay = 0 }) => {
-  const ref = useRef<HTMLElement>(null)
+  stagger?: boolean
+  id?: string
+  /** Switch this block to the espresso tokens (for a featured card on a light page). */
+  dark?: boolean
+}> = ({ as: Tag = 'div', children, className, delay = 0, stagger, id, dark }) => {
+  const ref = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     const el = ref.current
@@ -24,21 +31,24 @@ export const Reveal: React.FC<{
           io.disconnect()
         }
       },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.05 },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.01 },
     )
     io.observe(el)
     return () => io.disconnect()
   }, [])
 
-  return (
-    <Tag
-      className={className}
-      data-reveal=""
-      // @ts-expect-error -- ref type is shared across the allowed tags
-      ref={ref}
-      style={{ '--delay': `${delay}ms` } as React.CSSProperties}
-    >
-      {children}
-    </Tag>
+  return React.createElement(
+    Tag,
+    {
+      className,
+      'data-reveal': stagger ? 'stagger' : '',
+      'data-theme': dark ? 'dark' : undefined,
+      id,
+      ref: (node: HTMLElement | null) => {
+        ref.current = node
+      },
+      style: delay ? ({ '--delay': `${delay}ms` } as React.CSSProperties) : undefined,
+    },
+    children,
   )
 }

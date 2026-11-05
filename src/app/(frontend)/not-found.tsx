@@ -6,8 +6,7 @@ import { Button } from '@/components/ui/button'
 export default function NotFound() {
   return (
     <div className="container flex flex-1 flex-col justify-center py-28">
-      <p className="eyebrow">404</p>
-      <h1 className="text-h1 mt-4 max-w-2xl">This page could not be found.</h1>
+      <h1 className="text-h1 max-w-2xl">This page could not be found.</h1>
       <p className="text-lead mt-5 max-w-xl">
         The link may be out of date, or the page has moved. These are good places to start:
       </p>

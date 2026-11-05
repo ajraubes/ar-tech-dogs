@@ -1,17 +1,15 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import React from 'react'
 
 import { CTASection } from '@/components/site/CTASection'
-import { EcosystemGrid } from '@/components/site/EcosystemGrid'
-import { FeatureGrid } from '@/components/site/FeatureGrid'
 import { HomeHero } from '@/components/site/HomeHero'
-import { ProcessSteps } from '@/components/site/ProcessSteps'
+import { PriceBrewer, type BrewOption } from '@/components/site/PriceBrewer'
+import { ProcessStory } from '@/components/site/ProcessStory'
 import { ProjectCard } from '@/components/site/ProjectCard'
 import { Reveal } from '@/components/site/Reveal'
 import { Section, SectionHeader } from '@/components/site/Section'
-import { ServiceCard } from '@/components/site/ServiceCard'
-import { Button } from '@/components/ui/button'
 import {
   formatPrice,
   getCompany,
@@ -20,6 +18,7 @@ import {
   getPartners,
   getProjects,
   getServices,
+  getSiteSettings,
   getTeam,
   getTestimonials,
   values,
@@ -30,7 +29,7 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage() {
-  const [home, company, services, packages, projects, partners, team, testimonials] =
+  const [home, company, services, packages, projects, partners, team, testimonials, settings] =
     await Promise.all([
       getHomepage(),
       getCompany(),
@@ -40,29 +39,55 @@ export default async function HomePage() {
       getPartners(),
       getTeam(),
       getTestimonials(),
+      getSiteSettings(),
     ])
 
   const featured = projects.filter((p) => p.featured).slice(0, 4)
   const founder = team.find((m) => m.type === 'founder')
   const experience = values(founder?.experience)
 
-  // "From" price per service, for the pricing teaser.
-  const fromPrices = services
-    .map((s) => {
+  const billing = { 'once-off': 'once-off', monthly: 'per month', custom: '' } as const
+  const priceOf = (p: (typeof packages)[number]) =>
+    p.price == null || p.billing === 'custom'
+      ? 'Custom quote'
+      : `${formatPrice(p.price)}${p.orMore ? '+' : ''}`
+
+  // One option per service with published prices, for the live price brewer.
+  const brew: BrewOption[] = services
+    .map((s): BrewOption | null => {
       const own = packages.filter(
-        (p) =>
-          (typeof p.service === 'object' ? p.service.id : p.service) === s.id && p.price != null,
+        (p) => (typeof p.service === 'object' ? p.service.id : p.service) === s.id,
       )
-      if (!own.length) return null
-      const min = own.reduce((a, b) => ((a.price ?? 0) <= (b.price ?? 0) ? a : b))
-      return { service: s, price: min.price!, monthly: min.billing === 'monthly' }
+      const priced = own.filter((p) => p.price != null && p.billing !== 'custom')
+      if (!priced.length) return null
+      const min = priced.reduce((a, b) => ((a.price ?? 0) <= (b.price ?? 0) ? a : b))
+      return {
+        id: s.id,
+        label: s.shortTitle || s.title,
+        slug: s.slug ?? '',
+        from: formatPrice(min.price!),
+        monthly: min.billing === 'monthly',
+        packages: own.map((p) => ({
+          name: p.name,
+          price: priceOf(p),
+          billing: p.price == null || p.billing === 'custom' ? '' : billing[p.billing],
+        })),
+      }
     })
-    .filter(Boolean) as { service: (typeof services)[number]; price: number; monthly: boolean }[]
+    .filter((o): o is BrewOption => o !== null)
+
+  const facts = [
+    {
+      label: 'Based in',
+      value: settings?.contact?.location?.split('·')[0]?.trim() || 'South Africa',
+    },
+    { label: 'Working with', value: 'Clients in South Africa and abroad' },
+    { label: 'Led by', value: founder ? `${founder.name}, ${founder.role}` : 'A senior developer' },
+  ]
 
   return (
     <>
       <HomeHero
-        eyebrow={home?.heroEyebrow}
         heading={home?.heroHeading || 'Digital experiences. Engineered to grow.'}
         primary={{
           label: home?.primaryCta?.label || 'Start a Project',
@@ -75,46 +100,76 @@ export default async function HomePage() {
         subheading={home?.heroSubheading}
       />
 
-      {(home?.positioning || experience.length > 0) && (
-        <section aria-label="Positioning" className="border-y border-border">
-          <div className="container grid gap-10 py-14 md:py-16 lg:grid-cols-12 lg:items-center">
-            {home?.positioning && (
-              <Reveal className="lg:col-span-7">
-                <p className="text-xl leading-snug tracking-tight md:text-2xl">
+      {/* The studio: three plain facts beside one wide paragraph, then the founder's record. */}
+      {home?.positioning && (
+        <Section aria-labelledby="studio-title" tone="raised">
+          <div className="container grid gap-12 lg:grid-cols-12 lg:gap-8">
+            <Reveal className="lg:col-span-3" stagger>
+              <h2 className="text-h3" id="studio-title">
+                The studio
+              </h2>
+              <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 lg:grid-cols-1">
+                {facts.map((f) => (
+                  <div key={f.label}>
+                    <dt className="text-sm text-muted-foreground">{f.label}</dt>
+                    <dd className="mt-0.5 font-semibold">{f.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+            <div className="lg:col-span-8 lg:col-start-5">
+              <Reveal>
+                <p className="text-[clamp(1.375rem,1.1rem+0.9vw,1.875rem)] font-semibold leading-[1.25] tracking-[-0.015em]">
                   {home.positioning}
                 </p>
               </Reveal>
-            )}
-            {experience.length > 0 && (
-              <Reveal className="lg:col-span-5" delay={100}>
-                <p className="eyebrow">Founder experience includes</p>
-                <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[0.9375rem] font-medium text-foreground/80">
-                  {experience.map((brand) => (
-                    <li key={brand}>{brand}</li>
-                  ))}
-                </ul>
-                <p className="mt-3 text-xs text-muted-foreground">
-                  Work by the founder before AR Tech Dogs.
-                </p>
-              </Reveal>
-            )}
+              {experience.length > 0 && (
+                <Reveal className="mt-14 md:mt-20" delay={80}>
+                  <h3 className="font-semibold">Brands the founder has built for</h3>
+                  <ul className="mt-4 columns-2 gap-x-10 text-lg text-muted-foreground sm:columns-3">
+                    {experience.map((brand) => (
+                      <li className="py-1" key={brand}>
+                        {brand}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-4 text-sm text-muted-foreground">
+                    Work by the founder before AR Tech Dogs, not studio client work.
+                  </p>
+                </Reveal>
+              )}
+            </div>
           </div>
-        </section>
+        </Section>
       )}
 
+      {/* What we build: an index of names, no boxes. The whole row is the link. */}
       {services.length > 0 && (
         <Section aria-labelledby="services-title">
           <div className="container">
             <SectionHeader
-              eyebrow="Solutions"
               id="services-title"
               lead="From a focused landing page to an enterprise Shopify Plus platform, with support that continues after launch."
               title="What we build"
             />
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
+            <ul className="grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
               {services.map((s, i) => (
-                <Reveal as="li" delay={(i % 3) * 60} key={s.id}>
-                  <ServiceCard service={s} />
+                <Reveal as="li" delay={(i % 3) * 70} key={s.id}>
+                  <Link
+                    className="group -mx-4 block rounded-[var(--radius-lg)] px-4 py-6 transition-[background-color,transform] duration-200 ease-[var(--ease-out-quart)] hover:bg-card active:scale-[0.99] md:py-8"
+                    href={`/solutions/${s.slug}`}
+                  >
+                    <h3 className="text-h3 flex items-center gap-2">
+                      {s.title}
+                      <span
+                        aria-hidden
+                        className="text-brand-text opacity-0 transition-[opacity,transform] duration-200 ease-[var(--ease-out-quart)] -translate-x-1 group-hover:translate-x-0 group-hover:opacity-100"
+                      >
+                        <ArrowRight className="size-[1.05em]" strokeWidth={2.25} />
+                      </span>
+                    </h3>
+                    <p className="mt-2 leading-relaxed text-muted-foreground">{s.summary}</p>
+                  </Link>
                 </Reveal>
               ))}
             </ul>
@@ -122,16 +177,35 @@ export default async function HomePage() {
         </Section>
       )}
 
+      {/* Why: the claim set large, the reasons as a table pushed to the right. */}
       {(company?.differentiators?.length ?? 0) > 0 && (
-        <Section aria-labelledby="why-title" tone="light">
+        <Section aria-labelledby="why-title" tone="raised">
           <div className="container">
-            <SectionHeader
-              eyebrow="Why AR Tech Dogs"
-              id="why-title"
-              lead="Senior-level development without agency overhead. You talk to the person who writes the code."
-              title="Built properly, by the person you speak to."
-            />
-            <FeatureGrid items={company.differentiators!} columns={4} />
+            <Reveal>
+              <h2 className="text-h1 max-w-[16ch]" id="why-title">
+                Built properly, by the person you speak to.
+              </h2>
+            </Reveal>
+            <div className="mt-14 grid gap-10 md:mt-20 lg:grid-cols-12">
+              <Reveal className="lg:col-span-4" delay={60}>
+                <p className="text-lead">
+                  Senior-level development without agency overhead. You talk to the person who
+                  writes the code.
+                </p>
+              </Reveal>
+              <dl className="lg:col-span-7 lg:col-start-6">
+                {company.differentiators!.map((d, i) => (
+                  <Reveal
+                    className="grid gap-1 py-4 sm:grid-cols-[minmax(0,14rem)_1fr] sm:gap-8"
+                    delay={i * 50}
+                    key={d.title}
+                  >
+                    <dt className="font-semibold">{d.title}</dt>
+                    <dd className="text-muted-foreground">{d.description}</dd>
+                  </Reveal>
+                ))}
+              </dl>
+            </div>
           </div>
         </Section>
       )}
@@ -139,12 +213,12 @@ export default async function HomePage() {
       {featured.length > 0 && (
         <Section aria-labelledby="work-title">
           <div className="container">
-            <SectionHeader eyebrow="Selected work" id="work-title" title="Recent projects">
+            <SectionHeader id="work-title" title="Recent projects">
               <Link
-                className="-my-2 inline-flex min-h-11 items-center text-sm font-medium underline-offset-4 hover:underline"
+                className="-my-2 inline-flex min-h-11 items-center font-semibold underline decoration-foreground/30 underline-offset-4 hover:decoration-foreground"
                 href="/our-work"
               >
-                View all work →
+                View all work
               </Link>
             </SectionHeader>
             <ul className="grid gap-6 md:grid-cols-2">
@@ -159,105 +233,89 @@ export default async function HomePage() {
       )}
 
       {(company?.process?.length ?? 0) > 0 && (
-        <Section aria-labelledby="process-title" tone="raised">
+        <Section aria-label="How we deliver" tone="dark">
           <div className="container">
-            <SectionHeader
-              eyebrow="How we deliver"
+            <ProcessStory
               id="process-title"
-              lead="Six stages, each with a clear deliverable you sign off before we move on."
-              title="A process you can see."
+              lead="Six stages, each with a deliverable you sign off before we move on."
+              steps={company.process!}
+              title="One sip at a time."
             />
-            <ProcessSteps steps={company.process!} />
           </div>
         </Section>
       )}
 
-      {fromPrices.length > 0 && (
-        <Section aria-labelledby="pricing-title">
-          <div className="container grid gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <SectionHeader
-                className="mb-0 md:mb-0"
-                eyebrow="Transparent pricing"
-                id="pricing-title"
-                lead="Published starting prices for every service, so you know where you stand before the first call."
-                title="Know the starting point."
-              >
-                <div>
-                  <Button asChild variant="outline">
-                    <Link href="/pricing">Compare all packages</Link>
-                  </Button>
-                </div>
-              </SectionHeader>
-            </div>
-            <ul className="divide-y divide-border border-y border-border lg:col-span-7">
-              {fromPrices.map(({ service, price, monthly }, i) => (
-                <Reveal as="li" delay={i * 50} key={service.id}>
-                  <Link
-                    className="group flex min-h-18 items-center justify-between gap-6 py-5"
-                    href={`/solutions/${service.slug}#packages`}
-                  >
-                    <span className="text-lg font-medium tracking-tight">{service.title}</span>
-                    <span className="flex shrink-0 items-baseline gap-2 text-right">
-                      <span className="text-xs text-muted-foreground">from</span>
-                      <span className="text-xl font-semibold tabular">{formatPrice(price)}</span>
-                      {monthly && <span className="text-xs text-muted-foreground">/mo</span>}
-                      <span
-                        aria-hidden
-                        className="ml-2 text-brand-text transition-transform duration-300 group-hover:translate-x-1"
-                      >
-                        →
-                      </span>
-                    </span>
-                  </Link>
-                </Reveal>
-              ))}
-            </ul>
+      {brew.length > 0 && (
+        <Section aria-labelledby="pricing-title" tone="gold">
+          <div className="container">
+            <Reveal className="mb-10 flex flex-col gap-3 md:mb-12" stagger>
+              <h2 className="text-h3" id="pricing-title">
+                Published prices, before the first call
+              </h2>
+              <p className="max-w-xl text-muted-foreground">
+                Pick what you need. These are real starting prices in rand, straight from our
+                packages.
+              </p>
+            </Reveal>
+            <PriceBrewer options={brew} />
           </div>
         </Section>
       )}
 
       {partners.length > 0 && (
-        <Section aria-labelledby="eco-title" className="pt-0 md:pt-0">
-          <div className="container">
-            <SectionHeader
-              eyebrow="Ecosystem"
-              id="eco-title"
-              lead="The platforms, payment gateways and infrastructure we connect for our clients."
-              title="One partner across your stack."
-            >
+        <Section aria-labelledby="eco-title">
+          <div className="container grid gap-10 lg:grid-cols-12">
+            <Reveal className="lg:col-span-12">
+              <h2 className="text-h2 max-w-[20ch]" id="eco-title">
+                One partner across your whole stack.
+              </h2>
+            </Reveal>
+            <Reveal className="lg:col-span-4" stagger>
+              <p className="text-lead">
+                The platforms, payment gateways and infrastructure we connect for clients.
+              </p>
               <Link
-                className="-my-2 inline-flex min-h-11 items-center text-sm font-medium underline-offset-4 hover:underline"
+                className="mt-6 inline-flex min-h-11 items-center font-semibold underline decoration-foreground/30 underline-offset-4 transition-colors hover:decoration-foreground"
                 href="/ecosystem"
               >
-                Explore the ecosystem →
+                How it fits together
               </Link>
-            </SectionHeader>
-            <EcosystemGrid compact partners={partners} />
+            </Reveal>
+            <Reveal className="lg:col-span-8" delay={80}>
+              <p className="text-[clamp(1.375rem,1.1rem+0.9vw,1.875rem)] font-semibold leading-[1.3] tracking-[-0.015em]">
+                {partners.map((p, i) => (
+                  <React.Fragment key={p.id}>
+                    <span className="text-muted-foreground transition-colors duration-150 hover:text-foreground">
+                      {p.name}
+                    </span>
+                    {i < partners.length - 1 ? (
+                      <span className="text-muted-foreground">, </span>
+                    ) : (
+                      <span className="text-muted-foreground">.</span>
+                    )}
+                  </React.Fragment>
+                ))}
+              </p>
+            </Reveal>
           </div>
         </Section>
       )}
 
       {testimonials.length > 0 && (
-        <Section aria-labelledby="testimonials-title" tone="light">
+        <Section aria-labelledby="testimonials-title" tone="raised">
           <div className="container">
-            <SectionHeader eyebrow="Clients" id="testimonials-title" title="In their words" />
-            <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <SectionHeader id="testimonials-title" title="In their words" />
+            <ul className="grid gap-16 md:grid-cols-2">
               {testimonials.map((t, i) => (
-                <Reveal
-                  as="li"
-                  className="surface flex flex-col p-6 md:p-8"
-                  delay={i * 60}
-                  key={t.id}
-                >
-                  <blockquote className="flex-1 text-lg leading-relaxed tracking-tight">
+                <Reveal as="li" delay={i * 60} key={t.id}>
+                  <blockquote className="text-[clamp(1.375rem,1.1rem+1vw,2rem)] font-semibold leading-snug tracking-[-0.015em]">
                     “{t.quote}”
                   </blockquote>
-                  <p className="mt-6 text-sm">
-                    <span className="font-medium">{t.name}</span>
+                  <p className="mt-6">
+                    <span className="font-semibold">{t.name}</span>
                     {(t.role || t.company) && (
                       <span className="text-muted-foreground">
-                        {' · '}
+                        {', '}
                         {[t.role, t.company].filter(Boolean).join(', ')}
                       </span>
                     )}

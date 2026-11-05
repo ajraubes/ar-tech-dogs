@@ -4,10 +4,10 @@ import { ImageResponse } from 'next/og'
 
 export const dynamic = 'force-static'
 
-/** Default social share image: 1200×630, brand mark and colours. */
+/** Default social share image: 1200×630, the pug on cream with the wordmark. */
 export async function GET() {
-  const mark = await readFile(path.join(process.cwd(), 'public/brand/mark-tile.png'))
-  const markSrc = `data:image/png;base64,${mark.toString('base64')}`
+  const pug = await readFile(path.join(process.cwd(), 'public/brand/pug.png'))
+  const pugSrc = `data:image/png;base64,${pug.toString('base64')}`
 
   return new ImageResponse(
     <div
@@ -15,44 +15,27 @@ export async function GET() {
         width: '100%',
         height: '100%',
         display: 'flex',
-        flexDirection: 'column',
+        alignItems: 'flex-end',
         justifyContent: 'space-between',
-        padding: 80,
-        background: '#070c14',
-        backgroundImage:
-          'linear-gradient(rgba(120,170,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(120,170,255,0.07) 1px, transparent 1px)',
-        backgroundSize: '64px 64px',
-        color: '#f2f5f9',
+        padding: '72px 80px',
+        background: '#f2eee3',
+        color: '#2d2520',
         fontFamily: 'sans-serif',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img alt="" height={96} src={markSrc} style={{ borderRadius: 22 }} width={96} />
-        <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 0.95 }}>
-          <div style={{ fontSize: 40, fontWeight: 800 }}>AR TECH</div>
-          <div style={{ fontSize: 48, fontWeight: 800, color: '#008efa' }}>DOGS</div>
-        </div>
-      </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div style={{ fontSize: 88, fontWeight: 700, letterSpacing: -4, lineHeight: 1 }}>
-          Digital experiences.
+        <div style={{ fontSize: 132, fontWeight: 800, letterSpacing: -5, lineHeight: 0.9 }}>
+          AR TECH
         </div>
-        <div
-          style={{
-            fontSize: 88,
-            fontWeight: 700,
-            letterSpacing: -4,
-            lineHeight: 1,
-            color: '#008efa',
-          }}
-        >
-          Engineered to grow.
+        <div style={{ fontSize: 132, fontWeight: 800, letterSpacing: -5, lineHeight: 0.9 }}>
+          DOGS
+        </div>
+        <div style={{ marginTop: 36, fontSize: 30, color: '#6a5547' }}>
+          Design. Develop. Deliver, one sip at a time.
         </div>
       </div>
-      <div style={{ fontSize: 24, letterSpacing: 8, color: '#9aa6b8' }}>
-        BUILD · INNOVATE · SCALE
-      </div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img alt="" height={480} src={pugSrc} width={410} />
     </div>,
     { width: 1200, height: 630 },
   )

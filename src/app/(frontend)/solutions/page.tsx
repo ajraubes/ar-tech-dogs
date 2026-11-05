@@ -20,7 +20,6 @@ export default async function SolutionsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Solutions"
         lead="What you can buy from us. Every solution has transparent starting prices, a clear process and a named deliverable at each stage."
         title="Solutions for every stage of growth."
       />

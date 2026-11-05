@@ -55,11 +55,8 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
     <>
       <header
         className={cn(
-          'sticky top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-300',
-          'border-b',
-          scrolled || open
-            ? 'border-border bg-background/80 backdrop-blur-xl backdrop-saturate-150'
-            : 'border-transparent bg-background/0',
+          'sticky top-0 z-40 bg-background transition-shadow duration-300',
+          scrolled && !open ? 'shadow-[0_1px_0_var(--border)]' : 'shadow-none',
         )}
       >
         <a
@@ -68,7 +65,7 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
         >
           Skip to content
         </a>
-        <div className="container flex h-16 items-center justify-between gap-6 md:h-18">
+        <div className="container flex h-16 items-center justify-between gap-6 md:h-20">
           <Link
             aria-label="AR Tech Dogs home"
             className="-m-2 flex min-h-11 items-center rounded-lg p-2"
@@ -86,10 +83,10 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
                     <Link
                       aria-current={active ? 'page' : undefined}
                       className={cn(
-                        'relative inline-flex h-10 items-center rounded-full px-3.5 text-sm transition-colors duration-150',
+                        'relative inline-flex h-11 items-center rounded-full px-3.5 text-[0.9375rem] font-medium transition-[background-color,color,transform] duration-150 active:scale-[0.97]',
                         active
                           ? 'text-foreground'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-foreground/[0.05]',
+                          : 'text-muted-foreground hover:bg-card hover:text-foreground',
                       )}
                       href={link.href}
                     >
@@ -97,7 +94,7 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
                       {active && (
                         <span
                           aria-hidden
-                          className="absolute inset-x-3.5 -bottom-px h-px bg-primary"
+                          className="absolute bottom-1 left-1/2 size-1.5 -translate-x-1/2 rounded-full bg-brand"
                         />
                       )}
                     </Link>
@@ -115,7 +112,7 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
               aria-controls={menuId}
               aria-expanded={open}
               aria-label={open ? 'Close menu' : 'Open menu'}
-              className="relative -mr-2 inline-flex size-11 items-center justify-center rounded-full text-foreground transition-colors hover:bg-foreground/[0.06] active:scale-95 lg:hidden"
+              className="relative -mr-2 inline-flex size-11 items-center justify-center rounded-full text-foreground transition-[background-color,transform] duration-150 hover:bg-card active:scale-95 lg:hidden"
               onClick={() => setOpen((o) => !o)}
               ref={toggleRef}
               type="button"
@@ -123,14 +120,14 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
               <span aria-hidden className="relative block h-3 w-5">
                 <span
                   className={cn(
-                    'absolute left-0 top-0 h-[1.5px] w-5 rounded bg-current transition-transform duration-300 ease-[var(--ease-out-expo)]',
-                    open && 'translate-y-[5.25px] rotate-45',
+                    'absolute left-0 top-0 h-[2px] w-5 rounded bg-current transition-transform duration-300 ease-[var(--ease-out-expo)]',
+                    open && 'translate-y-[5px] rotate-45',
                   )}
                 />
                 <span
                   className={cn(
-                    'absolute bottom-0 left-0 h-[1.5px] w-5 rounded bg-current transition-transform duration-300 ease-[var(--ease-out-expo)]',
-                    open && '-translate-y-[5.25px] -rotate-45',
+                    'absolute bottom-0 left-0 h-[2px] w-5 rounded bg-current transition-transform duration-300 ease-[var(--ease-out-expo)]',
+                    open && '-translate-y-[5px] -rotate-45',
                   )}
                 />
               </span>
@@ -144,9 +141,11 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
           containing block for this fixed panel and collapse it to the header's height. */}
       <div
         className={cn(
-          'fixed inset-x-0 bottom-0 top-16 z-30 flex flex-col bg-background lg:hidden',
-          'transition-[opacity,transform,visibility] duration-300 ease-[var(--ease-out-expo)]',
-          open ? 'visible opacity-100' : 'invisible -translate-y-2 opacity-0',
+          'fixed inset-x-0 bottom-0 top-16 z-30 flex flex-col bg-background md:top-20 lg:hidden',
+          'transition-[opacity,transform,visibility] ease-[var(--ease-out-expo)]',
+          open
+            ? 'visible opacity-100 duration-300'
+            : 'invisible -translate-y-2 opacity-0 duration-200',
         )}
         id={menuId}
         inert={!open}
@@ -155,13 +154,13 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
           aria-label="Mobile"
           className="container flex-1 overflow-y-auto overscroll-contain pt-4"
         >
-          <ul className="divide-y divide-border">
+          <ul>
             {[{ label: 'Home', href: '/' }, ...links].map((link, i) => {
               const active = isActive(pathname, link.href)
               return (
                 <li
                   className={cn(
-                    'transition-[opacity,transform] duration-500 ease-[var(--ease-out-expo)]',
+                    'transition-[opacity,transform] duration-400 ease-[var(--ease-out-expo)]',
                     open ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0',
                   )}
                   key={link.href}
@@ -170,20 +169,20 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
                   <Link
                     aria-current={active ? 'page' : undefined}
                     className={cn(
-                      'flex min-h-14 items-center justify-between text-2xl font-medium tracking-tight',
-                      active ? 'text-foreground' : 'text-foreground/80',
+                      'flex min-h-14 items-center justify-between text-[2rem] font-bold leading-none tracking-[-0.02em] transition-colors duration-150 active:text-muted-foreground',
+                      active ? 'text-foreground' : 'text-foreground/75',
                     )}
                     href={link.href}
                   >
                     {link.label}
-                    {active && <span aria-hidden className="size-2 rounded-full bg-primary" />}
+                    {active && <span aria-hidden className="size-2.5 rounded-full bg-brand" />}
                   </Link>
                 </li>
               )
             })}
           </ul>
         </nav>
-        <div className="container border-t border-border py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div className="container py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
           <Button asChild className="w-full" size="lg">
             <Link href={cta.href}>{cta.label}</Link>
           </Button>

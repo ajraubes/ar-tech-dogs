@@ -25,10 +25,10 @@ export const WorkGrid: React.FC<{ projects: Project[] }> = ({ projects }) => {
               <button
                 aria-pressed={filter === c.value}
                 className={cn(
-                  'h-11 rounded-full border px-5 text-sm transition-[background-color,border-color,color] duration-200 active:scale-[0.97]',
+                  'h-11 rounded-full px-5 text-[0.9375rem] font-semibold transition-[background-color,color,transform] duration-200 active:scale-[0.96]',
                   filter === c.value
-                    ? 'border-foreground bg-foreground text-background'
-                    : 'border-border text-muted-foreground hover:border-border-strong hover:text-foreground',
+                    ? 'bg-foreground text-background'
+                    : 'bg-card text-foreground hover:bg-secondary',
                 )}
                 key={c.value}
                 onClick={() => setFilter(c.value)}

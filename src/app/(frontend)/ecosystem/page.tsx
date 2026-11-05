@@ -20,7 +20,6 @@ export default async function EcosystemPage() {
   return (
     <>
       <PageHero
-        eyebrow="Ecosystem"
         lead="We connect the parts of a digital business: commerce, content, payments, infrastructure and data."
         title="How your stack fits together."
       />

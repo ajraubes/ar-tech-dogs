@@ -18,7 +18,6 @@ export default async function WorkPage() {
   return (
     <>
       <PageHero
-        eyebrow="Our Work"
         lead="The challenge, the solution and the technology behind each project, with results where they can be measured."
         title="Work that holds up in production."
       />

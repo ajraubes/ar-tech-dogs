@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { ArrowRight } from 'lucide-react'
 import React from 'react'
 
 import { CTASection } from '@/components/site/CTASection'
@@ -9,7 +10,7 @@ import { FeatureGrid } from '@/components/site/FeatureGrid'
 import { JsonLd } from '@/components/site/JsonLd'
 import { PackageGrid } from '@/components/site/PackageGrid'
 import { PageHero } from '@/components/site/PageHero'
-import { ProcessSteps } from '@/components/site/ProcessSteps'
+import { ProcessStory } from '@/components/site/ProcessStory'
 import { Reveal } from '@/components/site/Reveal'
 import { Section, SectionHeader } from '@/components/site/Section'
 import { Button } from '@/components/ui/button'
@@ -46,8 +47,8 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
 const List = ({ items }: { items: string[] }) => (
   <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
     {items.map((item) => (
-      <li className="flex gap-3 border-t border-border pt-3 text-[0.9375rem]" key={item}>
-        <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />
+      <li className="flex gap-3 text-lg" key={item}>
+        <span aria-hidden className="mt-2.5 size-2 shrink-0 rounded-full bg-brand" />
         {item}
       </li>
     ))}
@@ -76,15 +77,12 @@ export default async function ServicePage({ params }: Args) {
 
   return (
     <>
-      <PageHero
-        eyebrow={`${service.number} — ${service.title}`}
-        lead={service.overview}
-        title={service.heroHeading}
-      >
+      <PageHero lead={service.overview} title={service.heroHeading}>
         <div className="flex flex-col gap-3 sm:flex-row">
           <Button asChild size="lg">
             <Link href={enquireHref}>
-              Start a project <span aria-hidden>→</span>
+              Start a project{' '}
+              <ArrowRight aria-hidden className="size-[1.05em]" strokeWidth={2.25} />
             </Link>
           </Button>
           {packages.length > 0 && (
@@ -96,11 +94,11 @@ export default async function ServicePage({ params }: Args) {
       </PageHero>
 
       {(audience.length > 0 || technologies.length > 0) && (
-        <section className="border-b border-border">
-          <div className="container grid gap-10 py-14 md:grid-cols-2 md:py-16">
+        <section>
+          <div className="container grid gap-10 py-16 md:grid-cols-2 md:py-24">
             {audience.length > 0 && (
               <Reveal>
-                <h2 className="eyebrow mb-5">Who it is for</h2>
+                <h2 className="text-h3 mb-5">Who it is for</h2>
                 <ul className="space-y-3">
                   {audience.map((a) => (
                     <li className="text-lg tracking-tight" key={a}>
@@ -112,13 +110,10 @@ export default async function ServicePage({ params }: Args) {
             )}
             {technologies.length > 0 && (
               <Reveal delay={80}>
-                <h2 className="eyebrow mb-5">Technologies</h2>
+                <h2 className="text-h3 mb-5">Technologies</h2>
                 <ul className="flex flex-wrap gap-2">
                   {technologies.map((t) => (
-                    <li
-                      className="rounded-full border border-border bg-card px-3.5 py-1.5 font-mono text-[0.8125rem]"
-                      key={t}
-                    >
+                    <li className="rounded-full bg-card px-3.5 py-1.5 text-base" key={t}>
                       {t}
                     </li>
                   ))}
@@ -133,7 +128,6 @@ export default async function ServicePage({ params }: Args) {
         <Section aria-labelledby="problems-title">
           <div className="container">
             <SectionHeader
-              eyebrow="Problems we solve"
               id="problems-title"
               title="What usually goes wrong, and how we fix it."
             />
@@ -157,11 +151,8 @@ export default async function ServicePage({ params }: Args) {
               <div className="lg:col-span-5">
                 <h2 className="text-h3 mb-8">What you receive</h2>
                 <ol className="space-y-3">
-                  {deliverables.map((d, i) => (
-                    <li className="flex gap-4 border-t border-border pt-3 text-[0.9375rem]" key={d}>
-                      <span className="font-mono text-xs text-muted-foreground tabular">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
+                  {deliverables.map((d) => (
+                    <li className="rounded-[var(--radius-md)] bg-card px-5 py-4 text-lg" key={d}>
                       {d}
                     </li>
                   ))}
@@ -172,10 +163,9 @@ export default async function ServicePage({ params }: Args) {
         </Section>
       )}
 
-      <Section aria-labelledby="packages-title" id="packages" tone="light">
+      <Section aria-labelledby="packages-title" id="packages" tone="raised">
         <div className="container">
           <SectionHeader
-            eyebrow="Packages"
             id="packages-title"
             lead={
               packages.length
@@ -199,10 +189,14 @@ export default async function ServicePage({ params }: Args) {
       </Section>
 
       {(company?.process?.length ?? 0) > 0 && (
-        <Section aria-labelledby="process-title">
+        <Section aria-label="How the project runs" tone="dark">
           <div className="container">
-            <SectionHeader eyebrow="Process" id="process-title" title="How the project runs." />
-            <ProcessSteps steps={company.process!} />
+            <ProcessStory
+              id="process-title"
+              lead="Six stages, each with a deliverable you sign off before we move on."
+              steps={company.process!}
+              title="One sip at a time."
+            />
           </div>
         </Section>
       )}
@@ -221,24 +215,24 @@ export default async function ServicePage({ params }: Args) {
       )}
 
       {others.length > 0 && (
-        <section aria-labelledby="related-title" className="border-t border-border py-16">
+        <section aria-labelledby="related-title" className="py-16 md:py-24">
           <div className="container">
-            <h2 className="eyebrow mb-6" id="related-title">
+            <h2 className="text-h3 mb-6" id="related-title">
               Other solutions
             </h2>
             <ul className="grid gap-3 md:grid-cols-3">
               {others.map((s) => (
                 <li key={s.id}>
                   <Link
-                    className="group flex min-h-16 items-center justify-between rounded-xl border border-border px-5 transition-colors hover:border-border-strong"
+                    className="group flex min-h-16 items-center justify-between rounded-[var(--radius-lg)] bg-card px-6 font-semibold transition-[background-color,transform] duration-200 hover:bg-secondary active:scale-[0.99]"
                     href={`/solutions/${s.slug}`}
                   >
-                    <span className="font-medium">{s.title}</span>
+                    <span>{s.title}</span>
                     <span
                       aria-hidden
                       className="text-brand-text transition-transform group-hover:translate-x-1"
                     >
-                      →
+                      <ArrowRight className="size-[1.05em]" strokeWidth={2.25} />
                     </span>
                   </Link>
                 </li>

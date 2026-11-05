@@ -1,9 +1,11 @@
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import React from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Reveal } from './Reveal'
 
+/** The close: the page flips to espresso, one headline, one sentence, one gold action. */
 export const CTASection: React.FC<{
   title?: string | null
   body?: string | null
@@ -12,31 +14,38 @@ export const CTASection: React.FC<{
 }> = ({
   title,
   body,
-  primary = { label: 'Start a Project', href: '/contact' },
+  primary = { label: 'Start a project', href: '/contact' },
   secondary = { label: 'View pricing', href: '/pricing' },
 }) => (
-  <section className="py-24 md:py-32">
+  <section aria-labelledby="cta-title" className="py-24 md:py-40" data-theme="dark">
     <div className="container">
-      <Reveal className="relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-16 md:px-16 md:py-24">
-        <div aria-hidden className="bg-grid pointer-events-none absolute inset-0 opacity-70" />
-        <div
-          aria-hidden
-          className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-brand to-transparent"
-        />
-        <div className="relative max-w-2xl">
-          <h2 className="text-h2">{title || 'Have a project in mind?'}</h2>
-          <p className="text-lead mt-5">
+      <Reveal className="grid gap-12 md:gap-20" stagger>
+        <h2 className="text-display max-w-[13ch]" id="cta-title">
+          {title || 'Have a project in mind?'}
+        </h2>
+        <div className="grid gap-8 md:grid-cols-12 md:items-end">
+          <p className="text-lead max-w-xl md:col-span-6">
             {body || 'Tell us what you are building and we will come back with honest next steps.'}
           </p>
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg">
+          <div className="flex flex-col gap-3 sm:flex-row md:col-span-6 md:justify-end">
+            <Button asChild className="group" size="lg">
               <Link href={primary.href}>
                 {primary.label}
-                <span aria-hidden>→</span>
+                <span
+                  aria-hidden
+                  className="transition-transform duration-200 ease-[var(--ease-out-quart)] group-hover:translate-x-0.5"
+                >
+                  <ArrowRight className="size-[1.05em]" strokeWidth={2.25} />
+                </span>
               </Link>
             </Button>
             {secondary && (
-              <Button asChild size="lg" variant="outline">
+              <Button
+                asChild
+                className="border-cream/70 text-cream hover:bg-cream hover:text-espresso"
+                size="lg"
+                variant="outline"
+              >
                 <Link href={secondary.href}>{secondary.label}</Link>
               </Button>
             )}

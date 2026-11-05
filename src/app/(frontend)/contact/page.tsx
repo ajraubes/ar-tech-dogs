@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ArrowUpRight } from 'lucide-react'
 import React from 'react'
 
 import { PageHero } from '@/components/site/PageHero'
@@ -29,7 +30,6 @@ export default async function ContactPage({ searchParams }: Args) {
   return (
     <>
       <PageHero
-        eyebrow="Contact"
         lead="Tell us what you are building. The more context you share, the more useful our first reply will be."
         title="Start a project."
       />
@@ -44,14 +44,15 @@ export default async function ContactPage({ searchParams }: Args) {
           </div>
           <aside className="space-y-10 lg:col-span-4 lg:col-start-9">
             {contact?.bookingUrl && (
-              <div className="rounded-2xl border border-border bg-card p-6">
+              <div className="rounded-[var(--radius-xl)] bg-card p-7">
                 <h2 className="text-lg font-semibold tracking-tight">Prefer to talk first?</h2>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   Book a free initial consultation at a time that suits you.
                 </p>
                 <Button asChild className="mt-5 w-full" variant="outline">
                   <a href={contact.bookingUrl} rel="noopener noreferrer" target="_blank">
-                    Book a consultation ↗
+                    Book a consultation{' '}
+                    <ArrowUpRight aria-hidden className="size-[1.05em]" strokeWidth={2.25} />
                   </a>
                 </Button>
               </div>
@@ -80,7 +81,8 @@ export default async function ContactPage({ searchParams }: Args) {
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-                      Message us on WhatsApp ↗
+                      Message us on WhatsApp{' '}
+                      <ArrowUpRight aria-hidden className="size-[1.05em]" strokeWidth={2.25} />
                     </a>
                   </dd>
                 </div>

@@ -9,7 +9,7 @@ const Tile = ({ partner }: { partner: Partner }) => {
   const body = (
     <>
       <div className="flex items-center gap-3">
-        <span className="relative flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-secondary font-mono text-xs font-semibold">
+        <span className="relative flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-[var(--radius-sm)] bg-background text-sm font-bold">
           {partner.logo && typeof partner.logo === 'object' ? (
             <Media fill imgClassName="object-contain p-1.5" resource={partner.logo} size="40px" />
           ) : (
@@ -22,18 +22,20 @@ const Tile = ({ partner }: { partner: Partner }) => {
           )}
         </span>
         <div className="min-w-0">
-          <p className="truncate font-medium">{partner.name}</p>
-          {partner.officialPartner && <p className="text-xs text-brand-text">Official partner</p>}
+          <p className="truncate text-lg font-semibold">{partner.name}</p>
+          {partner.officialPartner && (
+            <p className="text-sm font-semibold text-brand-text">Official partner</p>
+          )}
         </div>
       </div>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{partner.description}</p>
+      <p className="mt-4 leading-relaxed text-muted-foreground">{partner.description}</p>
     </>
   )
   const cls =
-    'block h-full rounded-xl border border-border bg-card p-5 transition-[border-color,background-color] duration-200'
+    'block h-full rounded-[var(--radius-xl)] bg-card p-6 transition-[background-color,transform] duration-200 ease-[var(--ease-out-quart)]'
   return partner.website ? (
     <a
-      className={`${cls} hover:border-border-strong`}
+      className={`${cls} hover:bg-secondary active:scale-[0.99]`}
       href={partner.website}
       rel="noopener noreferrer"
       target="_blank"
@@ -46,30 +48,10 @@ const Tile = ({ partner }: { partner: Partner }) => {
   )
 }
 
-export const EcosystemGrid: React.FC<{ partners: Partner[]; compact?: boolean }> = ({
-  partners,
-  compact,
-}) => {
+export const EcosystemGrid: React.FC<{ partners: Partner[] }> = ({ partners }) => {
   const groups = partnerCategories
     .map((c) => ({ ...c, items: partners.filter((p) => p.category === c.value) }))
     .filter((g) => g.items.length)
-
-  if (compact) {
-    return (
-      <ul className="flex flex-wrap gap-2">
-        {partners.map((p, i) => (
-          <Reveal
-            as="li"
-            className="rounded-full border border-border bg-card px-4 py-2 text-sm"
-            delay={Math.min(i * 30, 400)}
-            key={p.id}
-          >
-            {p.name}
-          </Reveal>
-        ))}
-      </ul>
-    )
-  }
 
   return (
     <div className="space-y-16">
@@ -80,7 +62,7 @@ export const EcosystemGrid: React.FC<{ partners: Partner[]; compact?: boolean }>
           key={group.value}
         >
           <div className="lg:col-span-3">
-            <h2 className="eyebrow lg:sticky lg:top-28" id={`eco-${group.value}`}>
+            <h2 className="text-h3 lg:sticky lg:top-28" id={`eco-${group.value}`}>
               {group.label}
             </h2>
           </div>

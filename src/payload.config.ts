@@ -45,6 +45,7 @@ export default buildConfig({
     user: Users.slug,
     meta: {
       titleSuffix: ' · AR Tech Dogs CMS',
+      icons: [{ rel: 'icon', type: 'image/x-icon', url: '/favicon.ico' }],
     },
     livePreview: {
       breakpoints: [

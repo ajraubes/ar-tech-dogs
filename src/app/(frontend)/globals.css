@@ -44,112 +44,111 @@
   --breakpoint-xl: 80rem;
   --breakpoint-2xl: 96rem;
   --font-mono: var(--font-geist-mono);
-  --font-sans: var(--font-geist-sans);
-  --font-display: var(--font-lexend), var(--font-geist-sans);
-  --font-wordmark: var(--font-lexend-exa), var(--font-geist-sans);
+  --font-sans: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+  --font-wordmark: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer utilities {
+  /* One frame for the whole site: 20px gutters on phones, 40px on desktop, 1360px max. */
   .container {
     width: 100%;
+    max-width: 85rem;
     margin-inline: auto;
-    padding-inline: 1.25rem;
-  }
-
-  @variant sm {
-    .container {
-      max-width: var(--breakpoint-sm);
-    }
+    /* Phones in landscape: keep content clear of the notch. */
+    padding-inline: max(1.25rem, env(safe-area-inset-left, 0px))
+      max(1.25rem, env(safe-area-inset-right, 0px));
   }
 
   @variant md {
     .container {
-      max-width: var(--breakpoint-md);
-      padding-inline: 2rem;
-    }
-  }
-
-  @variant lg {
-    .container {
-      max-width: var(--breakpoint-lg);
-    }
-  }
-
-  @variant xl {
-    .container {
-      max-width: var(--breakpoint-xl);
-    }
-  }
-
-  @variant 2xl {
-    .container {
-      max-width: 88rem;
+      padding-inline: max(2.5rem, env(safe-area-inset-left, 0px))
+        max(2.5rem, env(safe-area-inset-right, 0px));
     }
   }
 }
 
 /*
- * AR Tech Dogs design tokens, matched to the logo.
- * Deep navy is the default surface. Cool off-white sections opt in with data-theme="light".
- * Brand blue #008efa is for marks and accents; buttons use a deeper blue so white
- * button text passes WCAG AA (4.8:1).
+ * AR Tech Dogs design tokens, taken from the pug logo (see docs/BRAND.md).
+ * Cream is the default surface. Espresso sections opt in with data-theme="dark",
+ * the gold field with data-theme="gold". Every text pairing below passes WCAG AA.
  */
 :root,
-[data-theme='dark'] {
-  --background: #070c14; /* deep navy */
-  --foreground: #f2f5f9;
-  --card: #0d1420;
+[data-theme='light'] {
+  --background: #f2eee3; /* Cream */
+  --foreground: #2d2520; /* Espresso, 13:1 on cream */
+  --card: #e9e3d4; /* Oat: one tone step down from cream */
   --card-foreground: var(--foreground);
-  --popover: #0d1420;
+  --popover: #f8f5ee;
   --popover-foreground: var(--foreground);
-  --primary: #0b6fe0; /* button blue, 4.8:1 with white */
-  --primary-foreground: #ffffff;
-  --secondary: #131c2a;
+  --primary: #2d2520; /* buttons are espresso on cream */
+  --primary-foreground: #f2eee3;
+  --primary-hover: #4f3e33; /* Roast */
+  --secondary: #e3dccb;
   --secondary-foreground: var(--foreground);
-  --muted: #131c2a;
-  --muted-foreground: #9aa6b8; /* 7.9:1 on background */
-  --accent: #162030;
+  --muted: #e3dccb;
+  --muted-foreground: #6a5547; /* Mocha text, 6:1 on cream */
+  --accent: #e3dccb;
   --accent-foreground: var(--foreground);
-  --destructive: oklch(63% 0.21 25deg);
-  --destructive-foreground: oklch(72% 0.17 25deg);
-  --border: rgb(255 255 255 / 8%);
-  --border-strong: rgb(255 255 255 / 15%);
-  --input: rgb(255 255 255 / 13%);
-  --ring: #2a9dff;
-  --brand: #008efa; /* logo blue */
-  --brand-text: #2a9dff; /* blue for small text on navy, 6.9:1 */
-  --radius: 0.75rem;
-  --success: oklch(72% 0.15 155deg);
-  --warning: oklch(80% 0.14 80deg);
-  --error: oklch(65% 0.2 25deg);
-  --shadow-card: 0 1px 0 0 rgb(255 255 255 / 4%) inset, 0 24px 48px -24px rgb(0 0 0 / 70%);
-  --grid-line: rgb(120 170 255 / 6%);
+  --destructive: #a23b2a;
+  --destructive-foreground: #a23b2a;
+  --border: rgb(45 37 32 / 10%);
+  --border-strong: rgb(45 37 32 / 22%);
+  --input: rgb(45 37 32 / 22%);
+  --ring: #2d2520;
+  --brand: #e2c275; /* Crema gold, the pug's coat */
+  --brand-text: #7a5f24; /* gold deep enough for small text on cream, 5.2:1 */
+  --radius: 1rem;
+  --success: #3f6b3a;
+  --warning: #8a5a12;
+  --error: #a23b2a;
+  --shadow-float: 0 12px 32px -12px rgb(45 37 32 / 28%), 0 2px 6px rgb(45 37 32 / 8%);
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --background: #2d2520; /* Espresso */
+  --foreground: #f2eee3;
+  --card: #382e28;
+  --popover: #382e28;
+  --primary: #e2c275; /* gold buttons on espresso, 8.7:1 with espresso text */
+  --primary-foreground: #2d2520;
+  --primary-hover: #ecd295;
+  --secondary: #41362f;
+  --muted: #41362f;
+  --muted-foreground: #c9bba5; /* 8:1 on espresso */
+  --accent: #41362f;
+  --border: rgb(242 238 227 / 12%);
+  --border-strong: rgb(242 238 227 / 24%);
+  --input: rgb(242 238 227 / 24%);
+  --ring: #e2c275;
+  --brand-text: #e2c275;
+  --success: #9ccc8c;
+  --warning: #e2c275;
+  --error: #f0a08f;
   color-scheme: dark;
 }
 
-[data-theme='light'] {
-  --background: #f4f7fb; /* cool off-white, as on the letterhead */
-  --foreground: #0a1220;
-  --card: #ffffff;
-  --card-foreground: var(--foreground);
-  --popover: #ffffff;
-  --popover-foreground: var(--foreground);
-  --primary: #0b6fe0;
-  --primary-foreground: #ffffff;
-  --secondary: #e8eef6;
-  --secondary-foreground: var(--foreground);
-  --muted: #e8eef6;
-  --muted-foreground: #4a5568; /* 7:1 on background */
-  --accent: #e8eef6;
-  --accent-foreground: var(--foreground);
-  --border: rgb(10 18 32 / 9%);
-  --border-strong: rgb(10 18 32 / 16%);
-  --input: rgb(10 18 32 / 16%);
-  --ring: #0068d6;
-  --brand-text: #0068d6; /* 5:1 on off-white */
-  --shadow-card: 0 1px 2px rgb(10 18 32 / 5%), 0 16px 32px -20px rgb(10 18 32 / 20%);
-  --grid-line: rgb(10 18 32 / 5%);
+[data-theme='gold'] {
+  --background: #e2c275; /* Crema */
+  --foreground: #2d2520; /* 8.7:1 */
+  --card: #d8b665;
+  --primary: #2d2520;
+  --primary-foreground: #f2eee3;
+  --primary-hover: #4f3e33;
+  --secondary: #d8b665;
+  --muted: #d8b665;
+  --muted-foreground: #4f3e33; /* Roast, 5.9:1 on gold */
+  --border: rgb(45 37 32 / 14%);
+  --border-strong: rgb(45 37 32 / 28%);
+  --ring: #2d2520;
+  --brand-text: #2d2520;
   color-scheme: light;
+}
+
+[data-theme] {
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 @theme inline {
@@ -161,6 +160,7 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -172,18 +172,27 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 4px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
   --color-border-strong: var(--border-strong);
   --color-brand-text: var(--brand-text);
   --color-brand: var(--brand);
+  --color-cream: #f2eee3;
+  --color-espresso: #2d2520;
+  --color-crema: #e2c275;
+  --color-toast: #c6a55c;
+  --color-mocha: #725c4c;
+  --color-roast: #4f3e33;
+  --color-foam: #ffe7b3;
+  /* Motion: one strong ease-out for entrances, one for state changes, one spring-ish overshoot. */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-spring: cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
 @layer base {
@@ -196,16 +205,48 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-padding-top: 6rem;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-background text-foreground flex flex-col;
+    @apply bg-background text-foreground flex flex-col font-sans;
     min-height: 100vh;
     min-height: 100dvh;
-    font-feature-settings: 'ss01', 'cv11';
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    font-kerning: normal;
+  }
+  html {
+    accent-color: var(--primary);
+    caret-color: var(--foreground);
+    scrollbar-color: color-mix(in srgb, var(--foreground) 35%, transparent) var(--background);
+  }
+  a {
+    text-underline-offset: 0.2em;
+  }
+  /* Controls fire on tap without the double-tap wait, and a long press doesn't select their label. */
+  a,
+  button,
+  summary,
+  [role='button'],
+  [role='radio'] {
+    touch-action: manipulation;
+  }
+  button,
+  summary,
+  [role='button'],
+  [role='radio'],
+  [data-slot='button'] {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  input,
+  textarea,
+  select {
+    font-size: max(16px, 1em);
   }
   ::selection {
-    background: var(--primary);
-    color: var(--primary-foreground);
+    background: var(--brand);
+    color: #2d2520;
   }
   :focus-visible {
     outline: 2px solid var(--ring);
@@ -222,97 +263,99 @@
   }
 }
 
-/* Type scale: fluid, on a 4px rhythm. One scale for the whole site. */
+/*
+ * Type scale. One family (Barlow, the face of the logo's wordmark), five sizes:
+ * monument, h1/h2, h3, body (17px), small (14px). Lead is body set larger.
+ */
 @layer components {
   .text-display,
+  .text-monument,
   .text-h1,
   .text-h2,
   .text-h3 {
     font-family: var(--font-display);
+    font-feature-settings: 'kern';
+  }
+  .text-monument {
+    font-size: clamp(4.5rem, 1rem + 15.2vw, 15.5rem);
+    line-height: 0.82;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    text-transform: uppercase;
   }
   .text-display {
-    font-size: clamp(2.75rem, 1.6rem + 5.2vw, 6.5rem);
-    line-height: 0.96;
-    letter-spacing: -0.045em;
-    font-weight: 600;
+    font-size: clamp(3rem, 1.2rem + 6vw, 6rem);
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+    font-weight: 700;
   }
   .text-h1 {
-    font-size: clamp(2.25rem, 1.6rem + 3vw, 4.25rem);
-    line-height: 1.02;
-    letter-spacing: -0.04em;
-    font-weight: 600;
+    font-size: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    font-weight: 700;
   }
   .text-h2 {
-    font-size: clamp(1.875rem, 1.4rem + 2vw, 3.25rem);
-    line-height: 1.06;
-    letter-spacing: -0.035em;
-    font-weight: 600;
+    font-size: clamp(2rem, 1.4rem + 2.4vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    font-weight: 700;
   }
   .text-h3 {
-    font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
-    line-height: 1.25;
-    letter-spacing: -0.02em;
+    font-size: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
     font-weight: 600;
   }
   .text-lead {
-    font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.3125rem);
-    line-height: 1.6;
-    color: var(--muted-foreground);
+    font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
+    line-height: 1.5;
+    color: var(--foreground);
   }
+  /* A quiet label: sentence case, readable size, no tracking tricks. */
   .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    line-height: 1rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
     color: var(--muted-foreground);
   }
   .tabular {
     font-variant-numeric: tabular-nums;
   }
 
-  /* Subtle technical grid that fades out toward the edges. */
-  .bg-grid {
-    background-image:
-      linear-gradient(var(--grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
-  }
-
   .surface {
     background: var(--card);
-    border: 1px solid var(--border);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-card);
   }
 }
 
 /* ----- Motion ----- */
+/*
+ * Entrances use transform and opacity only, with a strong ease-out so they feel quick.
+ * Everything here collapses to an instant change under prefers-reduced-motion.
+ */
 
-/* Hero headline: words rise in on load. Pure CSS, so it never blocks rendering. */
+/* The monument wordmark: each word rises in on load. Pure CSS, never blocks rendering. */
 @keyframes word-rise {
   from {
     opacity: 0;
-    transform: translateY(0.35em);
-    filter: blur(6px);
+    transform: translateY(0.25em);
   }
   to {
     opacity: 1;
     transform: none;
-    filter: none;
   }
 }
 .word-rise > span {
   display: inline-block;
   animation: word-rise 900ms var(--ease-out-expo) both;
-  animation-delay: calc(var(--i, 0) * 70ms + 80ms);
+  animation-delay: calc(var(--i, 0) * 80ms + 60ms);
 }
 
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -324,19 +367,67 @@
   animation-delay: var(--delay, 0ms);
 }
 
+/* The pug settles onto the wordmark with a small, springy drop. */
+@keyframes pug-land {
+  0% {
+    opacity: 0;
+    transform: translateY(-18%) scale(0.96);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+.pug-land {
+  animation: pug-land 1100ms var(--ease-spring) 280ms both;
+  transform-origin: 50% 100%;
+}
+
+/* Idle: a slow breath, so the mascot feels alive without asking for attention. */
+@keyframes pug-breathe {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.012, 0.992);
+  }
+}
+.pug-breathe {
+  animation: pug-breathe 5.5s ease-in-out 1.6s infinite;
+  transform-origin: 50% 100%;
+}
+.pug-sit {
+  animation: fade-up 900ms var(--ease-out-expo) 200ms both;
+}
+
 /*
  * Scroll reveal. Content is only hidden when JS has run (html.js), so the page is
  * fully readable without JavaScript and in crawlers.
  */
-html.js [data-reveal] {
+html.js [data-reveal=''],
+html.js [data-reveal='stagger'] > * {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(20px);
   transition:
     opacity 700ms var(--ease-out-expo),
-    transform 700ms var(--ease-out-expo);
+    transform 800ms var(--ease-out-expo);
   transition-delay: var(--delay, 0ms);
 }
-html.js [data-reveal][data-visible='true'] {
+html.js [data-reveal='stagger'] > :nth-child(2) {
+  transition-delay: calc(var(--delay, 0ms) + 80ms);
+}
+html.js [data-reveal='stagger'] > :nth-child(3) {
+  transition-delay: calc(var(--delay, 0ms) + 160ms);
+}
+html.js [data-reveal='stagger'] > :nth-child(n + 4) {
+  transition-delay: calc(var(--delay, 0ms) + 240ms);
+}
+html.js [data-reveal=''][data-visible='true'],
+html.js [data-reveal='stagger'][data-visible='true'] > * {
   opacity: 1;
   transform: none;
 }
@@ -362,12 +453,69 @@ details.faq[open]::details-content {
   *::after {
     animation-duration: 1ms !important;
     animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;
     transition-delay: 0ms !important;
     scroll-behavior: auto !important;
   }
-  html.js [data-reveal] {
+  html.js [data-reveal=''],
+  html.js [data-reveal='stagger'] > * {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Steam over the process cup: three wisps rising out of phase. */
+@keyframes steam {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  40% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+}
+.cup-steam {
+  transition: opacity 600ms ease;
+}
+.cup-steam path {
+  animation: steam 3.2s ease-out infinite;
+}
+.cup-steam path:nth-child(2) {
+  animation-delay: 1s;
+}
+.cup-steam path:nth-child(3) {
+  animation-delay: 2s;
+}
+
+/* Price brewer: the new figure settles in each time a service is chosen. */
+@keyframes brew-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.12em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.brew-in {
+  animation: brew-in 320ms var(--ease-out-expo) both;
+  animation-delay: calc(var(--d, 0ms) * 0.6);
+}
+[data-instant] .brew-in {
+  animation: none;
+}
+
+/* Higher contrast when asked for: secondary text moves to full ink, lines get stronger. */
+@media (prefers-contrast: more) {
+  :root,
+  [data-theme] {
+    --muted-foreground: var(--foreground);
+    --border: var(--border-strong);
   }
 }

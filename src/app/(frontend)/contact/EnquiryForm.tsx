@@ -1,5 +1,6 @@
 'use client'
 
+import { ArrowRight } from 'lucide-react'
 import React, { useActionState, useEffect, useRef, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -98,7 +99,7 @@ export const EnquiryForm: React.FC<{
   if (state.status === 'success') {
     return (
       <div
-        className="fade-up rounded-2xl border border-border bg-card p-8 outline-none md:p-12"
+        className="fade-up rounded-[var(--radius-xl)] bg-card p-8 outline-none md:p-12"
         ref={statusRef}
         role="status"
         tabIndex={-1}
@@ -257,7 +258,7 @@ export const EnquiryForm: React.FC<{
             </>
           ) : (
             <>
-              Send enquiry <span aria-hidden>→</span>
+              Send enquiry <ArrowRight aria-hidden className="size-[1.05em]" strokeWidth={2.25} />
             </>
           )}
         </Button>

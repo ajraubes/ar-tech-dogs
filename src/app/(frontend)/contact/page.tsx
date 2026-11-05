@@ -42,7 +42,7 @@ export default async function ContactPage({ searchParams }: Args) {
               options={{ ...enquiryOptions, services: serviceOptions }}
             />
           </div>
-          <aside className="space-y-10 lg:col-span-4 lg:col-start-9">
+          <div className="space-y-8 lg:sticky lg:top-28 lg:col-span-4 lg:col-start-9 lg:self-start">
             {contact?.bookingUrl && (
               <div className="rounded-[var(--radius-xl)] bg-card p-7">
                 <h2 className="text-lg font-semibold tracking-tight">Prefer to talk first?</h2>
@@ -57,67 +57,85 @@ export default async function ContactPage({ searchParams }: Args) {
                 </Button>
               </div>
             )}
-            <dl className="space-y-6 text-[0.9375rem]">
-              {contact?.email && (
-                <div>
-                  <dt className="eyebrow">Email</dt>
-                  <dd className="mt-2">
-                    <a
-                      className="inline-flex min-h-11 items-center hover:text-brand-text"
-                      href={`mailto:${contact.email}`}
+            {/* The direct line first, set large: plenty of people would rather just email. */}
+            <div className="rounded-[var(--radius-xl)] p-7 md:p-8" data-theme="dark">
+              <h2 className="text-lg font-semibold">Rather write directly?</h2>
+              <dl className="mt-5 space-y-5">
+                {contact?.email && (
+                  <div>
+                    <dt className="sr-only">Email</dt>
+                    <dd>
+                      <a
+                        className="inline-flex min-h-11 items-center break-all text-[clamp(1.375rem,1.2rem+0.6vw,1.75rem)] font-bold tracking-[-0.015em] text-brand-text underline decoration-transparent underline-offset-[0.18em] transition-[text-decoration-color] duration-200 hover:decoration-current"
+                        href={`mailto:${contact.email}`}
+                      >
+                        {contact.email}
+                      </a>
+                    </dd>
+                  </div>
+                )}
+                {contact?.whatsapp && (
+                  <div>
+                    <dt className="eyebrow">WhatsApp</dt>
+                    <dd className="mt-1">
+                      <a
+                        className="inline-flex min-h-11 items-center gap-1 font-semibold hover:text-brand-text"
+                        href={`https://wa.me/${contact.whatsapp.replace(/\D/g, '')}`}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Message us on WhatsApp
+                        <ArrowUpRight aria-hidden className="size-[1.05em]" strokeWidth={2.25} />
+                      </a>
+                    </dd>
+                  </div>
+                )}
+                {contact?.phone && (
+                  <div>
+                    <dt className="eyebrow">Phone</dt>
+                    <dd className="mt-1">
+                      <a
+                        className="inline-flex min-h-11 items-center font-semibold hover:text-brand-text"
+                        href={`tel:${contact.phone.replace(/\s/g, '')}`}
+                      >
+                        {contact.phone}
+                      </a>
+                    </dd>
+                  </div>
+                )}
+                {contact?.location && (
+                  <div>
+                    <dt className="eyebrow">Where we are</dt>
+                    <dd className="mt-1 text-lg">{contact.location}</dd>
+                  </div>
+                )}
+              </dl>
+            </div>
+
+            <div>
+              <h2 className="text-lg font-semibold">What happens next</h2>
+              <ol className="mt-4 grid gap-3">
+                {[
+                  'We review your enquiry personally.',
+                  'We reply with questions or a short call to scope it.',
+                  'You receive a clear proposal with fixed milestones.',
+                ].map((step, i) => (
+                  <li
+                    className="flex items-start gap-4 rounded-[var(--radius-lg)] bg-card p-4"
+                    key={step}
+                  >
+                    <span
+                      aria-hidden
+                      className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground tabular"
                     >
-                      {contact.email}
-                    </a>
-                  </dd>
-                </div>
-              )}
-              {contact?.whatsapp && (
-                <div>
-                  <dt className="eyebrow">WhatsApp</dt>
-                  <dd className="mt-2">
-                    <a
-                      className="inline-flex min-h-11 items-center hover:text-brand-text"
-                      href={`https://wa.me/${contact.whatsapp.replace(/\D/g, '')}`}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      Message us on WhatsApp{' '}
-                      <ArrowUpRight aria-hidden className="size-[1.05em]" strokeWidth={2.25} />
-                    </a>
-                  </dd>
-                </div>
-              )}
-              {contact?.phone && (
-                <div>
-                  <dt className="eyebrow">Phone</dt>
-                  <dd className="mt-2">
-                    <a
-                      className="inline-flex min-h-11 items-center hover:text-brand-text"
-                      href={`tel:${contact.phone.replace(/\s/g, '')}`}
-                    >
-                      {contact.phone}
-                    </a>
-                  </dd>
-                </div>
-              )}
-              {contact?.location && (
-                <div>
-                  <dt className="eyebrow">Location</dt>
-                  <dd className="mt-2">{contact.location}</dd>
-                </div>
-              )}
-              <div>
-                <dt className="eyebrow">What happens next</dt>
-                <dd className="mt-3">
-                  <ol className="space-y-3 text-muted-foreground">
-                    <li>1. We review your enquiry personally.</li>
-                    <li>2. We reply with questions or a short call to scope it.</li>
-                    <li>3. You receive a clear proposal with fixed milestones.</li>
-                  </ol>
-                </dd>
-              </div>
-            </dl>
-          </aside>
+                      {i + 1}
+                    </span>
+                    <span className="pt-1 leading-snug">{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
         </div>
       </section>
     </>

@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import localFont from 'next/font/local'
+import Script from 'next/script'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
@@ -48,9 +49,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     >
       <head>
         {/* Lets CSS hide scroll-reveal content only when JS can reveal it again. */}
-        <script
-          dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }}
-        />
+        <Script id="js-class" strategy="beforeInteractive">
+          {"document.documentElement.classList.add('js')"}
+        </Script>
         <link href="/favicon.ico" rel="icon" sizes="16x16 32x32 48x48" />
         <link href="/favicon-64.png" rel="icon" sizes="64x64" type="image/png" />
         <link href="/apple-touch-icon.png" rel="apple-touch-icon" />

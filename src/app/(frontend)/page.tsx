@@ -108,7 +108,8 @@ export default async function HomePage() {
         subheading={home?.heroSubheading}
       />
 
-      {/* What we build: six tiles, each with its published starting price. The tile is the link. */}
+      {/* What we build: read like a café menu board. Name, what it is, and the published
+          starting price on one line; the whole row is the link. */}
       {services.length > 0 && (
         <Section aria-labelledby="services-title" className="pt-8 md:pt-12">
           <div className="container">
@@ -117,28 +118,30 @@ export default async function HomePage() {
               lead="From a focused landing page to an enterprise Shopify Plus platform, with support that continues after launch."
               title="What we build"
             />
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="overflow-hidden rounded-[var(--radius-xl)] bg-background">
               {services.map((s, i) => {
                 const price = fromBy.get(s.id)
                 return (
-                  <Reveal as="li" className="h-full" delay={(i % 3) * 70} key={s.id}>
+                  <Reveal as="li" className="mt-1 first:mt-0" delay={i * 50} key={s.id}>
                     <Link
-                      className="group flex h-full flex-col rounded-[var(--radius-xl)] bg-card p-7 transition-[background-color,transform,box-shadow] duration-300 ease-[var(--ease-out-quart)] hover:-translate-y-1 hover:bg-popover hover:shadow-[var(--shadow-float)] active:scale-[0.99] md:p-8"
+                      className="group grid items-center gap-x-10 gap-y-2 bg-card px-6 py-7 transition-colors duration-300 ease-[var(--ease-out-quart)] hover:bg-popover active:bg-secondary md:px-10 md:py-9 lg:grid-cols-12"
                       href={`/solutions/${s.slug}`}
                     >
-                      <h3 className="text-h3">{s.title}</h3>
-                      <p className="mt-3 flex-1 leading-relaxed text-muted-foreground">
+                      <h3 className="text-[clamp(1.5rem,1.2rem+1.1vw,2.25rem)] font-bold leading-[1.05] tracking-[-0.02em] lg:col-span-5">
+                        {s.title}
+                      </h3>
+                      <p className="max-w-[46ch] leading-relaxed text-muted-foreground lg:col-span-4">
                         {s.summary}
                       </p>
-                      <p className="mt-8 flex items-center justify-between gap-4 text-[0.9375rem] font-semibold">
-                        <span>
+                      <p className="mt-3 flex items-center justify-between gap-4 lg:col-span-3 lg:mt-0 lg:justify-end">
+                        <span className="text-lg font-semibold tabular">
                           {price
                             ? `From ${price.from}${price.monthly ? ' a month' : ''}`
                             : 'Custom quote'}
                         </span>
                         <span
                           aria-hidden
-                          className="flex size-10 items-center justify-center rounded-full bg-background transition-[background-color,color,transform] duration-300 ease-[var(--ease-out-quart)] group-hover:translate-x-0.5 group-hover:bg-primary group-hover:text-primary-foreground"
+                          className="flex size-11 shrink-0 items-center justify-center rounded-full bg-background transition-[background-color,color,transform] duration-300 ease-[var(--ease-out-quart)] group-hover:translate-x-1 group-hover:bg-primary group-hover:text-primary-foreground"
                         >
                           <ArrowRight className="size-[1.05em]" strokeWidth={2.25} />
                         </span>
@@ -186,21 +189,19 @@ export default async function HomePage() {
               )}
             </div>
             {(company?.differentiators?.length ?? 0) > 0 && (
-              <dl className="grid gap-3 self-start lg:col-span-6">
+              <ul className="grid gap-x-10 gap-y-9 self-start sm:grid-cols-2 lg:col-span-6 lg:pt-3">
                 {company.differentiators!.map((d, i) => (
-                  <Reveal
-                    className="flex gap-4 rounded-[var(--radius-xl)] bg-background p-6"
-                    delay={i * 60}
-                    key={d.title}
-                  >
+                  <Reveal as="li" className="flex gap-4" delay={(i % 2) * 60} key={d.title}>
                     <Bean className="mt-1 size-5 shrink-0 text-roast" />
                     <div>
-                      <dt className="font-semibold">{d.title}</dt>
-                      <dd className="mt-1 text-muted-foreground">{d.description}</dd>
+                      <h3 className="text-lg font-semibold leading-snug">{d.title}</h3>
+                      <p className="mt-1.5 leading-relaxed text-muted-foreground">
+                        {d.description}
+                      </p>
                     </div>
                   </Reveal>
                 ))}
-              </dl>
+              </ul>
             )}
           </div>
         </Section>

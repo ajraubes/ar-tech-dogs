@@ -139,6 +139,21 @@ export const getCompany = cached('global_company', async (): Promise<Company> =>
   (await payload()).findGlobal({ slug: 'company', depth: 0 }),
 )
 
+/** How many insights are published. The footer only links to Insights once there is one to read. */
+export const getPublishedPostCount = unstable_cache(
+  async (): Promise<number> => {
+    const { totalDocs } = await (
+      await payload()
+    ).count({
+      collection: 'posts',
+      where: { _status: { equals: 'published' } },
+    })
+    return totalDocs
+  },
+  ['posts-count'],
+  { tags: ['posts-sitemap'], revalidate: 3600 },
+)
+
 /** Text-list fields are stored as `{ value }[]`. */
 export const values = (list?: { value: string }[] | null) =>
   (list ?? []).map((i) => i.value).filter(Boolean)

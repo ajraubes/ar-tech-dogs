@@ -6,7 +6,7 @@ const notify: CollectionAfterChangeHook = async ({ doc, operation, req }) => {
   if (operation !== 'create') return doc
   try {
     const settings = await req.payload.findGlobal({ slug: 'site-settings', depth: 0, req })
-    const to = settings?.contact?.notificationEmail
+    const to = settings?.contact?.notificationEmail || settings?.contact?.email
     if (!to) return doc
     const lines = [
       ['Name', doc.name],

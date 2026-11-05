@@ -62,7 +62,7 @@ export default async function ContactPage({ searchParams }: Args) {
                   <dt className="eyebrow">Email</dt>
                   <dd className="mt-2">
                     <a
-                      className="inline-flex min-h-11 items-center hover:text-primary"
+                      className="inline-flex min-h-11 items-center hover:text-brand-text"
                       href={`mailto:${contact.email}`}
                     >
                       {contact.email}
@@ -75,7 +75,7 @@ export default async function ContactPage({ searchParams }: Args) {
                   <dt className="eyebrow">WhatsApp</dt>
                   <dd className="mt-2">
                     <a
-                      className="inline-flex min-h-11 items-center hover:text-primary"
+                      className="inline-flex min-h-11 items-center hover:text-brand-text"
                       href={`https://wa.me/${contact.whatsapp.replace(/\D/g, '')}`}
                       rel="noopener noreferrer"
                       target="_blank"
@@ -90,7 +90,7 @@ export default async function ContactPage({ searchParams }: Args) {
                   <dt className="eyebrow">Phone</dt>
                   <dd className="mt-2">
                     <a
-                      className="inline-flex min-h-11 items-center hover:text-primary"
+                      className="inline-flex min-h-11 items-center hover:text-brand-text"
                       href={`tel:${contact.phone.replace(/\s/g, '')}`}
                     >
                       {contact.phone}

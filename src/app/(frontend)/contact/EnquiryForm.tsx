@@ -103,7 +103,7 @@ export const EnquiryForm: React.FC<{
         role="status"
         tabIndex={-1}
       >
-        <span className="flex size-12 items-center justify-center rounded-full bg-primary/15 text-primary">
+        <span className="flex size-12 items-center justify-center rounded-full bg-primary/15 text-brand-text">
           <svg aria-hidden className="size-6" fill="none" viewBox="0 0 24 24">
             <path
               d="m5 12.5 4.5 4.5L19 7.5"

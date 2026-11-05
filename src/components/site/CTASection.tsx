@@ -21,7 +21,7 @@ export const CTASection: React.FC<{
         <div aria-hidden className="bg-grid pointer-events-none absolute inset-0 opacity-70" />
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-primary/15 blur-3xl"
+          className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-brand to-transparent"
         />
         <div className="relative max-w-2xl">
           <h2 className="text-h2">{title || 'Have a project in mind?'}</h2>

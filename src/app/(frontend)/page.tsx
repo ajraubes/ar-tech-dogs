@@ -204,7 +204,7 @@ export default async function HomePage() {
                       {monthly && <span className="text-xs text-muted-foreground">/mo</span>}
                       <span
                         aria-hidden
-                        className="ml-2 text-primary transition-transform duration-300 group-hover:translate-x-1"
+                        className="ml-2 text-brand-text transition-transform duration-300 group-hover:translate-x-1"
                       >
                         →
                       </span>

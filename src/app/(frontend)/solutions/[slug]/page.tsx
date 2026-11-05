@@ -26,6 +26,8 @@ import { getServerSideURL } from '@/utilities/getURL'
 type Args = { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
+  // Pages render on first request, so the Docker build never needs the database.
+  if (process.env.NEXT_PHASE === 'phase-production-build') return []
   const services = await getServices()
   return services.filter((s) => s.slug).map((s) => ({ slug: s.slug! }))
 }
@@ -234,7 +236,7 @@ export default async function ServicePage({ params }: Args) {
                     <span className="font-medium">{s.title}</span>
                     <span
                       aria-hidden
-                      className="text-primary transition-transform group-hover:translate-x-1"
+                      className="text-brand-text transition-transform group-hover:translate-x-1"
                     >
                       →
                     </span>

@@ -11,7 +11,7 @@ export const FAQ: React.FC<{ items: { question: string; answer: string }[] }> = 
             {item.question}
             <span
               aria-hidden
-              className="relative size-5 shrink-0 text-muted-foreground transition-transform duration-300 ease-[var(--ease-out-expo)] group-open:rotate-45 group-open:text-primary"
+              className="relative size-5 shrink-0 text-muted-foreground transition-transform duration-300 ease-[var(--ease-out-expo)] group-open:rotate-45 group-open:text-brand-text"
             >
               <span className="absolute left-1/2 top-0 h-full w-[1.5px] -translate-x-1/2 bg-current" />
               <span className="absolute left-0 top-1/2 h-[1.5px] w-full -translate-y-1/2 bg-current" />

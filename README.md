@@ -10,18 +10,22 @@ The AR Tech Dogs agency website: Next.js 16, React 19, Tailwind CSS 4 and Payloa
 cp .env.example .env          # set DATABASE_URL and PAYLOAD_SECRET
 docker compose up -d postgres # or use any PostgreSQL 16 database
 pnpm install
+pnpm seed                     # run migrations and load the starting content from the project plan
 pnpm dev                      # http://localhost:3000, admin at /admin
-pnpm seed                     # load the starting content from the project plan
 ```
 
 Create the first admin user at `/admin`. You can also load the content from the admin dashboard with the **Seed** button.
 
+`pnpm seed` runs in production mode on purpose. Seeding in development mode would mark the database as "dev-pushed", and a production server would then stop at startup waiting for a yes/no answer about data loss.
+
 ## Production
 
 ```bash
-pnpm ci      # = pnpm migrate && pnpm build
-pnpm start
+pnpm build   # needs no database connection
+pnpm start   # applies any pending migrations, then serves
 ```
+
+Pending migrations run when the server starts, so a build never touches the database. Pages render on request and are cached until content changes in Payload. See [docs/DEPLOY_DOKPLOY.md](docs/DEPLOY_DOKPLOY.md) to deploy with Docker on Dokploy.
 
 `pnpm migrate` applies the committed migrations in `src/migrations`. Development mode pushes schema changes automatically; after changing a collection, create a migration with `pnpm payload migrate:create <name>` and commit it.
 
@@ -60,8 +64,9 @@ Starting content lives in `src/content/seedData.ts`. After seeding, Payload is t
 
 Tokens live in `src/app/(frontend)/globals.css`:
 
-- **Colour:** charcoal `#0e0e11` default surface, warm white `#f6f3ee` for light sections (`data-theme="light"` on any element), electric orange `#ff6a1f` accent. Text on orange is always charcoal for contrast.
-- **Type:** Geist Sans and Geist Mono. One fluid scale: `.text-display`, `.text-h1`, `.text-h2`, `.text-h3`, `.text-lead`, `.eyebrow`.
+- **Colour:** matched to the logo. Deep navy `#070c14` default surface, cool off-white `#f4f7fb` for light sections (`data-theme="light"` on any element), logo blue `#008efa` for marks and accents, and a deeper button blue `#0b6fe0` so white button text passes WCAG AA.
+- **Logo:** `public/brand/mark-tile.png` (app-icon mark, also the favicon source) and `public/brand/logo-light.png` (full lockup for light backgrounds), cut from the brand artwork. Replace them with vector exports from the designer when available.
+- **Type:** Lexend for headings, Lexend Exa for the wordmark, Geist Sans for body text and Geist Mono for labels. Lexend fonts are self-hosted in `src/fonts`. One fluid scale: `.text-display`, `.text-h1`, `.text-h2`, `.text-h3`, `.text-lead`, `.eyebrow`.
 - **Spacing:** 4px grid; sections are `py-24 md:py-32`.
 - **Motion:** CSS only, with `cubic-bezier(0.16, 1, 0.3, 1)` easing. Scroll reveals (`<Reveal>`) are hidden only when JavaScript runs, and everything respects `prefers-reduced-motion`.
 

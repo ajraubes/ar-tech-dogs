@@ -23,7 +23,7 @@ const Price = ({ pkg }: { pkg: Package }) => {
       <p className="mt-1 flex items-baseline gap-2">
         <span className="text-h2 tabular">
           {formatPrice(pkg.price)}
-          {pkg.orMore && <span className="text-primary">+</span>}
+          {pkg.orMore && <span className="text-brand-text">+</span>}
         </span>
         <span className="text-sm text-muted-foreground">{billingLabel[pkg.billing]}</span>
       </p>
@@ -81,7 +81,7 @@ export const PackageGrid: React.FC<{
                   <li className="flex gap-3" key={f}>
                     <svg
                       aria-hidden
-                      className="mt-1 size-4 shrink-0 text-primary"
+                      className="mt-1 size-4 shrink-0 text-brand-text"
                       fill="none"
                       viewBox="0 0 16 16"
                     >

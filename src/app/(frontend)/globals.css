@@ -45,6 +45,8 @@
   --breakpoint-2xl: 96rem;
   --font-mono: var(--font-geist-mono);
   --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-lexend), var(--font-geist-sans);
+  --font-wordmark: var(--font-lexend-exa), var(--font-geist-sans);
 }
 
 @layer utilities {
@@ -87,64 +89,66 @@
 }
 
 /*
- * AR Tech Dogs design tokens.
- * Dark charcoal is the default surface. Warm-white sections opt in with data-theme="light".
- * Accent is electric orange; text on orange is always charcoal (white on orange fails contrast).
+ * AR Tech Dogs design tokens, matched to the logo.
+ * Deep navy is the default surface. Cool off-white sections opt in with data-theme="light".
+ * Brand blue #008efa is for marks and accents; buttons use a deeper blue so white
+ * button text passes WCAG AA (4.8:1).
  */
 :root,
 [data-theme='dark'] {
-  --background: oklch(15.5% 0.004 286deg); /* #0e0e11 charcoal */
-  --foreground: oklch(96% 0.008 80deg); /* #f5f2ec warm off-white */
-  --card: oklch(19.5% 0.005 286deg); /* #17171b */
+  --background: #070c14; /* deep navy */
+  --foreground: #f2f5f9;
+  --card: #0d1420;
   --card-foreground: var(--foreground);
-  --popover: oklch(19.5% 0.005 286deg);
+  --popover: #0d1420;
   --popover-foreground: var(--foreground);
-  --primary: oklch(69% 0.2 42deg); /* #ff6a1f electric orange */
-  --primary-foreground: oklch(15.5% 0.004 286deg);
-  --secondary: oklch(23% 0.005 286deg); /* dark grey */
+  --primary: #0b6fe0; /* button blue, 4.8:1 with white */
+  --primary-foreground: #ffffff;
+  --secondary: #131c2a;
   --secondary-foreground: var(--foreground);
-  --muted: oklch(23% 0.005 286deg);
-  --muted-foreground: oklch(72% 0.008 80deg); /* 7.9:1 on background */
-  --accent: oklch(25% 0.006 286deg);
+  --muted: #131c2a;
+  --muted-foreground: #9aa6b8; /* 7.9:1 on background */
+  --accent: #162030;
   --accent-foreground: var(--foreground);
   --destructive: oklch(63% 0.21 25deg);
-  --destructive-foreground: oklch(70% 0.19 25deg);
-  --border: oklch(100% 0 0deg / 9%);
-  --border-strong: oklch(100% 0 0deg / 16%);
-  --input: oklch(100% 0 0deg / 14%);
-  --ring: oklch(69% 0.2 42deg);
-  --brand-text: oklch(72% 0.18 45deg); /* orange for small text on dark */
+  --destructive-foreground: oklch(72% 0.17 25deg);
+  --border: rgb(255 255 255 / 8%);
+  --border-strong: rgb(255 255 255 / 15%);
+  --input: rgb(255 255 255 / 13%);
+  --ring: #2a9dff;
+  --brand: #008efa; /* logo blue */
+  --brand-text: #2a9dff; /* blue for small text on navy, 6.9:1 */
   --radius: 0.75rem;
   --success: oklch(72% 0.15 155deg);
   --warning: oklch(80% 0.14 80deg);
   --error: oklch(65% 0.2 25deg);
-  --shadow-card: 0 1px 0 0 oklch(100% 0 0deg / 4%) inset, 0 24px 48px -24px oklch(0% 0 0deg / 60%);
-  --grid-line: oklch(100% 0 0deg / 5%);
+  --shadow-card: 0 1px 0 0 rgb(255 255 255 / 4%) inset, 0 24px 48px -24px rgb(0 0 0 / 70%);
+  --grid-line: rgb(120 170 255 / 6%);
   color-scheme: dark;
 }
 
 [data-theme='light'] {
-  --background: oklch(96.5% 0.008 80deg); /* #f6f3ee warm white */
-  --foreground: oklch(17% 0.005 286deg);
-  --card: oklch(99% 0.004 80deg);
+  --background: #f4f7fb; /* cool off-white, as on the letterhead */
+  --foreground: #0a1220;
+  --card: #ffffff;
   --card-foreground: var(--foreground);
-  --popover: oklch(99% 0.004 80deg);
+  --popover: #ffffff;
   --popover-foreground: var(--foreground);
-  --primary: oklch(69% 0.2 42deg);
-  --primary-foreground: oklch(15.5% 0.004 286deg);
-  --secondary: oklch(92% 0.008 80deg);
+  --primary: #0b6fe0;
+  --primary-foreground: #ffffff;
+  --secondary: #e8eef6;
   --secondary-foreground: var(--foreground);
-  --muted: oklch(92% 0.008 80deg);
-  --muted-foreground: oklch(42% 0.008 286deg); /* 8.6:1 on background */
-  --accent: oklch(92% 0.008 80deg);
+  --muted: #e8eef6;
+  --muted-foreground: #4a5568; /* 7:1 on background */
+  --accent: #e8eef6;
   --accent-foreground: var(--foreground);
-  --border: oklch(0% 0 0deg / 9%);
-  --border-strong: oklch(0% 0 0deg / 16%);
-  --input: oklch(0% 0 0deg / 16%);
-  --ring: oklch(58% 0.19 42deg);
-  --brand-text: oklch(52% 0.17 40deg); /* darker orange: 5:1 on warm white */
-  --shadow-card: 0 1px 2px oklch(0% 0 0deg / 4%), 0 16px 32px -20px oklch(0% 0 0deg / 18%);
-  --grid-line: oklch(0% 0 0deg / 5%);
+  --border: rgb(10 18 32 / 9%);
+  --border-strong: rgb(10 18 32 / 16%);
+  --input: rgb(10 18 32 / 16%);
+  --ring: #0068d6;
+  --brand-text: #0068d6; /* 5:1 on off-white */
+  --shadow-card: 0 1px 2px rgb(10 18 32 / 5%), 0 16px 32px -20px rgb(10 18 32 / 20%);
+  --grid-line: rgb(10 18 32 / 5%);
   color-scheme: light;
 }
 
@@ -177,6 +181,7 @@
   --color-error: var(--error);
   --color-border-strong: var(--border-strong);
   --color-brand-text: var(--brand-text);
+  --color-brand: var(--brand);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -219,6 +224,12 @@
 
 /* Type scale: fluid, on a 4px rhythm. One scale for the whole site. */
 @layer components {
+  .text-display,
+  .text-h1,
+  .text-h2,
+  .text-h3 {
+    font-family: var(--font-display);
+  }
   .text-display {
     font-size: clamp(2.75rem, 1.6rem + 5.2vw, 6.5rem);
     line-height: 0.96;

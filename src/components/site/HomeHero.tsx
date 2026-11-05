@@ -4,6 +4,8 @@ import React from 'react'
 
 import { Button } from '@/components/ui/button'
 import { PugTile } from './Coffee'
+import { HeroTilt } from './HeroTilt'
+import { SplitWords } from './SplitWords'
 
 const delay = (ms: number) => ({ '--delay': `${ms}ms` }) as React.CSSProperties
 
@@ -25,13 +27,18 @@ export const HomeHero: React.FC<{
       {/* On a phone the order is promise, pug, facts; on desktop the facts sit under the promise. */}
       <div className="lg:col-span-7 lg:row-start-1 lg:self-end">
         <h1
-          className="fade-up text-[clamp(2.75rem,1.4rem+4.2vw,4.75rem)] font-bold leading-[0.98] tracking-[-0.03em]"
+          className="text-[clamp(2.75rem,1.4rem+4.2vw,4.75rem)] font-bold leading-[0.98] tracking-[-0.03em]"
           id="home-title"
         >
           {/* "Digital experiences. Engineered to grow." breaks at the full stop, not mid-phrase. */}
-          {heading.split(/(?<=\.)\s+/).map((part, i) => (
+          {heading.split(/(?<=\.)\s+/).map((part, i, lines) => (
             <span className="block" key={i}>
-              {part}
+              <SplitWords
+                onLoad
+                start={lines.slice(0, i).join(' ').split(/\s+/).filter(Boolean).length}
+                step={70}
+                text={part}
+              />
             </span>
           ))}
         </h1>
@@ -59,19 +66,21 @@ export const HomeHero: React.FC<{
       </div>
 
       <div className="mx-auto w-full max-w-md lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1 lg:max-w-none">
-        <PugTile className="aspect-[4/4.6]" priority sizes="(min-width: 1024px) 34vw, 90vw">
-          {brands.length > 0 && (
-            <div
-              className="fade-up absolute inset-x-4 bottom-4 rounded-2xl bg-background/95 px-5 py-4 shadow-[var(--shadow-float)] md:inset-x-6 md:bottom-6"
-              style={delay(900)}
-            >
-              <p className="text-sm text-muted-foreground">
-                Before AR Tech Dogs, the founder built for
-              </p>
-              <p className="mt-1 font-semibold leading-snug">{brands.join(' · ')}</p>
-            </div>
-          )}
-        </PugTile>
+        <HeroTilt>
+          <PugTile className="aspect-[4/4.6]" priority sizes="(min-width: 1024px) 34vw, 90vw">
+            {brands.length > 0 && (
+              <div
+                className="fade-up absolute inset-x-4 bottom-4 rounded-2xl bg-background/95 px-5 py-4 shadow-[var(--shadow-float)] md:inset-x-6 md:bottom-6"
+                style={delay(900)}
+              >
+                <p className="text-sm text-muted-foreground">
+                  Before AR Tech Dogs, the founder built for
+                </p>
+                <p className="mt-1 font-semibold leading-snug">{brands.join(' · ')}</p>
+              </div>
+            )}
+          </PugTile>
+        </HeroTilt>
       </div>
 
       {facts.length > 0 && (

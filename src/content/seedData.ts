@@ -936,6 +936,161 @@ export const founder = {
   ],
 }
 
+/**
+ * The rest of the core team, shown after the founder on /meet-the-team.
+ * The bios and brands are placeholders written for layout: each person should confirm or
+ * replace their own before this is seeded on the live site.
+ */
+export const team = [
+  {
+    name: 'Ruan',
+    role: 'Partner & Senior Developer',
+    bio: 'Ruan is a partner in the studio and a senior full-stack developer. He leads backend architecture, integrations and infrastructure, and makes sure what we ship is fast, secure and easy to maintain.',
+    expertise: [
+      'Node.js & TypeScript',
+      'Next.js',
+      'Payload CMS',
+      'API & ERP integrations',
+      'PostgreSQL',
+      'AWS & DevOps',
+      'Shopify apps',
+    ],
+    experience: ['Takealot', 'Discovery', 'Vodacom', 'Mr Price'],
+  },
+  {
+    name: 'Zurika',
+    role: 'Head Designer and UI/UX Specialist',
+    bio: 'Zurika leads design, from brand direction and user research to the interface details that make a site easy to use. She designs in Figma alongside development, so what you approve is what gets built.',
+    expertise: [
+      'UI design',
+      'UX research & testing',
+      'Design systems',
+      'Figma prototyping',
+      'eCommerce UX',
+      'Accessibility',
+    ],
+    experience: ['Woolworths', 'Truworths', 'Cotton On', 'Sorbet'],
+  },
+  {
+    name: 'Danika',
+    role: 'Head of Marketing',
+    bio: 'Danika leads marketing at AR Tech Dogs: positioning, launch campaigns and the SEO and analytics work that keeps a new site growing after it goes live.',
+    expertise: [
+      'Brand positioning',
+      'Campaign strategy',
+      'SEO & content',
+      'Email & Klaviyo',
+      'Paid social',
+      'Analytics & reporting',
+    ],
+    experience: ['Clicks', 'Spur', 'Nando’s', 'Dis-Chem'],
+  },
+]
+
+/**
+ * Sample case studies so the Our Work layout can be checked with content in it. The
+ * clients are fictional and every one is created as a draft: preview it in the admin, then
+ * replace it with real work or delete it. Never publish these as they are.
+ */
+export const sampleProjects = [
+  {
+    title: 'A faster flagship store for a coffee roaster',
+    slug: 'sample-coffee-roaster-shopify',
+    client: 'Kettle & Crema (sample)',
+    industry: 'Food & drink',
+    category: 'shopify' as const,
+    summary:
+      'A new Shopify theme, subscriptions and a wholesale portal for a specialty roaster outgrowing its first store.',
+    challenge:
+      'The roaster sold beans, gear and subscriptions from a heavily customised free theme. Pages were slow on mobile, subscriptions were managed by hand, and café customers ordered wholesale by email.',
+    solution:
+      'We built a custom Online Store 2.0 theme with sections the team can rearrange themselves, moved subscriptions onto a native app with a pause and skip flow, and added a wholesale price list behind a customer login.',
+    technologies: ['Shopify', 'Liquid', 'Online Store 2.0', 'Recharge', 'Klaviyo'],
+    features: [
+      'Grind and roast selector on every coffee',
+      'Self-serve subscriptions with pause and skip',
+      'Wholesale pricing for approved cafés',
+      'Brew guides linked to products',
+    ],
+    results: ['[Sample result: replace with a measured, verifiable figure]'],
+    liveUrl: 'https://example.com',
+    attribution: 'Sample project for layout preview',
+    featured: true,
+  },
+  {
+    title: 'Booking and member portal for a climbing gym',
+    slug: 'sample-climbing-gym-platform',
+    client: 'Crux Collective (sample)',
+    industry: 'Fitness',
+    category: 'custom' as const,
+    summary:
+      'A custom Next.js site with class booking, memberships and waivers, managed from Payload CMS.',
+    challenge:
+      'Three different tools handled bookings, memberships and waivers, and none of them talked to each other. Staff re-typed details at the front desk every day.',
+    solution:
+      'One Next.js application now handles timetables, bookings, recurring memberships and digital waivers, with Payload CMS for the team and a Postgres database behind it.',
+    technologies: ['Next.js', 'Payload CMS', 'PostgreSQL', 'Stripe', 'Tailwind CSS'],
+    features: [
+      'Live class timetable with capacity limits',
+      'Recurring memberships and day passes',
+      'Digital waivers signed before arrival',
+      'Front-desk check-in view',
+    ],
+    results: ['[Sample result: replace with a measured, verifiable figure]'],
+    liveUrl: 'https://example.com',
+    attribution: 'Sample project for layout preview',
+    featured: true,
+  },
+  {
+    title: 'Headless storefront for an outdoor gear brand',
+    slug: 'sample-outdoor-gear-headless',
+    client: 'Ridgeline Outfitters (sample)',
+    industry: 'Retail',
+    category: 'ecommerce' as const,
+    summary:
+      'A headless storefront on Shopify Plus with a 6,000-product catalogue, size guides and an ERP stock sync.',
+    challenge:
+      'A large catalogue with deep variants was hard to browse, and stock levels in the store lagged the warehouse by a day.',
+    solution:
+      'We built a headless Next.js storefront on the Shopify Storefront API with faceted search, and an integration that syncs stock from the ERP every few minutes.',
+    technologies: ['Shopify Plus', 'Hydrogen', 'Next.js', 'Algolia', 'ERP integration'],
+    features: [
+      'Faceted search across 6,000 products',
+      'Size and fit guides per product type',
+      'Near-real-time stock from the ERP',
+      'Store pickup at four branches',
+    ],
+    results: ['[Sample result: replace with a measured, verifiable figure]'],
+    liveUrl: 'https://example.com',
+    attribution: 'Sample project for layout preview',
+    featured: false,
+  },
+  {
+    title: 'A clear, quick website for an architecture practice',
+    slug: 'sample-architecture-practice-site',
+    client: 'Studio Fynbos (sample)',
+    industry: 'Architecture',
+    category: 'business' as const,
+    summary:
+      'A portfolio-led business website with a project archive and enquiry form, edited entirely by the practice.',
+    challenge:
+      'The practice had an outdated site that only the original developer could update, so new projects never made it online.',
+    solution:
+      'We designed a portfolio-first site with a simple CMS, so the team can publish a project with photographs and a short write-up in minutes.',
+    technologies: ['Next.js', 'Payload CMS', 'Vercel', 'Google Analytics'],
+    features: [
+      'Project archive filtered by sector',
+      'Large photography with fast loading',
+      'Enquiry form routed to the right partner',
+      'Editable team and services pages',
+    ],
+    results: ['[Sample result: replace with a measured, verifiable figure]'],
+    liveUrl: 'https://example.com',
+    attribution: 'Sample project for layout preview',
+    featured: false,
+  },
+]
+
 export const siteSettings = {
   siteName: 'AR Tech Dogs',
   tagline: 'Digital experiences. Engineered to grow.',

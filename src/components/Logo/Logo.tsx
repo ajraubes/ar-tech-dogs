@@ -3,12 +3,12 @@ import React from 'react'
 
 export const TAGLINE = 'Design. Develop. Deliver, one sip at a time.'
 
-/** The pug's head, cropped from the logo. Used as the small mark and the favicon. */
+/** The pug's head from the brand board. Used as the small mark; the favicon puts it on a crema tile. */
 export const LogoMark = ({ className, priority }: { className?: string; priority?: boolean }) => (
   /* eslint-disable-next-line @next/next/no-img-element */
   <img
     alt=""
-    className={cn('h-9 w-auto shrink-0', className)}
+    className={cn('h-10 w-auto shrink-0', className)}
     decoding="async"
     fetchPriority={priority ? 'high' : 'auto'}
     height={256}
@@ -18,7 +18,7 @@ export const LogoMark = ({ className, priority }: { className?: string; priority
   />
 )
 
-/** The full pug sipping coffee, traced from the logo so it stays sharp at any size. */
+/** The stacked logo's pug, sitting with his coffee. Traced to vector, exported at 1000px. */
 export const Pug = ({
   className,
   priority,
@@ -34,15 +34,18 @@ export const Pug = ({
     className={className}
     decoding="async"
     fetchPriority={priority ? 'high' : 'auto'}
-    height={1536}
+    height={1110}
     loading={priority ? 'eager' : 'lazy'}
     sizes={sizes}
     src="/brand/pug.webp"
-    width={1312}
+    width={1000}
   />
 )
 
-/** Mark plus the one-line wordmark, as on the logo: "AR TECH DOGS" in Barlow Bold. */
+/**
+ * The horizontal lockup from the brand board: head, "AR TECH DOGS" in Barlow ExtraBold, and
+ * the tagline underneath on wide screens. The head tilts a little on hover, like he heard you.
+ */
 export const Logo = ({
   className,
   priority,
@@ -52,17 +55,20 @@ export const Logo = ({
   priority?: boolean
   tagline?: boolean
 }) => (
-  <span className={cn('inline-flex items-center gap-2.5', className)}>
-    <LogoMark priority={priority} />
+  <span className={cn('group/logo inline-flex items-center gap-2.5', className)}>
+    <LogoMark className="logo-head" priority={priority} />
     <span className="flex flex-col">
       <span
         aria-hidden
-        className="font-[family-name:var(--font-wordmark)] text-[1.1875rem] font-bold uppercase leading-none tracking-[-0.005em]"
+        className="font-[family-name:var(--font-wordmark)] text-[1.25rem] font-extrabold uppercase leading-none tracking-[-0.01em]"
       >
         AR Tech Dogs
       </span>
       {tagline && (
-        <span aria-hidden className="mt-1.5 text-sm leading-tight text-muted-foreground">
+        <span
+          aria-hidden
+          className="mt-1 hidden text-[0.75rem] font-medium leading-none text-muted-foreground xl:block"
+        >
           {TAGLINE}
         </span>
       )}

@@ -10,22 +10,27 @@ Warm, senior, unhurried. The pug is calm and a little smug: he knows the work is
 
 ## Logo
 
+The master is the brand identity board (`public/brand/brand-board.png`). Every file below was traced from it.
+
 | File | Use |
 | --- | --- |
-| `public/brand/logo.png` | The full lockup as supplied (500 × 500). Social profiles, schema.org, documents. |
-| `public/brand/pug.svg` | The pug alone, traced to vector from the logo. Master file. |
-| `public/brand/pug.webp`, `pug.png` | The pug alone, transparent, 1200px and 640px. Used on the site. |
-| `public/brand/mark.png` | The pug's head, transparent. The small mark beside the wordmark. |
-| `public/favicon.ico`, `favicon-64.png` | Pug head favicon (16, 32, 48, 64). |
-| `public/apple-touch-icon.png`, `icon-192.png`, `icon-512.png` | Pug head on cream for home screens and the web manifest. |
+| `public/brand/pug-head.svg` | Primary mark: the pug's head in colour. Master vector. |
+| `public/brand/mark.png` | The head, transparent, 256px. Beside the wordmark in the header and footer. |
+| `public/brand/pug.svg` | The stacked logo's pug, sitting with his coffee. Master vector. |
+| `public/brand/pug.webp`, `pug.png` | The sitting pug, transparent, 1000px and 640px. Used on the site. |
+| `public/brand/pug-head-line.svg` | One-colour (dark) head, for print, stamps and single-colour use. |
+| `public/brand/pug-head-reversed.svg` | Reversed head, light on espresso. |
+| `public/brand/logo.png` | App icon: the head on a crema rounded square, 512px. Social profiles, schema.org. |
+| `public/favicon.ico`, `favicon-64.png` | The app icon as favicon (16, 32, 48, 64). |
+| `public/apple-touch-icon.png`, `icon-192.png`, `icon-512.png` | The head on a full crema square for home screens and the web manifest. |
 
-On the site the wordmark is live text: "AR TECH DOGS" in Barlow Bold, capitals, one line, with the pug's head to its left.
+The horizontal lockup is live text on the site: the head, then "AR TECH DOGS" in Barlow ExtraBold capitals, with the tagline underneath on wide screens.
 
 Rules:
 
-- The pug always sits on something: the wordmark, the edge of a section, the footer name. He never floats in empty space.
+- The sitting pug sits on something: his crema tile, the edge of a section. He never floats in empty space.
 - Keep at least the height of the pug's head clear around the mark.
-- Never recolour, outline, rotate, stretch or add a shadow to the pug. Never put him on gold (he disappears); cream, oat and espresso are all fine.
+- Never recolour, outline, rotate, stretch or add a shadow to the pug. On crema, give him the tile's lighter glow behind him; cream, oat and espresso are all fine.
 - The tagline is "Design. Develop. Deliver, one sip at a time." with that punctuation.
 
 ## Colour
@@ -74,10 +79,14 @@ Sentence case everywhere except the wordmark. No monospace outside code. No smal
 
 ## Motion
 
-- The pug drops onto the wordmark on load with a small spring, then breathes slowly.
+- The pug settles onto his tile on load with a small spring, then breathes slowly. Steam rises off his cup once he has landed.
+- Coffee is the motion theme, used where it explains something: steam over every cup (hero, page heroes, the close, the 404), a cup that fills while the enquiry form sends, and a steaming cup when it has sent.
+- Primary buttons pour: on mouse hover a darker roast rises from the bottom of the pill in 420ms. Touch gets the press scale instead.
+- The header head tilts 9° when pointed at, like a dog listening.
+- Reasons are marked with a coffee bean, not a tick.
 - Sections arrive heading first, then text, then the rest, 80ms apart, rising 20px.
 - The process section is a pinned cortado glass: each of the six stages takes one sip.
-- Buttons press to 97%. Everything collapses to an instant change under reduced motion.
+- Buttons press to 97%. Under reduced motion the steam stands still and everything else changes instantly.
 
 ## Voice
 

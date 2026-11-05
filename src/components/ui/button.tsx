@@ -17,7 +17,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'rounded-full bg-primary text-primary-foreground hover:bg-primary-hover',
+        default: 'btn-pour isolate overflow-hidden rounded-full bg-primary text-primary-foreground',
         destructive: 'rounded-full bg-destructive text-white hover:bg-destructive/90',
         outline:
           'rounded-full border-[1.5px] border-foreground/80 bg-transparent text-foreground hover:bg-foreground hover:text-background',

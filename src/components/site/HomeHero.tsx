@@ -2,42 +2,44 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import React from 'react'
 
-import { Pug } from '@/components/Logo/Logo'
 import { Button } from '@/components/ui/button'
+import { PugTile } from './Coffee'
+
+const delay = (ms: number) => ({ '--delay': `${ms}ms` }) as React.CSSProperties
 
 /**
- * The homepage opens on the logo, enlarged into architecture: the name set as wide as the
- * page, and the pug sitting on its letters with his coffee, as he does in the lockup.
+ * The homepage opens like the brand board: the promise set large on the left, and on the
+ * right the stacked logo's pug on his crema tile, steam rising off his coffee. Underneath,
+ * three plain facts a buyer checks first: where, how much, and who does the work.
  */
 export const HomeHero: React.FC<{
   heading: string
   subheading?: string | null
   primary: { label: string; href: string }
   secondary: { label: string; href: string }
-}> = ({ heading, subheading, primary, secondary }) => (
-  <section className="relative overflow-hidden" aria-labelledby="home-title">
-    <div className="container flex min-h-[calc(100svh-4rem)] flex-col justify-between gap-10 pb-6 pt-10 md:min-h-[calc(100svh-5rem)] md:pb-8 md:pt-16">
-      <div className="relative z-10 max-w-[34rem] lg:max-w-[38rem]">
-        <p className="fade-up text-[clamp(1.75rem,1.2rem+1.9vw,2.75rem)] font-bold leading-[1.02] tracking-[-0.025em]">
+  facts: { label: string; value: string }[]
+  brands?: string[]
+}> = ({ heading, subheading, primary, secondary, facts, brands = [] }) => (
+  <section aria-labelledby="home-title" className="relative">
+    <div className="container grid items-center gap-12 pb-20 pt-10 md:pt-16 lg:min-h-[calc(100svh-5rem)] lg:grid-cols-12 lg:gap-10 lg:pb-24">
+      <div className="lg:col-span-7">
+        <h1
+          className="fade-up text-[clamp(2.75rem,1.4rem+4.2vw,4.75rem)] font-bold leading-[0.98] tracking-[-0.03em]"
+          id="home-title"
+        >
           {/* "Digital experiences. Engineered to grow." breaks at the full stop, not mid-phrase. */}
           {heading.split(/(?<=\.)\s+/).map((part, i) => (
             <span className="block" key={i}>
               {part}
             </span>
           ))}
-        </p>
+        </h1>
         {subheading && (
-          <p
-            className="fade-up mt-5 max-w-[36ch] text-lg leading-relaxed md:text-xl"
-            style={{ '--delay': '90ms' } as React.CSSProperties}
-          >
+          <p className="text-lead fade-up mt-7 max-w-[40ch]" style={delay(90)}>
             {subheading}
           </p>
         )}
-        <div
-          className="fade-up mt-8 flex flex-col gap-3 sm:flex-row"
-          style={{ '--delay': '180ms' } as React.CSSProperties}
-        >
+        <div className="fade-up mt-9 flex flex-col gap-3 sm:flex-row" style={delay(180)}>
           <Button asChild className="group" size="lg">
             <Link href={primary.href}>
               {primary.label}
@@ -53,27 +55,36 @@ export const HomeHero: React.FC<{
             <Link href={secondary.href}>{secondary.label}</Link>
           </Button>
         </div>
+
+        {facts.length > 0 && (
+          <dl
+            className="fade-up mt-14 grid max-w-2xl gap-6 border-t border-border-strong pt-6 sm:grid-cols-3 md:mt-20"
+            style={delay(280)}
+          >
+            {facts.map((f) => (
+              <div key={f.label}>
+                <dt className="text-sm text-muted-foreground">{f.label}</dt>
+                <dd className="mt-1 text-lg font-semibold leading-snug">{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
       </div>
 
-      {/* The monument: one line on wide screens, "AR TECH" over "DOGS" on phones. */}
-      <div className="relative [container-type:inline-size]">
-        <div
-          aria-hidden
-          className="absolute bottom-[calc(100%-7cqi)] right-[2%] z-10 w-[40cqi] md:bottom-[calc(100%-4.2cqi)] md:right-[3%] md:w-[27cqi] xl:w-[26cqi]"
-        >
-          <div className="pug-land">
-            <div className="pug-breathe">
-              <Pug className="h-auto w-full" priority sizes="(min-width: 768px) 27vw, 40vw" />
+      <div className="mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none">
+        <PugTile className="aspect-[4/4.6]" priority sizes="(min-width: 1024px) 34vw, 90vw">
+          {brands.length > 0 && (
+            <div
+              className="fade-up absolute inset-x-4 bottom-4 rounded-2xl bg-background/95 px-5 py-4 shadow-[var(--shadow-float)] md:inset-x-6 md:bottom-6"
+              style={delay(900)}
+            >
+              <p className="text-sm text-muted-foreground">
+                Before AR Tech Dogs, the founder built for
+              </p>
+              <p className="mt-1 font-semibold leading-snug">{brands.join(' · ')}</p>
             </div>
-          </div>
-        </div>
-        <h1
-          className="text-monument word-rise relative -mb-[0.06em] flex flex-col whitespace-nowrap text-[27cqi] leading-[0.9] md:leading-[0.82] md:block md:text-[16.45cqi]"
-          id="home-title"
-        >
-          <span style={{ '--i': 0 } as React.CSSProperties}>AR Tech</span>{' '}
-          <span style={{ '--i': 1 } as React.CSSProperties}>Dogs</span>
-        </h1>
+          )}
+        </PugTile>
       </div>
     </div>
   </section>

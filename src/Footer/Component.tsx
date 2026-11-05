@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-import { Pug, TAGLINE } from '@/components/Logo/Logo'
+import { Logo, TAGLINE } from '@/components/Logo/Logo'
 import { footerNavigation, navigation } from '@/content/seedData'
 import { getServices, getSiteSettings } from '@/lib/data'
 import { getCachedGlobal } from '@/utilities/getGlobals'
@@ -35,10 +35,14 @@ export async function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="mt-auto overflow-hidden" data-theme="dark">
+    <footer className="mt-auto" data-theme="dark">
       <div className="container grid gap-14 pb-16 pt-20 md:grid-cols-12 md:pb-24 md:pt-24">
         <div className="md:col-span-5">
-          <h2 className="text-h3">Say hello</h2>
+          <Link aria-label="AR Tech Dogs home" className="-m-2 inline-flex rounded-lg p-2" href="/">
+            <Logo />
+          </Link>
+          <p className="mt-3 max-w-xs text-muted-foreground">{TAGLINE}</p>
+          <h2 className="mt-10 text-[0.9375rem] font-semibold">Say hello</h2>
           <ul className="mt-4 space-y-1">
             {contact?.email && (
               <li>
@@ -102,19 +106,11 @@ export async function Footer() {
         </nav>
       </div>
 
-      <div className="container flex flex-col gap-x-8 gap-y-1 pb-8 text-sm text-muted-foreground sm:flex-row">
-        <p>© {year} AR Tech Dogs. All rights reserved.</p>
-        <p>{TAGLINE}</p>
-      </div>
-
-      {/* The name returns at full width, cut off by the bottom of the page, with the pug on it. */}
-      <div aria-hidden className="container relative [container-type:inline-size]">
-        <div className="absolute bottom-[calc(100%-3.4cqi)] right-[4%] w-[13cqi]">
-          <Pug className="h-auto w-full" sizes="14vw" />
+      <div className="container">
+        <div className="flex flex-col gap-x-8 gap-y-1 border-t border-border py-8 text-sm text-muted-foreground sm:flex-row sm:justify-between">
+          <p>© {year} AR Tech Dogs. All rights reserved.</p>
+          <p>Made in Cape Town, one sip at a time.</p>
         </div>
-        <p className="-mb-[0.12em] whitespace-nowrap text-[16.45cqi] font-bold uppercase leading-[0.82] tracking-[-0.035em] text-cream">
-          AR Tech Dogs
-        </p>
       </div>
     </footer>
   )

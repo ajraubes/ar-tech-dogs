@@ -465,31 +465,104 @@ details.faq[open]::details-content {
   }
 }
 
-/* Steam over the process cup: three wisps rising out of phase. */
+/* ----- Coffee ----- */
+
+/* Steam: three wisps rising and drifting out of phase, fading as they go. */
 @keyframes steam {
   0% {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translate3d(0, 10px, 0) scaleY(0.85);
   }
-  40% {
-    opacity: 0.9;
+  35% {
+    opacity: 0.85;
   }
   100% {
     opacity: 0;
-    transform: translateY(-14px);
+    transform: translate3d(3px, -16px, 0) scaleY(1.1);
   }
 }
 .cup-steam {
   transition: opacity 600ms ease;
 }
 .cup-steam path {
-  animation: steam 3.2s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: steam 3.2s cubic-bezier(0.33, 0, 0.2, 1) infinite;
+  opacity: 0;
 }
 .cup-steam path:nth-child(2) {
-  animation-delay: 1s;
+  animation-delay: 1.05s;
 }
 .cup-steam path:nth-child(3) {
-  animation-delay: 2s;
+  animation-delay: 2.1s;
+}
+/* On the hero the steam waits until the pug has landed. */
+.steam-late path {
+  animation-delay: 1.3s;
+}
+.steam-late path:nth-child(2) {
+  animation-delay: 2.35s;
+}
+.steam-late path:nth-child(3) {
+  animation-delay: 3.4s;
+}
+
+/* A cup filling while the enquiry form sends. */
+@keyframes cup-fill {
+  0% {
+    transform: translateY(100%);
+  }
+  70%,
+  100% {
+    transform: translateY(0);
+  }
+}
+.cup-loader-fill {
+  transform-box: fill-box;
+  animation: cup-fill 1.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+/*
+ * Buttons pour: on hover a darker roast rises from the bottom like coffee filling a cup.
+ * Mouse only; touch gets the press scale instead.
+ */
+.btn-pour::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--primary-hover);
+  transform: translateY(101%);
+  transition: transform 420ms var(--ease-out-expo);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-pour:hover::before {
+    transform: translateY(0);
+  }
+}
+
+/* The logo's head tilts when you point at it, the way a dog does when you speak. */
+.logo-head {
+  transition: transform 450ms var(--ease-spring);
+  transform-origin: 50% 70%;
+}
+@media (hover: hover) and (pointer: fine) {
+  .group\/logo:hover .logo-head {
+    transform: rotate(-9deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cup-steam path {
+    animation: none !important;
+    opacity: 0.6;
+    transform: none;
+  }
+  .cup-loader-fill {
+    animation: none !important;
+    transform: translateY(40%);
+  }
 }
 
 /* Price brewer: the new figure settles in each time a service is chosen. */

@@ -2,6 +2,7 @@ import { cn } from '@/utilities/ui'
 import React from 'react'
 
 import { Pug } from '@/components/Logo/Logo'
+import { Steam } from './Coffee'
 
 /**
  * Interior page hero. One h1 per page, in the shared type scale. On wide screens the
@@ -38,6 +39,7 @@ export const PageHero: React.FC<{
           className="pug-sit pointer-events-none absolute bottom-0 right-10 z-10 hidden w-44 translate-y-[10%] lg:block xl:w-52"
         >
           <Pug className="h-auto w-full" priority sizes="208px" />
+          <Steam className="steam-late absolute left-[49.5%] top-[48.5%] w-[10%] text-[#b89a63]" />
         </div>
       )}
     </div>

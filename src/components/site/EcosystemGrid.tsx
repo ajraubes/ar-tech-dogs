@@ -9,26 +9,20 @@ const Tile = ({ partner }: { partner: Partner }) => {
   const body = (
     <>
       <div className="flex items-center gap-3">
-        <span className="relative flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-[var(--radius-sm)] bg-background text-sm font-bold">
-          {partner.logo && typeof partner.logo === 'object' ? (
+        {/* A real logo when the CMS has one; no invented monogram when it does not. */}
+        {partner.logo && typeof partner.logo === 'object' && (
+          <span className="relative flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-[var(--radius-sm)] bg-background">
             <Media fill imgClassName="object-contain p-1.5" resource={partner.logo} size="40px" />
-          ) : (
-            partner.name
-              .split(/\s+/)
-              .map((w) => w[0])
-              .join('')
-              .slice(0, 2)
-              .toUpperCase()
-          )}
-        </span>
+          </span>
+        )}
         <div className="min-w-0">
-          <p className="truncate text-lg font-semibold">{partner.name}</p>
+          <p className="text-xl font-semibold tracking-[-0.01em]">{partner.name}</p>
           {partner.officialPartner && (
             <p className="text-sm font-semibold text-brand-text">Official partner</p>
           )}
         </div>
       </div>
-      <p className="mt-4 leading-relaxed text-muted-foreground">{partner.description}</p>
+      <p className="mt-2 leading-relaxed text-muted-foreground">{partner.description}</p>
     </>
   )
   const cls =

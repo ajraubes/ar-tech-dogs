@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
 import React from 'react'
 
+import { Bean } from '@/components/site/Coffee'
 import { CTASection } from '@/components/site/CTASection'
 import { FAQ } from '@/components/site/FAQ'
 import { FeatureGrid } from '@/components/site/FeatureGrid'
@@ -95,13 +96,17 @@ export default async function ServicePage({ params }: Args) {
 
       {(audience.length > 0 || technologies.length > 0) && (
         <section>
-          <div className="container grid gap-10 py-16 md:grid-cols-2 md:py-24">
+          <div className="container grid gap-x-16 gap-y-12 py-16 md:grid-cols-12 md:py-24">
             {audience.length > 0 && (
-              <Reveal>
-                <h2 className="text-h3 mb-5">Who it is for</h2>
-                <ul className="space-y-3">
+              <Reveal className="md:col-span-7">
+                <h2 className="text-h3 mb-6">Who it is for</h2>
+                <ul className="space-y-5">
                   {audience.map((a) => (
-                    <li className="text-lg tracking-tight" key={a}>
+                    <li
+                      className="flex gap-4 text-[clamp(1.25rem,1.1rem+0.6vw,1.625rem)] font-semibold leading-snug tracking-[-0.015em]"
+                      key={a}
+                    >
+                      <Bean className="mt-1.5 size-5 shrink-0 text-roast" />
                       {a}
                     </li>
                   ))}
@@ -109,11 +114,14 @@ export default async function ServicePage({ params }: Args) {
               </Reveal>
             )}
             {technologies.length > 0 && (
-              <Reveal delay={80}>
-                <h2 className="text-h3 mb-5">Technologies</h2>
+              <Reveal className="md:col-span-5" delay={80}>
+                <h2 className="text-h3 mb-6">Technologies</h2>
                 <ul className="flex flex-wrap gap-2">
                   {technologies.map((t) => (
-                    <li className="rounded-full bg-card px-3.5 py-1.5 text-base" key={t}>
+                    <li
+                      className="rounded-full bg-card px-4 py-2 text-[0.9375rem] font-semibold"
+                      key={t}
+                    >
                       {t}
                     </li>
                   ))}
@@ -202,7 +210,7 @@ export default async function ServicePage({ params }: Args) {
       )}
 
       {faqs.length > 0 && (
-        <Section aria-labelledby="faq-title" className="pt-0 md:pt-0">
+        <Section aria-labelledby="faq-title">
           <div className="container grid gap-10 lg:grid-cols-12">
             <h2 className="text-h2 lg:col-span-4" id="faq-title">
               Questions

@@ -4,6 +4,7 @@ import React from 'react'
 
 import { Media } from '@/components/Media'
 import { CTASection } from '@/components/site/CTASection'
+import { PugTile } from '@/components/site/Coffee'
 import { PageHero } from '@/components/site/PageHero'
 import { Reveal } from '@/components/site/Reveal'
 import { Section, SectionHeader } from '@/components/site/Section'
@@ -49,6 +50,7 @@ export default async function TeamPage() {
   return (
     <>
       <PageHero
+        pug={false}
         lead="A founder-led development studio. You work directly with a senior developer, supported by trusted specialists when a project needs them."
         title="Senior-led. Hands-on."
       />
@@ -57,10 +59,15 @@ export default async function TeamPage() {
         <Section aria-labelledby="founder-title">
           <div className="container grid gap-12 lg:grid-cols-12 lg:gap-16">
             <Reveal className="lg:col-span-5">
-              <Portrait className="aspect-[4/5]" member={founder} />
+              {founder.photo && typeof founder.photo === 'object' ? (
+                <Portrait className="aspect-[4/5]" member={founder} />
+              ) : (
+                // Until there is a photograph, the founder is represented by the studio's pug.
+                <PugTile className="aspect-[4/5]" sizes="(min-width: 1024px) 34vw, 90vw" />
+              )}
             </Reveal>
             <Reveal className="lg:col-span-7" delay={80}>
-              <h2 className="text-h2" id="founder-title">
+              <h2 className="text-h1" id="founder-title">
                 {founder.name}
               </h2>
               <p className="mt-2 text-lg font-semibold text-brand-text">{founder.role}</p>

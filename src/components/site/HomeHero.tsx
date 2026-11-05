@@ -21,8 +21,9 @@ export const HomeHero: React.FC<{
   brands?: string[]
 }> = ({ heading, subheading, primary, secondary, facts, brands = [] }) => (
   <section aria-labelledby="home-title" className="relative">
-    <div className="container grid items-center gap-12 pb-20 pt-10 md:pt-16 lg:min-h-[calc(100svh-5rem)] lg:grid-cols-12 lg:gap-10 lg:pb-24">
-      <div className="lg:col-span-7">
+    <div className="container grid items-center gap-x-10 gap-y-12 pb-20 pt-10 md:pt-16 lg:min-h-[calc(100svh-5rem)] lg:grid-cols-12 lg:grid-rows-[auto_auto] lg:content-center lg:pb-24">
+      {/* On a phone the order is promise, pug, facts; on desktop the facts sit under the promise. */}
+      <div className="lg:col-span-7 lg:row-start-1 lg:self-end">
         <h1
           className="fade-up text-[clamp(2.75rem,1.4rem+4.2vw,4.75rem)] font-bold leading-[0.98] tracking-[-0.03em]"
           id="home-title"
@@ -55,23 +56,9 @@ export const HomeHero: React.FC<{
             <Link href={secondary.href}>{secondary.label}</Link>
           </Button>
         </div>
-
-        {facts.length > 0 && (
-          <dl
-            className="fade-up mt-14 grid max-w-2xl gap-6 border-t border-border-strong pt-6 sm:grid-cols-3 md:mt-20"
-            style={delay(280)}
-          >
-            {facts.map((f) => (
-              <div key={f.label}>
-                <dt className="text-sm text-muted-foreground">{f.label}</dt>
-                <dd className="mt-1 text-lg font-semibold leading-snug">{f.value}</dd>
-              </div>
-            ))}
-          </dl>
-        )}
       </div>
 
-      <div className="mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none">
+      <div className="mx-auto w-full max-w-md lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1 lg:max-w-none">
         <PugTile className="aspect-[4/4.6]" priority sizes="(min-width: 1024px) 34vw, 90vw">
           {brands.length > 0 && (
             <div
@@ -86,6 +73,22 @@ export const HomeHero: React.FC<{
           )}
         </PugTile>
       </div>
+
+      {facts.length > 0 && (
+        <dl
+          className="fade-up grid max-w-2xl gap-3 border-t border-border-strong pt-6 sm:grid-cols-3 sm:gap-6 lg:col-span-7 lg:row-start-2 lg:self-start"
+          style={delay(280)}
+        >
+          {facts.map((f) => (
+            <div className="flex items-baseline justify-between gap-4 sm:block" key={f.label}>
+              <dt className="text-sm text-muted-foreground">{f.label}</dt>
+              <dd className="text-right text-lg font-semibold leading-snug sm:mt-1 sm:text-left">
+                {f.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      )}
     </div>
   </section>
 )

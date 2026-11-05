@@ -20,7 +20,7 @@ const Price = ({ pkg }: { pkg: Package }) => {
   return (
     <div>
       <p className="text-sm text-muted-foreground">Starting from</p>
-      <p className="mt-1 flex items-baseline gap-2">
+      <p className="mt-1 flex flex-wrap items-baseline gap-x-2">
         <span className="text-h2 tabular">
           {formatPrice(pkg.price)}
           {pkg.orMore && <span className="text-brand-text">+</span>}
@@ -42,7 +42,7 @@ export const PackageGrid: React.FC<{
       <ul
         className={cn(
           'grid gap-4 md:gap-6',
-          packages.length >= 4 ? 'md:grid-cols-2 xl:grid-cols-4' : 'md:grid-cols-3',
+          packages.length >= 4 ? 'md:grid-cols-2 xl:grid-cols-4' : 'lg:grid-cols-3',
         )}
       >
         {packages.map((pkg, i) => (

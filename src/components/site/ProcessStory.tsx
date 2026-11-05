@@ -67,8 +67,8 @@ export const ProcessStory: React.FC<{
         {steps.map((step, i) => (
           <li
             className={cn(
-              'py-8 transition-opacity duration-500 ease-[var(--ease-out-quart)] first:pt-0 lg:flex lg:min-h-[40vh] lg:flex-col lg:justify-center lg:py-0',
-              i === active ? 'lg:opacity-100' : 'lg:opacity-40',
+              'py-8 transition-opacity duration-500 ease-[var(--ease-out-quart)] first:pt-0 lg:flex lg:min-h-[34vh] lg:flex-col lg:justify-center lg:py-0',
+              i === active ? 'lg:opacity-100' : 'lg:opacity-70',
             )}
             data-index={i}
             key={step.title}

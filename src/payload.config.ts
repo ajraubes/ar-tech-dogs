@@ -9,6 +9,19 @@ import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
+import {
+  Capabilities,
+  Enquiries,
+  Packages,
+  Partners,
+  Projects,
+  Services,
+  TeamMembers,
+  Testimonials,
+} from './collections/agency'
+import { Company } from './globals/Company'
+import { Homepage } from './globals/Homepage'
+import { SiteSettings } from './globals/SiteSettings'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
@@ -21,17 +34,16 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
       beforeLogin: ['@/components/BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
       beforeDashboard: ['@/components/BeforeDashboard'],
     },
     importMap: {
       baseDir: path.resolve(dirname),
     },
     user: Users.slug,
+    meta: {
+      titleSuffix: ' · AR Tech Dogs CMS',
+    },
     livePreview: {
       breakpoints: [
         {
@@ -61,10 +73,27 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
+    // Development pushes schema changes automatically. For production, run
+    // `pnpm migrate` (applies src/migrations) before `pnpm build` — see `pnpm ci`.
+    // Create a new migration after changing collections: `pnpm payload migrate:create`.
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [
+    Services,
+    Packages,
+    Capabilities,
+    Projects,
+    TeamMembers,
+    Testimonials,
+    Partners,
+    Enquiries,
+    Pages,
+    Posts,
+    Media,
+    Categories,
+    Users,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer],
+  globals: [SiteSettings, Homepage, Company, Header, Footer],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,

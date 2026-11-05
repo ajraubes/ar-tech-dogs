@@ -16,7 +16,9 @@ const BeforeDashboard: React.FC = () => {
       <ul className={`${baseClass}__instructions`}>
         <li>
           <SeedButton />
-          {' with a few pages, posts, and projects to jump-start your new site, then '}
+          {
+            ' with the AR Tech Dogs services, packages, ecosystem and settings from the project plan, then '
+          }
           <a href="/" target="_blank">
             visit your website
           </a>

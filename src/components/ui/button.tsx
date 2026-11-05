@@ -6,24 +6,32 @@ import { type VariantProps, cva } from 'class-variance-authority'
 import * as React from 'react'
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 ring-ring/10 dark:ring-ring/20 dark:outline-ring/40 outline-ring/50 focus-visible:ring-4 focus-visible:outline-1 aria-invalid:focus-visible:ring-0",
+  [
+    'relative inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium select-none',
+    'transition-[background-color,color,border-color,box-shadow,transform] duration-200 ease-out',
+    'active:scale-[0.97] active:duration-75',
+    'disabled:pointer-events-none disabled:opacity-50',
+    "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0",
+    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+  ].join(' '),
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground shadow-sm hover:bg-primary/90',
-        destructive: 'bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90',
+        default:
+          'rounded-full bg-primary text-primary-foreground shadow-[0_1px_0_0_rgb(255_255_255/0.25)_inset,0_8px_24px_-8px_color-mix(in_oklch,var(--primary)_60%,transparent)] hover:bg-[color-mix(in_oklch,var(--primary)_88%,white)]',
+        destructive: 'rounded-full bg-destructive text-white hover:bg-destructive/90',
         outline:
-          'border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground',
-        secondary: 'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 hover:underline',
+          'rounded-full border border-border-strong bg-transparent text-foreground hover:bg-foreground/[0.06] hover:border-foreground/30',
+        secondary: 'rounded-full bg-secondary text-secondary-foreground hover:bg-accent',
+        ghost: 'rounded-full text-foreground hover:bg-foreground/[0.06]',
+        link: 'text-foreground underline-offset-4 decoration-primary/60 hover:underline active:scale-100',
       },
       size: {
         clear: '',
-        default: 'h-10 px-4 py-2 has-[>svg]:px-3',
-        sm: 'h-9 rounded-md px-3 has-[>svg]:px-2.5',
-        lg: 'h-11 rounded-md px-8 has-[>svg]:px-4',
-        icon: 'size-10',
+        sm: 'h-10 px-4 text-sm',
+        default: 'h-11 px-5 text-[0.9375rem]',
+        lg: 'h-12 px-6 text-base md:h-14 md:px-7',
+        icon: 'size-11 rounded-full',
       },
     },
     defaultVariants: {
@@ -34,8 +42,7 @@ const buttonVariants = cva(
 )
 
 export interface ButtonProps
-  extends React.ComponentProps<'button'>,
-    VariantProps<typeof buttonVariants> {
+  extends React.ComponentProps<'button'>, VariantProps<typeof buttonVariants> {
   asChild?: boolean
 }
 

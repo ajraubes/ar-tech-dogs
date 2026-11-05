@@ -17,13 +17,32 @@ export const Header: GlobalConfig = {
           appearances: false,
         }),
       ],
-      maxRows: 6,
+      maxRows: 9,
       admin: {
         initCollapsed: true,
         components: {
           RowLabel: '@/Header/RowLabel#RowLabel',
         },
       },
+    },
+    {
+      name: 'cta',
+      label: 'Header button',
+      type: 'group',
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              defaultValue: 'Start a Project',
+              admin: { width: '50%' },
+            },
+            { name: 'url', type: 'text', defaultValue: '/contact', admin: { width: '50%' } },
+          ],
+        },
+      ],
     },
   ],
   hooks: {

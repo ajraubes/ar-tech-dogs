@@ -13,6 +13,8 @@ import { getProjectBySlug, getProjects, values } from '@/lib/data'
 type Args = { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
+  // Pages render on first request, so the Docker build never needs the database.
+  if (process.env.NEXT_PHASE === 'phase-production-build') return []
   return (await getProjects()).filter((p) => p.slug).map((p) => ({ slug: p.slug! }))
 }
 

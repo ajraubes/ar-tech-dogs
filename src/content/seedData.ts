@@ -942,10 +942,10 @@ export const siteSettings = {
   defaultDescription:
     'AR Tech Dogs is a senior-led development studio building high-performance websites, Shopify stores and custom digital platforms for ambitious businesses in South Africa and internationally.',
   contact: {
-    email: '', // Add the public contact email in Site Settings
+    email: 'hello@artechdogs.co.za',
     phone: '',
     whatsapp: '',
-    location: 'South Africa · Working worldwide',
+    location: 'Cape Town, South Africa · Working worldwide',
     bookingUrl: '',
     notificationEmail: '',
   },

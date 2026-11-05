@@ -70,6 +70,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 }
 
 export async function generateStaticParams() {
+  // Pages render on first request, so the Docker build never needs the database.
+  if (process.env.NEXT_PHASE === 'phase-production-build') return []
   const payload = await getPayload({ config: configPromise })
   const { totalDocs } = await payload.count({
     collection: 'posts',

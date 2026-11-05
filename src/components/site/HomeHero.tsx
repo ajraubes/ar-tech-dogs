@@ -99,7 +99,7 @@ export const HomeHero: React.FC<{
             <span className="ml-3 text-muted-foreground">~/your-project</span>
           </div>
           <p className="text-muted-foreground">
-            <span className="text-primary">$</span> artechdogs build
+            <span className="text-brand-text">$</span> artechdogs build
           </p>
           <ul className="mt-3 space-y-2">
             {buildLog.map((step, i) => (
@@ -119,7 +119,7 @@ export const HomeHero: React.FC<{
               className="fade-up flex items-center gap-2 pt-1"
               style={{ '--delay': `${900 + buildLog.length * 160}ms` } as React.CSSProperties}
             >
-              <span className="text-primary">→</span> Launch & grow
+              <span className="text-brand-text">→</span> Launch & grow
               <span className="ml-0.5 inline-block h-4 w-2 animate-pulse bg-primary motion-reduce:animate-none" />
             </li>
           </ul>

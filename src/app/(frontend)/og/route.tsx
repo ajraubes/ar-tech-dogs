@@ -1,9 +1,14 @@
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
 import { ImageResponse } from 'next/og'
 
 export const dynamic = 'force-static'
 
-/** Default social share image: 1200×630, brand colours, no external assets. */
+/** Default social share image: 1200×630, brand mark and colours. */
 export async function GET() {
+  const mark = await readFile(path.join(process.cwd(), 'public/brand/mark-tile.png'))
+  const markSrc = `data:image/png;base64,${mark.toString('base64')}`
+
   return new ImageResponse(
     <div
       style={{
@@ -13,25 +18,21 @@ export async function GET() {
         flexDirection: 'column',
         justifyContent: 'space-between',
         padding: 80,
-        background: '#0e0e11',
+        background: '#070c14',
         backgroundImage:
-          'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
+          'linear-gradient(rgba(120,170,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(120,170,255,0.07) 1px, transparent 1px)',
         backgroundSize: '64px 64px',
-        color: '#f5f2ec',
+        color: '#f2f5f9',
         fontFamily: 'sans-serif',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-        <div
-          style={{
-            width: 64,
-            height: 64,
-            borderRadius: 16,
-            background: '#ff6a1f',
-            display: 'flex',
-          }}
-        />
-        <div style={{ fontSize: 36, fontWeight: 600, letterSpacing: -1 }}>AR Tech Dogs</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img alt="" height={96} src={markSrc} style={{ borderRadius: 22 }} width={96} />
+        <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 0.95 }}>
+          <div style={{ fontSize: 40, fontWeight: 800 }}>AR TECH</div>
+          <div style={{ fontSize: 48, fontWeight: 800, color: '#008efa' }}>DOGS</div>
+        </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ fontSize: 88, fontWeight: 700, letterSpacing: -4, lineHeight: 1 }}>
@@ -43,14 +44,14 @@ export async function GET() {
             fontWeight: 700,
             letterSpacing: -4,
             lineHeight: 1,
-            color: '#ff6a1f',
+            color: '#008efa',
           }}
         >
           Engineered to grow.
         </div>
       </div>
-      <div style={{ fontSize: 26, color: '#b8b3ab' }}>
-        Websites · Shopify & Shopify Plus · Next.js & Payload CMS
+      <div style={{ fontSize: 24, letterSpacing: 8, color: '#9aa6b8' }}>
+        BUILD · INNOVATE · SCALE
       </div>
     </div>,
     { width: 1200, height: 630 },

@@ -15,7 +15,7 @@ export const ServiceCard: React.FC<{ service: Service; headingLevel?: 'h2' | 'h3
     <div className="flex items-start justify-between gap-4">
       <span className="font-mono text-sm text-muted-foreground tabular">{service.number}</span>
       {service.core && (
-        <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 font-mono text-[0.6875rem] uppercase tracking-wider text-primary">
+        <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 font-mono text-[0.6875rem] uppercase tracking-wider text-brand-text">
           Core
         </span>
       )}
@@ -28,7 +28,7 @@ export const ServiceCard: React.FC<{ service: Service; headingLevel?: 'h2' | 'h3
       Explore
       <span
         aria-hidden
-        className="inline-block transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover:translate-x-1 text-primary"
+        className="inline-block transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover:translate-x-1 text-brand-text"
       >
         →
       </span>

@@ -1,5 +1,7 @@
 # AR Tech Dogs — Design & Frontend Audit
 
+> **Update:** since this audit, the site uses the official AR Tech Dogs logo and its navy and blue palette in place of the orange first pass, and Lexend for headings. Colour notes below refer to the earlier palette.
+
 _Audit of the website as built on branch `claude/project-thread-gfgj7c` (5 November 2026), measured against the AR Tech Dogs Company & Website Project Plan. Checked in a production build with Playwright at 390px (iPhone), 1024px, 1280px and 1440px._
 
 ---

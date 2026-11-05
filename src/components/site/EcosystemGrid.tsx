@@ -23,7 +23,7 @@ const Tile = ({ partner }: { partner: Partner }) => {
         </span>
         <div className="min-w-0">
           <p className="truncate font-medium">{partner.name}</p>
-          {partner.officialPartner && <p className="text-xs text-primary">Official partner</p>}
+          {partner.officialPartner && <p className="text-xs text-brand-text">Official partner</p>}
         </div>
       </div>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{partner.description}</p>

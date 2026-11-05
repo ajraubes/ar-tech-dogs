@@ -43,7 +43,7 @@ export async function Footer() {
             className="inline-flex min-h-11 items-center"
             href="/"
           >
-            <Logo />
+            <Logo tagline />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
             {settings?.tagline || 'Digital experiences. Engineered to grow.'}
@@ -52,7 +52,7 @@ export async function Footer() {
             {contact?.email && (
               <li>
                 <a
-                  className="inline-flex min-h-10 items-center hover:text-primary"
+                  className="inline-flex min-h-10 items-center hover:text-brand-text"
                   href={`mailto:${contact.email}`}
                 >
                   {contact.email}
@@ -62,7 +62,7 @@ export async function Footer() {
             {contact?.phone && (
               <li>
                 <a
-                  className="inline-flex min-h-10 items-center hover:text-primary"
+                  className="inline-flex min-h-10 items-center hover:text-brand-text"
                   href={`tel:${contact.phone.replace(/\s/g, '')}`}
                 >
                   {contact.phone}
@@ -111,7 +111,7 @@ export async function Footer() {
       <div className="border-t border-border">
         <div className="container flex flex-col gap-2 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} AR Tech Dogs. All rights reserved.</p>
-          <p className="font-mono">Built with Next.js & Payload CMS</p>
+          <p className="font-mono uppercase tracking-[0.2em]">Build · Innovate · Scale</p>
         </div>
       </div>
     </footer>

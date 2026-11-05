@@ -21,12 +21,18 @@ const notify: CollectionAfterChangeHook = async ({ doc, operation, req }) => {
       .filter(([, v]) => v)
       .map(([k, v]) => `${k}: ${v}`)
       .join('\n')
-    await req.payload.sendEmail({
-      to,
-      replyTo: doc.email,
-      subject: `New project enquiry: ${doc.name}${doc.company ? ` (${doc.company})` : ''}`,
-      text: `${lines}\n\n${doc.description}`,
-    })
+    // Send in the background so a slow or unreachable mail server never makes
+    // the visitor wait. The enquiry is already saved either way.
+    void Promise.resolve(
+      req.payload.sendEmail({
+        to,
+        replyTo: doc.email,
+        subject: `New project enquiry: ${doc.name}${doc.company ? ` (${doc.company})` : ''}`,
+        text: `${lines}\n\n${doc.description}`,
+      }),
+    ).catch((err) =>
+      req.payload.logger.error({ err, msg: 'Could not send enquiry notification' }),
+    )
   } catch (err) {
     // An email failure must never lose the enquiry; it is already stored.
     req.payload.logger.error({ err, msg: 'Could not send enquiry notification' })

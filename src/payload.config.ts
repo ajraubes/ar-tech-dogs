@@ -81,6 +81,8 @@ export default buildConfig({
           host: process.env.SMTP_HOST,
           port: Number(process.env.SMTP_PORT || 465),
           secure: Number(process.env.SMTP_PORT || 465) === 465,
+          connectionTimeout: 15_000,
+          greetingTimeout: 15_000,
           auth: {
             user: process.env.SMTP_USER || process.env.EMAIL_FROM || 'aj@artechdogs.co.za',
             pass: process.env.SMTP_PASS,

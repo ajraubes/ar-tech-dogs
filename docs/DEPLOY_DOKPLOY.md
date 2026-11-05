@@ -31,6 +31,11 @@ Under **Environment**, set these variables:
 | `NEXT_PUBLIC_SERVER_URL` | `https://artechdogs.co.za` (no trailing slash)            |
 | `PREVIEW_SECRET`         | Another random string                                     |
 | `CRON_SECRET`            | Another random string                                     |
+| `SMTP_HOST`              | `mail.artechdogs.co.za` (Afrihost mail server)            |
+| `SMTP_PORT`              | `465`                                                     |
+| `SMTP_USER`              | `aj@artechdogs.co.za`                                     |
+| `SMTP_PASS`              | The password of the aj@artechdogs.co.za mailbox           |
+| `EMAIL_FROM`             | `aj@artechdogs.co.za`                                     |
 
 Under **Build-time arguments**, also set `NEXT_PUBLIC_SERVER_URL=https://artechdogs.co.za`. Next.js bakes public variables into the build.
 
@@ -62,5 +67,5 @@ Until DNS is ready, you can use Dokploy's generated `traefik.me` domain to test.
 ## Notes
 
 - Don't run `pnpm payload migrate` or a dev server against the production database. Migrations apply on their own at startup.
-- Email isn't configured yet, so enquiries are saved in **Agency → Enquiries** and email is only written to the logs. Add an email adapter in `src/payload.config.ts` when you choose a provider.
+- Site email is sent from aj@artechdogs.co.za through Afrihost SMTP. Every enquiry is saved in **Agency → Enquiries** and emailed to the notification email in **Site Settings → Contact** (or the contact email if that is empty). Without `SMTP_HOST`, emails are only written to the logs.
 - The container health check requests `/og`, which doesn't touch the database.

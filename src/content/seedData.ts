@@ -942,12 +942,12 @@ export const siteSettings = {
   defaultDescription:
     'AR Tech Dogs is a senior-led development studio building high-performance websites, Shopify stores and custom digital platforms for ambitious businesses in South Africa and internationally.',
   contact: {
-    email: 'hello@artechdogs.co.za',
+    email: 'aj@artechdogs.co.za',
     phone: '',
     whatsapp: '',
     location: 'Cape Town, South Africa · Working worldwide',
     bookingUrl: '',
-    notificationEmail: '',
+    notificationEmail: 'aj@artechdogs.co.za',
   },
   pricingNote:
     'All prices are in South African rand (ZAR), excluding VAT where applicable, and are starting prices. Hosting, domains, Shopify subscriptions, paid apps and third-party licences are billed separately. Final pricing follows a scoped proposal.',

@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
@@ -70,6 +71,23 @@ export default buildConfig({
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
+  // Sends mail through the SMTP server in the SMTP_* variables (Afrihost for
+  // artechdogs.co.za). Without SMTP_HOST, Payload only logs emails to the console.
+  email: process.env.SMTP_HOST
+    ? nodemailerAdapter({
+        defaultFromAddress: process.env.EMAIL_FROM || 'aj@artechdogs.co.za',
+        defaultFromName: process.env.EMAIL_FROM_NAME || 'AR Tech Dogs',
+        transportOptions: {
+          host: process.env.SMTP_HOST,
+          port: Number(process.env.SMTP_PORT || 465),
+          secure: Number(process.env.SMTP_PORT || 465) === 465,
+          auth: {
+            user: process.env.SMTP_USER || process.env.EMAIL_FROM || 'aj@artechdogs.co.za',
+            pass: process.env.SMTP_PASS,
+          },
+        },
+      })
+    : undefined,
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',

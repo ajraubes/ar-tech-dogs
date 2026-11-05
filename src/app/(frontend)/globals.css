@@ -592,3 +592,359 @@ details.faq[open]::details-content {
     --border: var(--border-strong);
   }
 }
+
+/* ----- Motion, second pass ----- */
+
+/*
+ * Split headings: every word sits in a mask and rises out of the baseline, 45ms apart.
+ * Inside a Reveal it waits for the block to enter; .split-load plays on first paint.
+ */
+.split-mask {
+  display: inline-block;
+  overflow: clip;
+  overflow-clip-margin: 0.12em;
+  vertical-align: top;
+  /* Room for descenders inside the mask, given back with a negative margin. */
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.split-mask > span {
+  display: inline-block;
+  will-change: transform;
+}
+html.js [data-reveal] .split-mask > span {
+  transform: translateY(108%) rotate(2deg);
+  transition: transform 900ms var(--ease-out-expo);
+  transition-delay: calc(var(--delay, 0ms) + var(--i, 0) * var(--step, 45ms));
+}
+html.js [data-reveal][data-visible='true'] .split-mask > span {
+  transform: none;
+}
+/* The heading itself does not fade as well: its words carry the entrance. */
+html.js [data-reveal='stagger'] > :has(> .split),
+html.js [data-reveal=''] > :has(> .split) {
+  opacity: 1;
+  transform: none;
+}
+@keyframes split-rise {
+  from {
+    transform: translateY(108%) rotate(2deg);
+  }
+  to {
+    transform: none;
+  }
+}
+.split-load .split-mask > span {
+  animation: split-rise 1000ms var(--ease-out-expo) both;
+  animation-delay: calc(120ms + var(--i, 0) * var(--step, 45ms));
+}
+
+/* Hero tile: follows the pointer a few degrees, the pug a little more than his tile. */
+.tilt {
+  transform: perspective(1200px) rotateX(var(--ry, 0deg)) rotateY(var(--rx, 0deg))
+    translateY(var(--lift, 0px));
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt-depth {
+  transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
+}
+
+/* Menu rows: a crema wash sweeps in from the left behind the row you point at. */
+.menu-row {
+  position: relative;
+  isolation: isolate;
+}
+.menu-row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--popover);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 520ms var(--ease-out-expo);
+}
+.menu-row .menu-title {
+  transition: transform 520ms var(--ease-out-expo);
+}
+@media (hover: hover) and (pointer: fine) {
+  .menu-row:hover::before {
+    transform: scaleX(1);
+  }
+  .menu-row:hover .menu-title {
+    transform: translateX(0.35rem);
+  }
+}
+
+/* Brand marquee: a slow, constant drift. Pauses while you point at it. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 48s linear infinite;
+}
+@media (hover: hover) and (pointer: fine) {
+  .marquee-wrap:hover .marquee {
+    animation-play-state: paused;
+  }
+}
+.marquee-wrap {
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+/* Footer wordmark: the letters rise in turn, then the pug lands on them. */
+html.js [data-reveal] .rise-letters > span {
+  display: inline-block;
+  transform: translateY(65%);
+  opacity: 0;
+  transition:
+    transform 1000ms var(--ease-out-expo),
+    opacity 500ms var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 38ms);
+}
+html.js [data-reveal][data-visible='true'] .rise-letters > span {
+  transform: none;
+  opacity: 1;
+}
+html.js [data-reveal] .land-late {
+  opacity: 0;
+  transform: translateY(-40%);
+  transition:
+    transform 900ms var(--ease-spring),
+    opacity 300ms ease;
+  transition-delay: 520ms;
+}
+html.js [data-reveal][data-visible='true'] .land-late {
+  opacity: 1;
+  transform: none;
+}
+
+/* Image tiles open from the bottom edge as they enter. */
+html.js [data-reveal] .clip-rise {
+  clip-path: inset(100% 0 0 0 round 2rem);
+  transition: clip-path 1100ms var(--ease-out-expo);
+  transition-delay: var(--delay, 0ms);
+}
+html.js [data-reveal][data-visible='true'] .clip-rise {
+  clip-path: inset(0 0 0 0 round 2rem);
+}
+
+/* Header: tucks away while you read down, returns the moment you scroll up. */
+.header-hide {
+  transform: translateY(-100%);
+}
+
+/* Lift for cards you can click. Only where there is a real pointer. */
+@media (hover: hover) and (pointer: fine) {
+  .lift {
+    transition:
+      transform 420ms var(--ease-out-expo),
+      background-color 200ms ease;
+  }
+  .lift:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] .split-mask > span,
+  .split-load .split-mask > span,
+  html.js [data-reveal] .rise-letters > span,
+  html.js [data-reveal] .land-late {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  html.js [data-reveal] .clip-rise {
+    clip-path: none;
+  }
+  .marquee {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+  }
+  .marquee > [aria-hidden] {
+    display: none;
+  }
+  .tilt,
+  .tilt-depth {
+    transform: none !important;
+  }
+}
+
+/* ----- Team pugs ----- */
+
+/* The prop floats on its own slow rhythm, out of step with the pug's breath. */
+@keyframes prop-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(-6%) rotate(1.5deg);
+  }
+}
+.prop-float {
+  animation: prop-float 6s ease-in-out var(--float-delay, 0ms) infinite;
+}
+
+/* Code types itself, line by line, then starts again. */
+@keyframes type-line {
+  0%,
+  8% {
+    transform: scaleX(0);
+  }
+  30%,
+  86% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+.type-line {
+  transform-origin: 0 50%;
+  animation: type-line 4.8s var(--ease-out-quart) infinite;
+  animation-delay: calc(var(--i, 0) * 260ms);
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: caret 1.05s steps(1) infinite;
+}
+
+/* The chart's bars grow, hold, and settle back. */
+@keyframes bar-grow {
+  0% {
+    transform: scaleY(0.15);
+  }
+  35%,
+  80% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0.15);
+  }
+}
+.bar-grow {
+  transform-origin: 50% 100%;
+  animation: bar-grow 5s var(--ease-out-expo) infinite;
+  animation-delay: calc(var(--i, 0) * 140ms);
+}
+
+/* A bezier curve draws itself between two anchor points. */
+@keyframes draw-curve {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  45%,
+  85% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -1;
+  }
+}
+.draw-curve {
+  stroke-dasharray: 1;
+  animation: draw-curve 5.2s var(--ease-out-quart) infinite;
+}
+@keyframes draw-dot {
+  0%,
+  100% {
+    transform: scale(0.85);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+.draw-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: draw-dot 2.6s ease-in-out infinite;
+}
+.draw-dot-late {
+  animation-delay: 1.3s;
+}
+@keyframes swatch-pop {
+  0%,
+  70%,
+  100% {
+    transform: translateY(0);
+  }
+  80% {
+    transform: translateY(-18%);
+  }
+}
+.swatch-pop {
+  animation: swatch-pop 4s var(--ease-out-quart) infinite;
+  animation-delay: calc(var(--i, 0) * 120ms);
+}
+
+/* Glasses catch the light now and then. */
+@keyframes glint {
+  0%,
+  86%,
+  100% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 1;
+  }
+}
+.glint {
+  animation: glint 5s ease-in-out infinite;
+}
+.glint-late {
+  animation-delay: 0.12s;
+}
+
+/* Point at a portrait and the pug tilts his head, the way the logo's head does. */
+.pug-tilt {
+  transition: transform 600ms var(--ease-spring);
+  transform-origin: 50% 90%;
+}
+@media (hover: hover) and (pointer: fine) {
+  .team-pug:hover .pug-tilt {
+    transform: rotate(-4deg) translateY(-1.5%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prop-float,
+  .type-line,
+  .caret,
+  .bar-grow,
+  .draw-curve,
+  .draw-dot,
+  .swatch-pop,
+  .glint {
+    animation: none !important;
+  }
+  .draw-curve {
+    stroke-dashoffset: 0;
+  }
+}
+
+.header-hide:focus-within {
+  transform: none;
+}
+
+/* Project cover (no hero image yet): the window rises a touch on hover. */
+.cover-window {
+  transition: transform 700ms var(--ease-out-expo);
+}
+@media (hover: hover) and (pointer: fine) {
+  .group:hover .cover-window {
+    transform: translateY(-4%);
+  }
+}

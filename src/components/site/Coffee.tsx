@@ -95,21 +95,23 @@ export const PugTile: React.FC<{
       aria-hidden
       className="absolute inset-x-[12%] bottom-[8%] top-[18%] -z-10 rounded-full bg-[#f3d999] opacity-70 blur-2xl"
     />
-    <div className="pug-land relative mx-auto w-[74%] pt-[12%]">
-      <div className="pug-breathe">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          alt="The AR Tech Dogs pug, sitting with a cup of coffee"
-          className="h-auto w-full"
-          decoding="async"
-          fetchPriority={priority ? 'high' : 'auto'}
-          height={1110}
-          loading={priority ? 'eager' : 'lazy'}
-          sizes={sizes}
-          src="/brand/pug.webp"
-          width={1000}
-        />
-        <Steam className="steam-late absolute left-[49.5%] top-[48.5%] w-[10%] text-[#fff8e8]" />
+    <div className="tilt-depth relative mx-auto w-[74%] pt-[12%]">
+      <div className="pug-land relative">
+        <div className="pug-breathe">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt="The AR Tech Dogs pug, sitting with a cup of coffee"
+            className="h-auto w-full"
+            decoding="async"
+            fetchPriority={priority ? 'high' : 'auto'}
+            height={1110}
+            loading={priority ? 'eager' : 'lazy'}
+            sizes={sizes}
+            src="/brand/pug.webp"
+            width={1000}
+          />
+          <Steam className="steam-late absolute left-[49.5%] top-[48.5%] w-[10%] text-[#fff8e8]" />
+        </div>
       </div>
     </div>
     {children}

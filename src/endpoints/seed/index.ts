@@ -9,8 +9,10 @@ import {
   navigation,
   packages,
   partners,
+  sampleProjects,
   services,
   siteSettings,
+  team,
 } from '@/content/seedData'
 
 /** Collections this seed owns. Enquiries, users, media, pages and posts are never touched. */
@@ -114,6 +116,49 @@ export const seed = async ({ payload, req }: { payload: Payload; req: PayloadReq
       order: 0,
     },
   })
+  for (const [i, m] of team.entries()) {
+    await payload.create({
+      collection: 'team-members',
+      req,
+      context: ctx,
+      data: {
+        name: m.name,
+        role: m.role,
+        type: 'core',
+        bio: m.bio,
+        expertise: list(m.expertise),
+        experience: list(m.experience),
+        order: i + 1,
+      },
+    })
+  }
+
+  // Sample case studies, created once and always as drafts, so the Our Work layout can be
+  // previewed in the admin. They are never overwritten or published by the seed.
+  for (const [i, p] of sampleProjects.entries()) {
+    const existing = await payload.find({
+      collection: 'projects',
+      where: { slug: { equals: p.slug } },
+      limit: 1,
+      draft: true,
+      req,
+    })
+    if (existing.docs.length) continue
+    await payload.create({
+      collection: 'projects',
+      req,
+      context: ctx,
+      draft: true,
+      data: {
+        ...p,
+        technologies: list(p.technologies),
+        features: list(p.features),
+        results: list(p.results),
+        order: 10 + i,
+        _status: 'draft',
+      },
+    })
+  }
 
   // One unpublished example so the case-study structure is visible in the admin.
   const existingExample = await payload.find({

@@ -3,6 +3,7 @@ import React from 'react'
 
 import { Pug } from '@/components/Logo/Logo'
 import { Steam } from './Coffee'
+import { SplitWords } from './SplitWords'
 
 /**
  * Interior page hero. One h1 per page, in the shared type scale. On wide screens the
@@ -18,7 +19,9 @@ export const PageHero: React.FC<{
   <div className={cn('relative bg-card', className)}>
     <div className="container relative grid gap-10 pb-14 pt-14 md:pb-20 md:pt-24 lg:grid-cols-12 lg:items-end">
       <div className="lg:col-span-9">
-        <h1 className="text-h1 fade-up max-w-[18ch]">{title}</h1>
+        <h1 className="text-h1 max-w-[18ch]">
+          <SplitWords onLoad text={title} />
+        </h1>
         {lead && (
           <p
             className="text-lead fade-up mt-6 max-w-2xl"

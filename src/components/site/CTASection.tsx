@@ -4,6 +4,7 @@ import React from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Reveal } from './Reveal'
+import { SplitWords } from './SplitWords'
 
 const NEXT_STEPS = [
   'We review your enquiry personally.',
@@ -31,7 +32,7 @@ export const CTASection: React.FC<{
     <div className="container grid gap-x-10 gap-y-14 lg:grid-cols-12 lg:items-end">
       <Reveal className="grid gap-8 lg:col-span-7" stagger>
         <h2 className="text-display max-w-[13ch]" id="cta-title">
-          {title || 'Have a project in mind?'}
+          <SplitWords step={60} text={title || 'Have a project in mind?'} />
         </h2>
         <p className="text-lead max-w-xl">
           {body || 'Tell us what you are building and we will come back with honest next steps.'}

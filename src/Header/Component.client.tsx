@@ -17,6 +17,7 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [tucked, setTucked] = useState(false)
   const menuId = useId()
   const toggleRef = useRef<HTMLButtonElement>(null)
 
@@ -24,7 +25,16 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
   useEffect(() => setOpen(false), [pathname])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    // Tuck the bar away while reading down; bring it back on any upward scroll.
+    let last = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 8)
+      if (Math.abs(y - last) > 6) {
+        setTucked(y > last && y > 240)
+        last = y
+      }
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -55,8 +65,9 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
     <>
       <header
         className={cn(
-          'sticky top-0 z-40 bg-background transition-shadow duration-300',
+          'sticky top-0 z-40 bg-background transition-[box-shadow,transform] duration-500 ease-[var(--ease-out-expo)]',
           scrolled && !open ? 'shadow-[0_1px_0_var(--border)]' : 'shadow-none',
+          tucked && !open && 'header-hide',
         )}
       >
         <a

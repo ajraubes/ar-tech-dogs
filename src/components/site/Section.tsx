@@ -2,6 +2,7 @@ import { cn } from '@/utilities/ui'
 import React from 'react'
 
 import { Reveal } from './Reveal'
+import { SplitWords } from './SplitWords'
 
 export type SectionTone = 'base' | 'raised' | 'dark' | 'gold'
 
@@ -44,7 +45,7 @@ export const SectionHeader: React.FC<{
     stagger
   >
     <h2 className="text-h2" id={id}>
-      {title}
+      <SplitWords text={title} />
     </h2>
     {lead && <p className="text-lead max-w-2xl">{lead}</p>}
     {children}

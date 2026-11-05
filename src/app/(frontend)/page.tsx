@@ -11,6 +11,7 @@ import { ProcessStory } from '@/components/site/ProcessStory'
 import { ProjectCard } from '@/components/site/ProjectCard'
 import { Reveal } from '@/components/site/Reveal'
 import { Section, SectionHeader } from '@/components/site/Section'
+import { SplitWords } from '@/components/site/SplitWords'
 import {
   formatPrice,
   getCompany,
@@ -124,10 +125,10 @@ export default async function HomePage() {
                 return (
                   <Reveal as="li" className="mt-1 first:mt-0" delay={i * 50} key={s.id}>
                     <Link
-                      className="group grid items-center gap-x-10 gap-y-2 bg-card px-6 py-7 transition-colors duration-300 ease-[var(--ease-out-quart)] hover:bg-popover active:bg-secondary md:px-10 md:py-9 lg:grid-cols-12"
+                      className="menu-row group grid items-center gap-x-10 gap-y-2 bg-card px-6 py-7 active:bg-secondary md:px-10 md:py-9 lg:grid-cols-12"
                       href={`/solutions/${s.slug}`}
                     >
-                      <h3 className="text-[clamp(1.5rem,1.2rem+1.1vw,2.25rem)] font-bold leading-[1.05] tracking-[-0.02em] lg:col-span-5">
+                      <h3 className="menu-title text-[clamp(1.5rem,1.2rem+1.1vw,2.25rem)] font-bold leading-[1.05] tracking-[-0.02em] lg:col-span-5">
                         {s.title}
                       </h3>
                       <p className="max-w-[46ch] leading-relaxed text-muted-foreground lg:col-span-4">
@@ -162,7 +163,7 @@ export default async function HomePage() {
             <div className="lg:col-span-6">
               <Reveal>
                 <h2 className="text-h1 max-w-[14ch]" id="why-title">
-                  Built properly, by the person you speak to.
+                  <SplitWords step={55} text="Built properly, by the person you speak to." />
                 </h2>
               </Reveal>
               {home?.positioning && (
@@ -175,16 +176,28 @@ export default async function HomePage() {
                   <h3 className="text-sm text-muted-foreground">
                     Brands the founder has built for, before AR Tech Dogs
                   </h3>
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {experience.map((brand) => (
-                      <li
-                        className="rounded-full bg-background px-4 py-2 text-[0.9375rem] font-semibold"
-                        key={brand}
-                      >
-                        {brand}
-                      </li>
-                    ))}
-                  </ul>
+                  {/* A slow drift of names: the list is real, the motion just keeps it present. */}
+                  <div className="marquee-wrap -mx-2 mt-4 overflow-hidden">
+                    <div className="marquee">
+                      {[0, 1].map((copy) => (
+                        <ul
+                          aria-hidden={copy === 1 || undefined}
+                          className="flex shrink-0 items-center"
+                          key={copy}
+                        >
+                          {experience.map((brand) => (
+                            <li
+                              className="flex items-center whitespace-nowrap px-2 text-[clamp(1.5rem,1.2rem+1vw,2.25rem)] font-bold tracking-[-0.02em]"
+                              key={brand}
+                            >
+                              {brand}
+                              <Bean className="ml-4 size-4 text-roast/50" />
+                            </li>
+                          ))}
+                        </ul>
+                      ))}
+                    </div>
+                  </div>
                 </Reveal>
               )}
             </div>
@@ -264,7 +277,7 @@ export default async function HomePage() {
           <div className="container grid gap-10 lg:grid-cols-12">
             <Reveal className="lg:col-span-12">
               <h2 className="text-h2 max-w-[20ch]" id="eco-title">
-                One partner across your whole stack.
+                <SplitWords text="One partner across your whole stack." />
               </h2>
             </Reveal>
             <Reveal className="lg:col-span-4" stagger>

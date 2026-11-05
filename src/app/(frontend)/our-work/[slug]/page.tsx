@@ -6,6 +6,7 @@ import React from 'react'
 import { Media } from '@/components/Media'
 import { CTASection } from '@/components/site/CTASection'
 import { PageHero } from '@/components/site/PageHero'
+import { ProjectCover } from '@/components/site/ProjectCover'
 import { categoryLabel } from '@/components/site/ProjectCard'
 import { Reveal } from '@/components/site/Reveal'
 import { Button } from '@/components/ui/button'
@@ -81,9 +82,9 @@ export default async function ProjectPage({ params }: Args) {
         </dl>
       </PageHero>
 
-      {project.heroImage && typeof project.heroImage === 'object' && (
-        <div className="container pt-12">
-          <div className="relative aspect-[16/9] overflow-hidden rounded-[var(--radius-xl)] bg-card">
+      <Reveal className="container pt-12">
+        <div className="clip-rise relative aspect-[16/9] overflow-hidden rounded-[var(--radius-xl)] bg-card">
+          {project.heroImage && typeof project.heroImage === 'object' ? (
             <Media
               fill
               imgClassName="object-cover"
@@ -91,9 +92,11 @@ export default async function ProjectPage({ params }: Args) {
               resource={project.heroImage}
               size="(min-width: 1408px) 1360px, 100vw"
             />
-          </div>
+          ) : (
+            <ProjectCover large project={project} />
+          )}
         </div>
-      )}
+      </Reveal>
 
       <article className="container py-16 md:py-24">
         {project.challenge && (

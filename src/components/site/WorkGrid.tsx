@@ -41,8 +41,13 @@ export const WorkGrid: React.FC<{ projects: Project[] }> = ({ projects }) => {
         </div>
       )}
       <ul className="grid gap-6 md:grid-cols-2">
-        {visible.map((p) => (
-          <li className="fade-up" key={p.id}>
+        {visible.map((p, i) => (
+          // Keyed by filter too, so the cards deal in again when the filter changes.
+          <li
+            className="fade-up"
+            key={`${filter}-${p.id}`}
+            style={{ animationDelay: `${i * 70}ms` }}
+          >
             <ProjectCard project={p} />
           </li>
         ))}

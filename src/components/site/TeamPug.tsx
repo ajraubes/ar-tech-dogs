@@ -12,7 +12,7 @@ import { Steam } from './Coffee'
  */
 
 export type PugLook = 'founder' | 'developer' | 'marketing' | 'design'
-export type PugTrait = 'glasses' | 'beard' | 'cap' | 'beanie' | 'headphones'
+export type PugTrait = 'suit' | 'beard' | 'quiff' | 'glasses' | 'cap' | 'beanie' | 'headphones'
 
 const INK = '#2a2019'
 const ROAST = '#4f3e33'
@@ -29,7 +29,8 @@ export const lookFor = (type: string | null | undefined, role: string): PugLook 
 }
 
 const DEFAULT_TRAITS: Record<PugLook, PugTrait[]> = {
-  founder: ['headphones'],
+  // AJ: black suit and tie, full beard, hair swept up.
+  founder: ['suit', 'beard', 'quiff'],
   developer: ['beanie'],
   marketing: [],
   design: [],
@@ -76,14 +77,61 @@ const Glasses = () => (
   </g>
 )
 
+/** A full, dark beard that frames the muzzle and stops above the cup. */
 const Beard = () => (
   <path
-    d="M388 520 Q420 600 520 612 Q628 606 676 512 Q640 560 600 566 Q556 590 520 586 Q470 590 436 566 Q404 552 388 520 Z"
-    fill={ROAST}
+    d="M356 420 Q352 530 420 572 Q480 604 545 604 Q612 604 672 572 Q742 530 742 420 Q736 500 690 528 Q630 562 545 562 Q462 562 410 528 Q362 500 356 420 Z"
+    fill="#3a2a20"
     stroke={INK}
     strokeLinejoin="round"
-    strokeWidth="16"
+    strokeWidth="14"
   />
+)
+
+/** Dark hair, swept up and back. */
+const Quiff = () => (
+  <g strokeLinecap="round" strokeLinejoin="round">
+    <path
+      d="M330 170 Q296 50 450 26 Q540 10 600 46 Q690 6 770 66 Q712 66 696 108 Q722 140 702 170 Q620 120 520 128 Q420 130 330 170 Z"
+      fill="#3a2a20"
+      stroke={INK}
+      strokeWidth="18"
+    />
+    <path d="M410 78 Q500 44 592 66 M446 110 Q540 86 650 104" stroke="#5a4334" strokeWidth="10" />
+  </g>
+)
+
+/** A black suit, shirt and tie. The cup and paw stay in front of it. */
+const Suit = () => (
+  <g>
+    <mask id="pug-suit-hand">
+      <rect fill="#fff" height="1110" width="1000" />
+      <path
+        d="M468 612 Q470 600 520 598 L630 600 Q660 590 712 598 Q760 610 832 650 Q842 690 800 712 L700 752 Q640 760 612 748 Q560 735 500 720 Q470 690 468 612 Z"
+        fill="#000"
+      />
+    </mask>
+    <g mask="url(#pug-suit-hand)" stroke={INK} strokeLinejoin="round">
+      <path
+        d="M330 600 Q338 548 420 540 L670 540 Q714 548 724 610 Q732 760 712 878 Q620 910 545 906 Q460 910 382 880 Q330 760 330 600 Z"
+        fill="#2b2420"
+        strokeWidth="16"
+      />
+      <path d="M440 548 L545 760 L650 548 Z" fill="#14100d" stroke="none" />
+      <path
+        d="M420 552 Q440 650 528 800 L545 760 L452 560 Z M670 552 Q650 650 562 800 L545 760 L638 560 Z"
+        fill="#3d322b"
+        strokeWidth="10"
+      />
+      <path
+        d="M529 600 L561 600 L567 650 L588 812 L545 852 L502 812 L523 650 Z"
+        fill="#0b0806"
+        stroke="#463a32"
+        strokeWidth="6"
+      />
+      <circle cx="545" cy="878" fill="#4a3c33" r="8" stroke="none" />
+    </g>
+  </g>
 )
 
 const Beanie = () => (
@@ -186,6 +234,8 @@ const Beret = () => (
 )
 
 const TRAIT: Record<PugTrait, React.FC> = {
+  suit: Suit,
+  quiff: Quiff,
   glasses: Glasses,
   beard: Beard,
   cap: Cap,

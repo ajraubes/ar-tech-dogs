@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+
+import { pageMeta } from '@/utilities/pageMeta'
 import React from 'react'
 
 import { CTASection } from '@/components/site/CTASection'
@@ -8,12 +10,14 @@ import { Reveal } from '@/components/site/Reveal'
 import { ServiceCard } from '@/components/site/ServiceCard'
 import { getServices } from '@/lib/data'
 
-export const metadata: Metadata = {
-  title: 'Solutions',
+export const metadata: Metadata = pageMeta({
+  title: 'Web Development & Shopify Services',
   description:
-    'Custom web development, Shopify and Shopify Plus, business websites, landing pages and ongoing support from a senior-led South African studio.',
-  alternates: { canonical: '/solutions' },
-}
+    'Custom web development, Shopify and Shopify Plus, business websites, landing pages and ongoing support from a senior-led studio in Cape Town.',
+  path: '/solutions',
+  share: 'Solutions for every stage of growth.',
+  kicker: 'Solutions',
+})
 
 export default async function SolutionsPage() {
   const services = await getServices()

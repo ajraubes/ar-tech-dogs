@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+
+import { pageMeta } from '@/utilities/pageMeta'
 import { ArrowUpRight } from 'lucide-react'
 import React from 'react'
 
@@ -8,11 +10,14 @@ import { enquiryOptions } from '@/content/seedData'
 import { getServices, getSiteSettings } from '@/lib/data'
 import { EnquiryForm } from './EnquiryForm'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: 'Start a Project',
-  description: 'Tell us about your website, Shopify store or custom platform project.',
-  alternates: { canonical: '/contact' },
-}
+  description:
+    'Tell us about your website, Shopify store or custom platform. We review every enquiry personally and reply with clear, honest next steps.',
+  path: '/contact',
+  share: 'Have a project in mind?',
+  kicker: 'Start a project',
+})
 
 type Args = { searchParams: Promise<{ service?: string; package?: string }> }
 

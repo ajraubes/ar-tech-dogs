@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+
+import { pageMeta } from '@/utilities/pageMeta'
 import { ArrowUpRight } from 'lucide-react'
 import React from 'react'
 
@@ -13,11 +15,14 @@ import { getCompany, getTeam, values } from '@/lib/data'
 import type { TeamMember } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: 'Meet the Team',
-  description: 'AR Tech Dogs is a founder-led, senior development studio.',
-  alternates: { canonical: '/meet-the-team' },
-}
+  description:
+    'Meet the senior developers, designers and marketers behind AR Tech Dogs. You work directly with the people building your website or Shopify store.',
+  path: '/meet-the-team',
+  share: 'Senior-led. Hands-on.',
+  kicker: 'Meet the team',
+})
 
 /** A small round photo on the pug tile, once a real photo is uploaded in the CMS. */
 const PhotoBadge = ({ member }: { member: TeamMember }) =>

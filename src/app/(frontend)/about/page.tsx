@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+
+import { pageMeta } from '@/utilities/pageMeta'
 import React from 'react'
 
 import { CTASection } from '@/components/site/CTASection'
@@ -8,12 +10,14 @@ import { Reveal } from '@/components/site/Reveal'
 import { Section, SectionHeader } from '@/components/site/Section'
 import { getCompany } from '@/lib/data'
 
-export const metadata: Metadata = {
-  title: 'About Us',
+export const metadata: Metadata = pageMeta({
+  title: 'About Our Web Development Studio',
   description:
-    'AR Tech Dogs is a senior-led digital development agency building websites, Shopify stores and custom platforms.',
-  alternates: { canonical: '/about' },
-}
+    'AR Tech Dogs is a senior-led web development studio in Cape Town. The story, values and way of working behind every website and Shopify store we build.',
+  path: '/about',
+  share: 'A development partner, not a template shop.',
+  kicker: 'About AR Tech Dogs',
+})
 
 export default async function AboutPage() {
   const company = await getCompany()

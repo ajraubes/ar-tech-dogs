@@ -1,4 +1,7 @@
 import type { Metadata } from 'next'
+
+import { getServerSideURL } from '@/utilities/getURL'
+import { isSample, pageMeta } from '@/utilities/pageMeta'
 import { notFound } from 'next/navigation'
 import { ArrowUpRight } from 'lucide-react'
 import React from 'react'
@@ -24,11 +27,17 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
   const { slug } = await params
   const project = await getProjectBySlug(slug)
   if (!project) return {}
-  return {
-    title: `${project.title} · Case study`,
+  const hero = typeof project.heroImage === 'object' ? project.heroImage : null
+  const heroUrl = hero?.sizes?.og?.url || hero?.url
+  return pageMeta({
+    title: project.title,
     description: project.summary,
-    alternates: { canonical: `/our-work/${slug}` },
-  }
+    path: `/our-work/${slug}`,
+    kicker: `Case study · ${project.client}`,
+    image: heroUrl ? new URL(heroUrl, getServerSideURL()).toString() : undefined,
+    // Sample case studies are layout previews: never let search engines index them.
+    noindex: isSample(project),
+  })
 }
 
 const Block = ({ title, children }: { title: string; children: React.ReactNode }) => (

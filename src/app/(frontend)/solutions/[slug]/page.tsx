@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+
+import { pageMeta } from '@/utilities/pageMeta'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
@@ -38,11 +40,18 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
   const { slug } = await params
   const service = await getServiceBySlug(slug)
   if (!service) return {}
-  return {
-    title: service.title,
-    description: service.summary,
-    alternates: { canonical: `/solutions/${slug}` },
-  }
+  // Short summaries get a line of context so the snippet is not cut thin in results.
+  const description =
+    service.summary.length < 110
+      ? `${service.summary} From a senior-led studio in Cape Town, with clear starting prices.`
+      : service.summary
+  return pageMeta({
+    title: `${service.title} in South Africa`,
+    description,
+    path: `/solutions/${slug}`,
+    share: service.heroHeading || service.title,
+    kicker: service.title,
+  })
 }
 
 const List = ({ items }: { items: string[] }) => (

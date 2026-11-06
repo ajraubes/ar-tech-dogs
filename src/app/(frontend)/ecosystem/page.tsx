@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+
+import { pageMeta } from '@/utilities/pageMeta'
 import React from 'react'
 
 import { CTASection } from '@/components/site/CTASection'
@@ -7,12 +9,14 @@ import { EmptyState } from '@/components/site/EmptyState'
 import { PageHero } from '@/components/site/PageHero'
 import { getPartners } from '@/lib/data'
 
-export const metadata: Metadata = {
-  title: 'Ecosystem',
+export const metadata: Metadata = pageMeta({
+  title: 'Platforms & Integrations We Work With',
   description:
-    'The commerce platforms, CMS, payment gateways, infrastructure and analytics tools AR Tech Dogs connects for clients.',
-  alternates: { canonical: '/ecosystem' },
-}
+    'The commerce platforms, CMS, payment gateways, infrastructure and analytics tools AR Tech Dogs builds on and connects for South African businesses.',
+  path: '/ecosystem',
+  share: 'How your stack fits together.',
+  kicker: 'Ecosystem',
+})
 
 export default async function EcosystemPage() {
   const partners = await getPartners()

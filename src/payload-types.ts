@@ -2238,13 +2238,16 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface SiteSetting {
   id: number;
   siteName: string;
+  /**
+   * Home page title in Google and in shared links, after the site name. Say what you do and where, in under 45 characters, e.g. "Web & Shopify Development, Cape Town".
+   */
   tagline?: string | null;
   /**
-   * Default meta description for pages without their own.
+   * Home page description in Google and in shared links. Aim for 120 to 155 characters so it is not cut off.
    */
   defaultDescription?: string | null;
   /**
-   * Optional. A branded image is generated if empty.
+   * Optional. Shown when the home page is shared (1200 × 630). If empty, a branded card is generated. Other pages always get their own card with their headline.
    */
   ogImage?: (number | null) | Media;
   contact?: {

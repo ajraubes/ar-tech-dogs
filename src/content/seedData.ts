@@ -1093,9 +1093,9 @@ export const sampleProjects = [
 
 export const siteSettings = {
   siteName: 'AR Tech Dogs',
-  tagline: 'Digital experiences. Engineered to grow.',
+  tagline: 'Web & Shopify Development, Cape Town',
   defaultDescription:
-    'AR Tech Dogs is a senior-led development studio building high-performance websites, Shopify stores and custom digital platforms for ambitious businesses in South Africa and internationally.',
+    'Senior-led web development studio in Cape Town. Custom websites, Shopify and Shopify Plus stores, and platforms built to load fast and grow.',
   contact: {
     email: 'aj@artechdogs.co.za',
     phone: '',

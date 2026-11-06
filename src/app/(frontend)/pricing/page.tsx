@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+
+import { pageMeta } from '@/utilities/pageMeta'
 import Link from 'next/link'
 import React from 'react'
 
@@ -9,12 +11,14 @@ import { PageHero } from '@/components/site/PageHero'
 import { Section, SectionHeader } from '@/components/site/Section'
 import { getPackages, getServices, getSiteSettings } from '@/lib/data'
 
-export const metadata: Metadata = {
-  title: 'Pricing',
+export const metadata: Metadata = pageMeta({
+  title: 'Website & Shopify Pricing in South Africa',
   description:
-    'Transparent starting prices in ZAR for websites, Shopify, Shopify Plus, landing pages and monthly care plans.',
-  alternates: { canonical: '/pricing' },
-}
+    'Starting prices in rand for business websites, Shopify and Shopify Plus stores, landing pages and monthly support, with what each one includes.',
+  path: '/pricing',
+  share: 'Transparent pricing. No surprises.',
+  kicker: 'Pricing',
+})
 
 export default async function PricingPage() {
   const [services, packages, settings] = await Promise.all([

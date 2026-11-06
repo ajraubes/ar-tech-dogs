@@ -16,18 +16,31 @@ export const SiteSettings: GlobalConfig = {
           label: 'Brand & SEO',
           fields: [
             { name: 'siteName', type: 'text', required: true, defaultValue: 'AR Tech Dogs' },
-            { name: 'tagline', type: 'text' },
+            {
+              name: 'tagline',
+              type: 'text',
+              admin: {
+                description:
+                  'Home page title in Google and in shared links, after the site name. Say what you do and where, in under 45 characters, e.g. "Web & Shopify Development, Cape Town".',
+              },
+            },
             {
               name: 'defaultDescription',
               type: 'textarea',
-              admin: { description: 'Default meta description for pages without their own.' },
+              admin: {
+                description:
+                  'Home page description in Google and in shared links. Aim for 120 to 155 characters so it is not cut off.',
+              },
             },
             {
               name: 'ogImage',
               label: 'Default social image',
               type: 'upload',
               relationTo: 'media',
-              admin: { description: 'Optional. A branded image is generated if empty.' },
+              admin: {
+                description:
+                  'Optional. Shown when the home page is shared (1200 × 630). If empty, a branded card is generated. Other pages always get their own card with their headline.',
+              },
             },
           ],
         },

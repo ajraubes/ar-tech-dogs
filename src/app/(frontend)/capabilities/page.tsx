@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+
+import { pageMeta } from '@/utilities/pageMeta'
 import React from 'react'
 
 import { CTASection } from '@/components/site/CTASection'
@@ -7,12 +9,14 @@ import { PageHero } from '@/components/site/PageHero'
 import { Reveal } from '@/components/site/Reveal'
 import { getCapabilities, values } from '@/lib/data'
 
-export const metadata: Metadata = {
-  title: 'Capabilities',
+export const metadata: Metadata = pageMeta({
+  title: 'Development Capabilities & Tech Stack',
   description:
-    'Frontend, backend and CMS development, Shopify engineering, eCommerce architecture, integrations, performance and infrastructure.',
-  alternates: { canonical: '/capabilities' },
-}
+    'Frontend, backend and CMS development, Shopify engineering, eCommerce architecture, integrations, performance and infrastructure, end to end.',
+  path: '/capabilities',
+  share: 'Engineering depth, end to end.',
+  kicker: 'Capabilities',
+})
 
 export default async function CapabilitiesPage() {
   const capabilities = await getCapabilities()

@@ -1,4 +1,7 @@
 import type { Metadata } from 'next'
+
+import { getServerSideURL } from '@/utilities/getURL'
+import { pageMeta } from '@/utilities/pageMeta'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import React from 'react'
@@ -26,8 +29,25 @@ import {
   values,
 } from '@/lib/data'
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/' },
+/** The home page's title, description and share image come from Site Settings in the CMS. */
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings()
+  const image =
+    settings?.ogImage && typeof settings.ogImage === 'object' && settings.ogImage.url
+      ? new URL(
+          settings.ogImage.sizes?.og?.url || settings.ogImage.url,
+          getServerSideURL(),
+        ).toString()
+      : undefined
+  return pageMeta({
+    title: `${settings?.siteName || 'AR Tech Dogs'} · ${settings?.tagline || 'Web & Shopify Development, Cape Town'}`,
+    absoluteTitle: true,
+    description:
+      settings?.defaultDescription ||
+      'Senior-led web development studio in Cape Town. Custom websites, Shopify and Shopify Plus stores, and platforms built to load fast and grow.',
+    path: '/',
+    image,
+  })
 }
 
 export default async function HomePage() {

@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+
+import { pageMeta } from '@/utilities/pageMeta'
 import Link from 'next/link'
 import React from 'react'
 
@@ -11,11 +13,14 @@ import { WorkGrid } from '@/components/site/WorkGrid'
 import { Reveal } from '@/components/site/Reveal'
 import { getProjects, getTeam, values } from '@/lib/data'
 
-export const metadata: Metadata = {
-  title: 'Our Work',
-  description: 'Case studies across Shopify, custom websites and eCommerce platforms.',
-  alternates: { canonical: '/our-work' },
-}
+export const metadata: Metadata = pageMeta({
+  title: 'Our Work: Web & Shopify Case Studies',
+  description:
+    'Case studies from AR Tech Dogs: Shopify stores, custom websites and eCommerce platforms, with the challenge, the solution and the technology behind each.',
+  path: '/our-work',
+  share: 'Work that holds up in production.',
+  kicker: 'Our work',
+})
 
 export default async function WorkPage() {
   const [projects, team] = await Promise.all([getProjects(), getTeam()])

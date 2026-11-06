@@ -1,5 +1,8 @@
 import type { Metadata } from 'next/types'
 
+import { getPublishedPostCount } from '@/lib/data'
+import { pageMeta } from '@/utilities/pageMeta'
+
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
@@ -72,10 +75,16 @@ export default async function Page() {
   )
 }
 
-export function generateMetadata(): Metadata {
-  return {
-    title: 'Insights',
-    description: 'Notes from AR Tech Dogs on Shopify, custom web development and performance.',
-    alternates: { canonical: '/posts' },
-  }
+export async function generateMetadata(): Promise<Metadata> {
+  // Keep the empty Insights page out of search results until the first post is published.
+  const count = await getPublishedPostCount()
+  return pageMeta({
+    title: 'Insights on Shopify & Web Development',
+    description:
+      'Notes from AR Tech Dogs on Shopify, custom web development, site speed and running a store that grows. Practical, from a senior development studio.',
+    path: '/posts',
+    share: 'Insights',
+    kicker: 'From the studio',
+    noindex: count === 0,
+  })
 }

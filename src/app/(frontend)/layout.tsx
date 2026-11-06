@@ -73,17 +73,44 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <JsonLd
           data={{
             '@context': 'https://schema.org',
-            '@type': 'ProfessionalService',
-            name: settings?.siteName || 'AR Tech Dogs',
-            description: settings?.defaultDescription || undefined,
-            url,
-            logo: `${url}/brand/logo.png`,
-            slogan: 'Design. Develop. Deliver, one sip at a time.',
-            email: settings?.contact?.email || undefined,
-            telephone: settings?.contact?.phone || undefined,
-            areaServed: ['ZA', 'Worldwide'],
-            address: { '@type': 'PostalAddress', addressCountry: 'ZA' },
-            sameAs: (settings?.social ?? []).map((s) => s.url),
+            '@graph': [
+              {
+                '@type': 'ProfessionalService',
+                '@id': `${url}/#studio`,
+                name: settings?.siteName || 'AR Tech Dogs',
+                description: settings?.defaultDescription || undefined,
+                url,
+                logo: `${url}/brand/logo.png`,
+                image: `${url}/og`,
+                slogan: 'Design. Develop. Deliver, one sip at a time.',
+                email: settings?.contact?.email || undefined,
+                telephone: settings?.contact?.phone || undefined,
+                areaServed: ['ZA', 'Worldwide'],
+                address: {
+                  '@type': 'PostalAddress',
+                  addressLocality: 'Cape Town',
+                  addressRegion: 'Western Cape',
+                  addressCountry: 'ZA',
+                },
+                knowsAbout: [
+                  'Shopify development',
+                  'Shopify Plus',
+                  'Custom web development',
+                  'Next.js',
+                  'Payload CMS',
+                  'eCommerce',
+                ],
+                sameAs: (settings?.social ?? []).map((s) => s.url),
+              },
+              {
+                '@type': 'WebSite',
+                '@id': `${url}/#website`,
+                name: settings?.siteName || 'AR Tech Dogs',
+                url,
+                inLanguage: 'en-ZA',
+                publisher: { '@id': `${url}/#studio` },
+              },
+            ],
           }}
         />
       </body>
@@ -103,12 +130,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(getServerSideURL()),
     title: {
-      default: `${siteName} · ${settings?.tagline || 'Digital experiences. Engineered to grow.'}`,
+      default: `${siteName} · ${settings?.tagline || 'Web & Shopify Development, Cape Town'}`,
       template: `%s · ${siteName}`,
     },
     description: settings?.defaultDescription || undefined,
     openGraph: mergeOpenGraph({ siteName }),
     twitter: { card: 'summary_large_image' },
-    alternates: { canonical: './' },
   }
 }

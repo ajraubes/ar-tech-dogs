@@ -3,6 +3,8 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 
+import { isSample } from '@/utilities/pageMeta'
+
 export const dynamic = 'force-dynamic'
 
 const getPagesSitemap = unstable_cache(
@@ -43,14 +45,13 @@ const getPagesSitemap = unstable_cache(
       '/ecosystem',
       '/pricing',
       '/contact',
-      '/posts',
     ]
     const defaultSitemap = staticRoutes.map((route) => ({
       loc: `${SITE_URL}${route === '/' ? '/' : route}`,
       lastmod: dateFallback,
     }))
 
-    const [services, projects] = await Promise.all([
+    const [services, projects, posts] = await Promise.all([
       payload.find({
         collection: 'services',
         depth: 0,
@@ -68,16 +69,22 @@ const getPagesSitemap = unstable_cache(
         where: { _status: { equals: 'published' } },
         select: { slug: true, updatedAt: true },
       }),
+      payload.count({ collection: 'posts', overrideAccess: false }),
     ])
+    // Insights only goes in the sitemap once there is something to read there.
+    if (posts.totalDocs > 0)
+      defaultSitemap.push({ loc: `${SITE_URL}/posts`, lastmod: dateFallback })
     const agencySitemap = [
       ...services.docs.map((d) => ({
         loc: `${SITE_URL}/solutions/${d.slug}`,
         lastmod: d.updatedAt || dateFallback,
       })),
-      ...projects.docs.map((d) => ({
-        loc: `${SITE_URL}/our-work/${d.slug}`,
-        lastmod: d.updatedAt || dateFallback,
-      })),
+      ...projects.docs
+        .filter((d) => !isSample(d))
+        .map((d) => ({
+          loc: `${SITE_URL}/our-work/${d.slug}`,
+          lastmod: d.updatedAt || dateFallback,
+        })),
     ]
 
     const sitemap = results.docs

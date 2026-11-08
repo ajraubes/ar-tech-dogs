@@ -15,28 +15,28 @@ const TONES: Record<
   { field: string; page: string; ink: string; bar: string }
 > = {
   shopify: {
-    field: 'bg-[linear-gradient(160deg,#ecc97e,#d9ad5c)]',
-    page: 'bg-[#2d2520]',
-    ink: 'text-[#f2eee3]',
-    bar: 'bg-[#e2c275]',
+    field: 'bg-[#e6dace]',
+    page: 'bg-[#3b2417]',
+    ink: 'text-[#faf8f5]',
+    bar: 'bg-[#9c735b]',
   },
   custom: {
-    field: 'bg-[linear-gradient(160deg,#4f3e33,#2d2520)]',
-    page: 'bg-[#f2eee3]',
-    ink: 'text-[#2d2520]',
-    bar: 'bg-[#725c4c]',
+    field: 'bg-[#3b2417]',
+    page: 'bg-[#faf8f5]',
+    ink: 'text-[#1f1f1f]',
+    bar: 'bg-[#9c735b]',
   },
   ecommerce: {
-    field: 'bg-[linear-gradient(160deg,#d9c3a0,#bfa27a)]',
-    page: 'bg-[#4f3e33]',
-    ink: 'text-[#f2eee3]',
-    bar: 'bg-[#e2c275]',
+    field: 'bg-[#c8b7a6]',
+    page: 'bg-[#6b442e]',
+    ink: 'text-[#faf8f5]',
+    bar: 'bg-[#e6dace]',
   },
   business: {
-    field: 'bg-[linear-gradient(160deg,#e9e3d4,#d6ccb6)]',
-    page: 'bg-[#fbf8f1]',
-    ink: 'text-[#2d2520]',
-    bar: 'bg-[#c9bba5]',
+    field: 'bg-[#f1ebe4]',
+    page: 'bg-[#fffdfb]',
+    ink: 'text-[#1f1f1f]',
+    bar: 'bg-[#c8b7a6]',
   },
 }
 
@@ -71,7 +71,7 @@ export const ProjectCover: React.FC<{ project: Project; className?: string; larg
           )}
         >
           <span className="cover-line h-[0.35em] w-[22%] rounded-full bg-current opacity-30" />
-          <span className="cover-title text-[2.2em] font-extrabold uppercase leading-[0.9] tracking-[-0.03em]">
+          <span className="cover-title font-[family-name:var(--font-display)] text-[2.2em] font-bold leading-[0.9] tracking-[-0.03em]">
             {cleanName(project.client)}
           </span>
           <span className="cover-line h-[0.35em] w-[58%] rounded-full bg-current opacity-25" />

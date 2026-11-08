@@ -13,6 +13,7 @@ import { FeatureGrid } from '@/components/site/FeatureGrid'
 import { JsonLd } from '@/components/site/JsonLd'
 import { PackageGrid } from '@/components/site/PackageGrid'
 import { PageHero } from '@/components/site/PageHero'
+import { serviceArt } from '@/components/site/art'
 import { ProcessStory } from '@/components/site/ProcessStory'
 import { Reveal } from '@/components/site/Reveal'
 import { Section, SectionHeader } from '@/components/site/Section'
@@ -87,7 +88,7 @@ export default async function ServicePage({ params }: Args) {
 
   return (
     <>
-      <PageHero lead={service.overview} title={service.heroHeading}>
+      <PageHero art={serviceArt(service.slug)} lead={service.overview} title={service.heroHeading}>
         <div className="flex flex-col gap-3 sm:flex-row">
           <Button asChild size="lg">
             <Link href={enquireHref}>

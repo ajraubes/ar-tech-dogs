@@ -111,7 +111,7 @@ const Cup = ({ level }: { level: number }) => {
       {/* steam */}
       <g
         className={cn('cup-steam', level < 0.2 && 'opacity-0')}
-        stroke="#c9bba5"
+        stroke="#c8b7a6"
         strokeLinecap="round"
         strokeWidth="6"
       >
@@ -119,26 +119,26 @@ const Cup = ({ level }: { level: number }) => {
         <path d="M144 14 C134 0 154 -10 144 -24" />
         <path d="M176 18 C166 4 186 -6 176 -20" />
       </g>
-      <path d={glass} fill="#f2eee3" fillOpacity="0.1" />
+      <path d={glass} fill="#faf8f5" fillOpacity="0.1" />
       <g clipPath="url(#cup-inside)">
         <g
           className="transition-transform duration-700 ease-[cubic-bezier(0.65,0,0.35,1)]"
           style={{ transform: `translateY(${y}px)` }}
         >
-          <rect fill="#e2c275" height="16" width="300" x="-10" y="0" />
-          <rect fill="#ffe7b3" height="5" opacity="0.7" width="300" x="-10" y="2" />
-          <rect fill="#725c4c" height="260" width="300" x="-10" y="16" />
-          <rect fill="#4f3e33" height="260" width="300" x="-10" y="90" />
+          <rect fill="#e6dace" height="16" width="300" x="-10" y="0" />
+          <rect fill="#faf8f5" height="5" opacity="0.7" width="300" x="-10" y="2" />
+          <rect fill="#9c735b" height="260" width="300" x="-10" y="16" />
+          <rect fill="#6b442e" height="260" width="300" x="-10" y="90" />
         </g>
       </g>
-      <path d={glass} stroke="#f2eee3" strokeLinejoin="round" strokeWidth="8" />
+      <path d={glass} stroke="#faf8f5" strokeLinejoin="round" strokeWidth="8" />
       <path
         d="M236 92 C276 92 280 168 226 172"
-        stroke="#f2eee3"
+        stroke="#faf8f5"
         strokeLinecap="round"
         strokeWidth="8"
       />
-      <ellipse cx="140" cy="258" fill="#f2eee3" fillOpacity="0.14" rx="126" ry="10" />
+      <ellipse cx="140" cy="258" fill="#faf8f5" fillOpacity="0.14" rx="126" ry="10" />
     </svg>
   )
 }

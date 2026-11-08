@@ -180,7 +180,7 @@ export const HeaderClient: React.FC<{ links: NavLink[]; cta: NavLink }> = ({ lin
                   <Link
                     aria-current={active ? 'page' : undefined}
                     className={cn(
-                      'flex min-h-14 items-center justify-between text-[2rem] font-bold leading-none tracking-[-0.02em] transition-colors duration-150 active:text-muted-foreground',
+                      'flex min-h-14 items-center justify-between font-[family-name:var(--font-display)] text-[2rem] font-bold leading-none tracking-[-0.02em] transition-colors duration-150 active:text-muted-foreground',
                       active ? 'text-foreground' : 'text-foreground/75',
                     )}
                     href={link.href}

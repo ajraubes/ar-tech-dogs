@@ -904,7 +904,7 @@ export const company = {
 }
 
 export const founder = {
-  name: 'AJ',
+  name: 'AJ Raubenheimer',
   role: 'Founder & Lead Developer',
   bio: 'Senior web developer with more than ten years of practical experience across Shopify, Shopify Plus, custom Liquid, React, Next.js, Payload CMS, PHP, Laravel and Magento. [Founder to review and expand.]',
   expertise: [
@@ -943,8 +943,15 @@ export const founder = {
  */
 export const team = [
   {
-    name: 'Ruan',
-    role: 'Partner & Senior Developer',
+    name: 'Jinx',
+    role: 'HR & Client Relations',
+    bio: 'Jinx is the border collie in our logo and the first face you meet at AR Tech Dogs. Jinx looks after client relations and the team itself: every enquiry is welcomed, every launch is celebrated, and nobody leaves a call without feeling looked after. [To confirm.]',
+    expertise: ['Client care', 'First impressions', 'Team morale', 'Coffee breaks'],
+    experience: [] as string[],
+  },
+  {
+    name: 'Ruan Luus',
+    role: 'CTO & Senior Developer',
     bio: 'Ruan is a partner in the studio and a senior full-stack developer. He leads backend architecture, integrations and infrastructure, and makes sure what we ship is fast, secure and easy to maintain.',
     expertise: [
       'Node.js & TypeScript',
@@ -958,8 +965,8 @@ export const team = [
     experience: ['Takealot', 'Discovery', 'Vodacom', 'Mr Price'],
   },
   {
-    name: 'Zurika',
-    role: 'Head Designer and UI/UX Specialist',
+    name: 'Zurika Raubenheimer',
+    role: 'UI/UX & Designer',
     bio: 'Zurika leads design, from brand direction and user research to the interface details that make a site easy to use. She designs in Figma alongside development, so what you approve is what gets built.',
     expertise: [
       'UI design',
@@ -972,7 +979,7 @@ export const team = [
     experience: ['Woolworths', 'Truworths', 'Cotton On', 'Sorbet'],
   },
   {
-    name: 'Danika',
+    name: 'Danika Raubenheimer',
     role: 'Head of Marketing',
     bio: 'Danika leads marketing at AR Tech Dogs: positioning, launch campaigns and the SEO and analytics work that keeps a new site growing after it goes live.',
     expertise: [
@@ -986,6 +993,9 @@ export const team = [
     experience: ['Clicks', 'Spur', 'Nando’s', 'Dis-Chem'],
   },
 ]
+
+/** Jinx, from the brand's team profiles. The team page shows Jinx even before seeding. */
+export const jinx = team[0]
 
 /**
  * Sample case studies so the Our Work layout can be checked with content in it. The

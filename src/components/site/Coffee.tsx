@@ -75,10 +75,10 @@ export const Bean: React.FC<{ className?: string }> = ({ className }) => (
 )
 
 /**
- * The stacked logo's pug on a crema tile, with steam rising off his cup. The steam is
- * placed by percentage so it stays on the cup at every size.
+ * The icon mark on a flat beige tile, sitting on the tile's lower edge the way the laptop
+ * sits on a desk. It lands with a small spring on first paint, then breathes slowly.
  */
-export const PugTile: React.FC<{
+export const CollieTile: React.FC<{
   className?: string
   priority?: boolean
   sizes?: string
@@ -86,32 +86,24 @@ export const PugTile: React.FC<{
 }> = ({ className, priority, sizes = '(min-width: 1024px) 34vw, 80vw', children }) => (
   <div
     className={cn(
-      'relative isolate overflow-hidden rounded-[2rem] bg-[linear-gradient(180deg,#ecc97e,#ddb565)]',
+      'relative isolate flex flex-col overflow-hidden rounded-[2rem] bg-beige',
       className,
     )}
   >
-    {/* A saucer of light behind him, so the tile reads as a warm room rather than a flat card. */}
-    <div
-      aria-hidden
-      className="absolute inset-x-[12%] bottom-[8%] top-[18%] -z-10 rounded-full bg-[#f3d999] opacity-70 blur-2xl"
-    />
-    <div className="tilt-depth relative mx-auto w-[74%] pt-[12%]">
-      <div className="pug-land relative">
-        <div className="pug-breathe">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            alt="The AR Tech Dogs pug, sitting with a cup of coffee"
-            className="h-auto w-full"
-            decoding="async"
-            fetchPriority={priority ? 'high' : 'auto'}
-            height={1110}
-            loading={priority ? 'eager' : 'lazy'}
-            sizes={sizes}
-            src="/brand/pug.webp"
-            width={1000}
-          />
-          <Steam className="steam-late absolute left-[49.5%] top-[48.5%] w-[10%] text-[#fff8e8]" />
-        </div>
+    <div className="tilt-depth flex min-h-0 flex-1 items-end justify-center px-[8%] pt-[9%]">
+      <div className="pug-land flex h-full w-full items-end justify-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          alt="Jinx, the AR Tech Dogs border collie, at a laptop with a cup of coffee"
+          className="pug-breathe max-h-full w-full object-contain object-bottom"
+          decoding="async"
+          fetchPriority={priority ? 'high' : 'auto'}
+          height={955}
+          loading={priority ? 'eager' : 'lazy'}
+          sizes={sizes}
+          src="/brand/collie.webp"
+          width={1000}
+        />
       </div>
     </div>
     {children}

@@ -1,95 +1,83 @@
 # AR Tech Dogs brand guide
 
-Everything here is taken from the logo: a friendly pug sitting with a cup of coffee, on warm cream, over the name in heavy charcoal capitals and the line "Design. Develop. Deliver, one sip at a time".
+Custom development and websites with a Shopify focus. Develop · Design · Build · Grow.
 
-The site's tokens live in `src/app/(frontend)/globals.css`. Change them there, not in components.
+The mascot is **Jinx**, a black and white border collie at a laptop (code on one screen, a cart on the other) with a cup of coffee in front. The look is warm, polished and corporate: clean vector dog motifs, subtle tech and ecommerce icons, understated coffee accents and generous whitespace.
 
-## Personality
+The source artwork lives in `docs/brand/` (brand guide, exploration board, logo mark, team profiles, banner suite, asset library, email signatures). The site's tokens live in `src/app/(frontend)/globals.css`. Change them there, not in components.
 
-Warm, senior, unhurried. The pug is calm and a little smug: he knows the work is good. Copy is plain and direct, never cute. The mascot carries the friendliness, so the type and layout can stay precise.
+## Voice
+
+Clear, expert, approachable, practical. Say what it is, then what it costs. "You talk to the person who writes the code" beats any adjective. Coffee is the brand's one joke; use it once per page at most ("One sip at a time").
 
 ## Logo
 
-The master is the brand identity board (`public/brand/brand-board.png`). Every file below was traced from it.
-
 | File | Use |
 | --- | --- |
-| `public/brand/pug-head.svg` | Primary mark: the pug's head in colour. Master vector. |
-| `public/brand/mark.png` | The head, transparent, 256px. Beside the wordmark in the header and footer. |
-| `public/brand/pug.svg` | The stacked logo's pug, sitting with his coffee. Master vector. |
-| `public/brand/pug.webp`, `pug.png` | The sitting pug, transparent, 1000px and 640px. Used on the site. |
-| `public/brand/pug-head-line.svg` | One-colour (dark) head, for print, stamps and single-colour use. |
-| `public/brand/pug-head-reversed.svg` | Reversed head, light on espresso. |
-| `public/brand/logo.png` | App icon: the head on a crema rounded square, 512px. Social profiles, schema.org. |
-| `public/favicon.ico`, `favicon-64.png` | The app icon as favicon (16, 32, 48, 64). |
-| `public/apple-touch-icon.png`, `icon-192.png`, `icon-512.png` | The head on a full crema square for home screens and the web manifest. |
+| `docs/brand/logo-mark.webp` | Master icon mark, transparent, lossless. |
+| `public/brand/collie.webp`, `collie.png` | The icon mark, transparent, 1000px and 640px. Hero, page heroes, footer, share image. |
+| `public/brand/mark.png` | The icon mark at 256px, beside the wordmark in the header and footer. |
+| `public/brand/logo.png` | App icon: the mark on an espresso rounded square, 512px. Social profiles, schema.org. |
+| `public/favicon.ico`, `favicon-64.png` | Favicon (16, 32, 48, 64) on espresso, as in the brand guide. |
+| `public/apple-touch-icon.png`, `icon-192.png`, `icon-512.png` | The mark on a full espresso square, inside the maskable safe zone. |
 
-The horizontal lockup is live text on the site: the head, then "AR TECH DOGS" in Barlow ExtraBold capitals, with the tagline underneath on wide screens.
+The horizontal lockup is live text: the mark, then "AR Tech Dogs" in Montserrat Bold (sentence case, tight tracking), with "Development · Websites · Shopify" underneath on wide screens.
 
-Rules:
+Rules (from the brand guide):
 
-- The sitting pug sits on something: his crema tile, the edge of a section. He never floats in empty space.
-- Keep at least the height of the pug's head clear around the mark.
-- Never recolour, outline, rotate, stretch or add a shadow to the pug. On crema, give him the tile's lighter glow behind him; cream, oat and espresso are all fine.
-- The tagline is "Design. Develop. Deliver, one sip at a time." with that punctuation.
+- Use the approved versions only (primary, stacked, icon). Never alter, stretch, redraw, outline or add effects to the mark.
+- Keep the logo clear, legible and surrounded by ample whitespace. Never on busy or low-contrast backgrounds.
+- The mark sits on something: a tile's lower edge, the hero's edge, the line of the wordmark.
 
 ## Colour
 
 | Name | Hex | Role |
 | --- | --- | --- |
-| Cream | `#F2EEE3` | Page background. The logo's ground. |
-| Oat | `#E9E3D4` | Raised sections and cards: one tone step down from cream. |
-| Espresso | `#2D2520` | Text, primary buttons on light, dark sections and the footer. |
-| Mocha | `#6A5547` | Secondary text on cream (6:1). |
-| Crema | `#E2C275` | The pug's coat. Accent field (the pricing band), buttons on espresso, highlights. |
-| Toast | `#C6A55C` | The coat's shadow. Illustration only; too light for text on cream. |
-| Roast | `#4F3E33` | The muzzle. Button hover, secondary text on Crema. |
-| Foam | `#FFE7B3` | The chest highlight. Illustration only. |
-| Deep gold | `#7A5F24` | Small gold-coloured text on cream (5.2:1). |
+| Charcoal | `#1F1F1F` | Text. The footer field. |
+| Espresso | `#3B2417` | Primary buttons on light, dark sections, the favicon tile. |
+| Coffee brown | `#6B442E` | Secondary text and small accent text on light (7.9:1 on warm white). Button hover. |
+| Mocha | `#9C735B` | Accent: the active nav dot, selection, illustration. Not for small text. |
+| Taupe | `#C8B7A6` | Secondary text on espresso (7.4:1). |
+| Beige | `#E6DACE` | Accent field (the hero tile, the pricing band), buttons on espresso, chips. |
+| Warm white | `#FAF8F5` | Page background. |
 
-Proportions: about 70% cream and oat, 20% espresso, 10% crema. Crema is a field or an action, never a thin line.
-
-Contrast (WCAG): espresso on cream 13:1, espresso on crema 8.7:1, crema on espresso 8.7:1, mocha on cream 6:1. Every pairing in the site passes AA.
-
-Separate surfaces with a tone step (cream → oat → espresso), not with borders or shadows. Shadows are only for things that float, such as a menu.
+Raised sections and cards use `#F1EBE4`, one tone step from warm white toward beige. Separate surfaces with a tone step (warm white → raised → beige → espresso → charcoal), never a border or shadow. No gradients.
 
 ## Type
 
-One family: **Barlow** (Google Fonts, self-hosted in `src/fonts`), the closest match to the logo's wordmark: DIN-like, slightly rounded, confident in capitals.
+**Montserrat** (Bold/Semibold) for headings and the wordmark, **Inter** for body and UI. Both are variable fonts self-hosted from `src/fonts`. The share image uses static Montserrat 700 and Inter 500 from `public/fonts`.
 
 | Role | Size | Weight | Tracking | Leading |
 | --- | --- | --- | --- | --- |
-| Monument (homepage name) | fills the width, about 16% of it | 700, capitals | -0.035em | 0.82 |
-| Display (closing headline) | 48 → 96px | 700 | -0.035em | 0.9 |
-| H1 (page titles) | 40 → 80px | 700 | -0.03em | 0.98 |
-| H2 (section titles) | 32 → 56px | 700 | -0.025em | 1.0 |
-| H3 | 20 → 24px | 600 | -0.01em | 1.2 |
+| Display (closing headline) | 42 → 84px | 700 | -0.04em | 1.0 |
+| H1 (page titles) | 36 → 70px | 700 | -0.035em | 1.04 |
+| H2 (section titles) | 30 → 50px | 700 | -0.03em | 1.06 |
+| H3 | 19 → 23px | 600 | -0.015em | 1.25 |
 | Lead | 18 → 22px | 400 | 0 | 1.5 |
 | Body | 17px | 400 | 0 | 1.55 |
 | Small | 14px | 400–600 | 0 | 1.45 |
 
-Sentence case everywhere except the wordmark. No monospace outside code. No small letter-spaced labels above headings: the heading does the work.
+Sentence case everywhere. No monospace outside code. No small letter-spaced labels above headings.
+
+## Artwork
+
+- **Team portraits** (`public/brand/team/`): each person drawn as their own dog at the laptop, in a mocha ring. Jinx (border collie), AJ (German shepherd in a suit), Danika (golden retriever), Zurika (whippet), Ruan (husky). They are matched to CMS team members by first name in `src/components/site/TeamPortrait.tsx`. Anyone else gets `coming-soon.webp`, the "Profile coming soon" card.
+- **Spot illustrations** (`public/brand/art/`): Jinx at work, one per service, mapped in `src/components/site/art.ts`. Transparent; on a light field other than warm white add `mix-blend-multiply`.
+- New artwork from the asset library: crop it from `docs/brand/asset-library.webp`, keep the brand colours, and never set it on espresso without a light tile behind it.
 
 ## Shape and space
 
-- Buttons are pills: espresso on light grounds, crema on espresso. 48–56px tall.
-- Cards and fields use a 24px radius. Images keep the same radius.
+- Buttons are pills: espresso on light grounds, beige on espresso. 48–56px tall.
+- Cards and fields use a 24px radius; the hero tile 32px.
 - One page frame: 20px side margins on phones, 40px on desktop, 1360px max width.
 - Sections are 80px apart on phones and 128px on desktop, and change field colour rather than drawing a line.
 
 ## Motion
 
-- The pug settles onto his tile on load with a small spring, then breathes slowly. Steam rises off his cup once he has landed.
-- Coffee is the motion theme, used where it explains something: steam over every cup (hero, page heroes, the close, the 404), a cup that fills while the enquiry form sends, and a steaming cup when it has sent.
-- Primary buttons pour: on mouse hover a darker roast rises from the bottom of the pill in 420ms. Touch gets the press scale instead.
-- The header head tilts 9° when pointed at, like a dog listening.
-- Reasons are marked with a coffee bean, not a tick.
+- The mark settles onto its tile on load with a small spring, then breathes slowly.
+- Primary buttons pour: on mouse hover the coffee-brown hover colour rises from the bottom of the pill.
+- The header mark tilts when pointed at, like a dog that heard its name; team portraits tilt the same way.
+- Illustrations lift a few pixels when their card or row is pointed at.
 - Sections arrive heading first, then text, then the rest, 80ms apart, rising 20px.
 - The process section is a pinned cortado glass: each of the six stages takes one sip.
-- Buttons press to 97%. Under reduced motion the steam stands still and everything else changes instantly.
-
-## Voice
-
-- Say what it is, then what it costs. Published prices are a feature; show them.
-- "You talk to the person who writes the code" beats any adjective.
-- Coffee is the brand's one joke. Use it once per page at most ("One sip at a time").
+- Under reduced motion everything changes instantly.

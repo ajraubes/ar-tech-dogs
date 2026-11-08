@@ -44,9 +44,9 @@
   --breakpoint-xl: 80rem;
   --breakpoint-2xl: 96rem;
   --font-mono: var(--font-geist-mono);
-  --font-sans: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
-  --font-wordmark: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-wordmark: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer utilities {
@@ -69,80 +69,83 @@
 }
 
 /*
- * AR Tech Dogs design tokens, taken from the pug logo (see docs/BRAND.md).
- * Cream is the default surface. Espresso sections opt in with data-theme="dark",
- * the gold field with data-theme="gold". Every text pairing below passes WCAG AA.
+ * AR Tech Dogs design tokens, from the brand guide (see docs/BRAND.md).
+ * Warm white is the default surface. Espresso sections opt in with data-theme="dark",
+ * the beige field with data-theme="gold" (the name is kept so existing content still works).
+ * Every text pairing below passes WCAG AA.
  */
 :root,
 [data-theme='light'] {
-  --background: #f2eee3; /* Cream */
-  --foreground: #2d2520; /* Espresso, 13:1 on cream */
-  --card: #e9e3d4; /* Oat: one tone step down from cream */
+  --background: #faf8f5; /* Warm white */
+  --foreground: #1f1f1f; /* Charcoal, 16:1 on warm white */
+  --card: #f1ebe4; /* Raised: one tone step toward beige */
   --card-foreground: var(--foreground);
-  --popover: #f8f5ee;
+  --popover: #fffdfb;
   --popover-foreground: var(--foreground);
-  --primary: #2d2520; /* buttons are espresso on cream */
-  --primary-foreground: #f2eee3;
-  --primary-hover: #4f3e33; /* Roast */
-  --secondary: #e3dccb;
+  --primary: #3b2417; /* Espresso buttons on light grounds */
+  --primary-foreground: #faf8f5;
+  --primary-hover: #6b442e; /* Coffee brown */
+  --secondary: #e6dace; /* Beige */
   --secondary-foreground: var(--foreground);
-  --muted: #e3dccb;
-  --muted-foreground: #6a5547; /* Mocha text, 6:1 on cream */
-  --accent: #e3dccb;
+  --muted: #e6dace;
+  --muted-foreground: #6b442e; /* Coffee brown text, 7.9:1 on warm white */
+  --accent: #e6dace;
   --accent-foreground: var(--foreground);
   --destructive: #a23b2a;
   --destructive-foreground: #a23b2a;
-  --border: rgb(45 37 32 / 10%);
-  --border-strong: rgb(45 37 32 / 22%);
-  --input: rgb(45 37 32 / 22%);
-  --ring: #2d2520;
-  --brand: #e2c275; /* Crema gold, the pug's coat */
-  --brand-text: #7a5f24; /* gold deep enough for small text on cream, 5.2:1 */
+  --border: rgb(59 36 23 / 10%);
+  --border-strong: rgb(59 36 23 / 22%);
+  --input: rgb(59 36 23 / 24%);
+  --ring: #3b2417;
+  --brand: #9c735b; /* Mocha */
+  --brand-text: #6b442e; /* Coffee brown for small accent text */
   --radius: 1rem;
   --success: #3f6b3a;
   --warning: #8a5a12;
   --error: #a23b2a;
-  --shadow-float: 0 12px 32px -12px rgb(45 37 32 / 28%), 0 2px 6px rgb(45 37 32 / 8%);
+  --shadow-float: 0 16px 40px -16px rgb(59 36 23 / 30%), 0 2px 6px rgb(59 36 23 / 8%);
   color-scheme: light;
 }
 
 [data-theme='dark'] {
-  --background: #2d2520; /* Espresso */
-  --foreground: #f2eee3;
-  --card: #382e28;
-  --popover: #382e28;
-  --primary: #e2c275; /* gold buttons on espresso, 8.7:1 with espresso text */
-  --primary-foreground: #2d2520;
-  --primary-hover: #ecd295;
-  --secondary: #41362f;
-  --muted: #41362f;
-  --muted-foreground: #c9bba5; /* 8:1 on espresso */
-  --accent: #41362f;
-  --border: rgb(242 238 227 / 12%);
-  --border-strong: rgb(242 238 227 / 24%);
-  --input: rgb(242 238 227 / 24%);
-  --ring: #e2c275;
-  --brand-text: #e2c275;
+  --background: #3b2417; /* Espresso */
+  --foreground: #faf8f5;
+  --card: #4a2f20;
+  --popover: #4a2f20;
+  --primary: #e6dace; /* Beige buttons on espresso, 11:1 with espresso text */
+  --primary-foreground: #3b2417;
+  --primary-hover: #faf8f5;
+  --secondary: #533626;
+  --muted: #533626;
+  --muted-foreground: #c8b7a6; /* Taupe, 7.4:1 on espresso */
+  --accent: #533626;
+  --border: rgb(250 248 245 / 12%);
+  --border-strong: rgb(250 248 245 / 24%);
+  --input: rgb(250 248 245 / 24%);
+  --ring: #e6dace;
+  --brand: #c8b7a6;
+  --brand-text: #e6dace;
   --success: #9ccc8c;
-  --warning: #e2c275;
+  --warning: #e6dace;
   --error: #f0a08f;
   color-scheme: dark;
 }
 
+/* The beige field: the brand's warm accent surface (pricing band, highlights). */
 [data-theme='gold'] {
-  --background: #e2c275; /* Crema */
-  --foreground: #2d2520; /* 8.7:1 */
-  --card: #d8b665;
-  --primary: #2d2520;
-  --primary-foreground: #f2eee3;
-  --primary-hover: #4f3e33;
-  --secondary: #d8b665;
-  --muted: #d8b665;
-  --muted-foreground: #4f3e33; /* Roast, 5.9:1 on gold */
-  --border: rgb(45 37 32 / 14%);
-  --border-strong: rgb(45 37 32 / 28%);
-  --ring: #2d2520;
-  --brand-text: #2d2520;
+  --background: #e6dace; /* Beige */
+  --foreground: #1f1f1f; /* 12:1 */
+  --card: #dccdbe;
+  --primary: #3b2417;
+  --primary-foreground: #faf8f5;
+  --primary-hover: #6b442e;
+  --secondary: #dccdbe;
+  --muted: #dccdbe;
+  --muted-foreground: #6b442e; /* 6.1:1 on beige */
+  --border: rgb(59 36 23 / 14%);
+  --border-strong: rgb(59 36 23 / 28%);
+  --ring: #3b2417;
+  --brand-text: #3b2417;
   color-scheme: light;
 }
 
@@ -182,13 +185,19 @@
   --color-border-strong: var(--border-strong);
   --color-brand-text: var(--brand-text);
   --color-brand: var(--brand);
-  --color-cream: #f2eee3;
-  --color-espresso: #2d2520;
-  --color-crema: #e2c275;
-  --color-toast: #c6a55c;
-  --color-mocha: #725c4c;
-  --color-roast: #4f3e33;
-  --color-foam: #ffe7b3;
+  /* The brand palette by name. The older names (cream, crema, roast...) map onto it. */
+  --color-charcoal: #1f1f1f;
+  --color-espresso: #3b2417;
+  --color-coffee: #6b442e;
+  --color-mocha: #9c735b;
+  --color-taupe: #c8b7a6;
+  --color-beige: #e6dace;
+  --color-warm: #faf8f5;
+  --color-cream: #faf8f5;
+  --color-crema: #e6dace;
+  --color-toast: #c8b7a6;
+  --color-roast: #6b442e;
+  --color-foam: #faf8f5;
   /* Motion: one strong ease-out for entrances, one for state changes, one spring-ish overshoot. */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
@@ -246,7 +255,7 @@
   }
   ::selection {
     background: var(--brand);
-    color: #2d2520;
+    color: #1f1f1f;
   }
   :focus-visible {
     outline: 2px solid var(--ring);
@@ -255,8 +264,10 @@
   }
   h1,
   h2,
-  h3 {
+  h3,
+  h4 {
     text-wrap: balance;
+    font-family: var(--font-display);
   }
   p {
     text-wrap: pretty;
@@ -264,8 +275,8 @@
 }
 
 /*
- * Type scale. One family (Barlow, the face of the logo's wordmark), five sizes:
- * monument, h1/h2, h3, body (17px), small (14px). Lead is body set larger.
+ * Type scale. Montserrat for headings (the wordmark's face), Inter for everything else.
+ * Five sizes: display, h1/h2, h3, body (17px), small (14px). Lead is body set larger.
  */
 @layer components {
   .text-display,
@@ -284,27 +295,27 @@
     text-transform: uppercase;
   }
   .text-display {
-    font-size: clamp(3rem, 1.2rem + 6vw, 6rem);
-    line-height: 0.9;
-    letter-spacing: -0.035em;
+    font-size: clamp(2.625rem, 1.2rem + 5vw, 5.25rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
     font-weight: 700;
   }
   .text-h1 {
-    font-size: clamp(2.5rem, 1.5rem + 4vw, 5rem);
-    line-height: 0.98;
-    letter-spacing: -0.03em;
+    font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4.375rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
     font-weight: 700;
   }
   .text-h2 {
-    font-size: clamp(2rem, 1.4rem + 2.4vw, 3.5rem);
-    line-height: 1;
-    letter-spacing: -0.025em;
+    font-size: clamp(1.875rem, 1.35rem + 2vw, 3.125rem);
+    line-height: 1.06;
+    letter-spacing: -0.03em;
     font-weight: 700;
   }
   .text-h3 {
-    font-size: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
-    line-height: 1.2;
-    letter-spacing: -0.01em;
+    font-size: clamp(1.1875rem, 1.1rem + 0.35vw, 1.4375rem);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
     font-weight: 600;
   }
   .text-lead {
@@ -776,139 +787,9 @@ html.js [data-reveal][data-visible='true'] .clip-rise {
   }
 }
 
-/* ----- Team pugs ----- */
+/* ----- Team portraits ----- */
 
-/* The prop floats on its own slow rhythm, out of step with the pug's breath. */
-@keyframes prop-float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-1.5deg);
-  }
-  50% {
-    transform: translateY(-6%) rotate(1.5deg);
-  }
-}
-.prop-float {
-  animation: prop-float 6s ease-in-out var(--float-delay, 0ms) infinite;
-}
-
-/* Code types itself, line by line, then starts again. */
-@keyframes type-line {
-  0%,
-  8% {
-    transform: scaleX(0);
-  }
-  30%,
-  86% {
-    transform: scaleX(1);
-  }
-  100% {
-    transform: scaleX(0);
-    opacity: 0;
-  }
-}
-.type-line {
-  transform-origin: 0 50%;
-  animation: type-line 4.8s var(--ease-out-quart) infinite;
-  animation-delay: calc(var(--i, 0) * 260ms);
-}
-
-@keyframes caret {
-  50% {
-    opacity: 0;
-  }
-}
-.caret {
-  animation: caret 1.05s steps(1) infinite;
-}
-
-/* The chart's bars grow, hold, and settle back. */
-@keyframes bar-grow {
-  0% {
-    transform: scaleY(0.15);
-  }
-  35%,
-  80% {
-    transform: scaleY(1);
-  }
-  100% {
-    transform: scaleY(0.15);
-  }
-}
-.bar-grow {
-  transform-origin: 50% 100%;
-  animation: bar-grow 5s var(--ease-out-expo) infinite;
-  animation-delay: calc(var(--i, 0) * 140ms);
-}
-
-/* A bezier curve draws itself between two anchor points. */
-@keyframes draw-curve {
-  0% {
-    stroke-dashoffset: 1;
-  }
-  45%,
-  85% {
-    stroke-dashoffset: 0;
-  }
-  100% {
-    stroke-dashoffset: -1;
-  }
-}
-.draw-curve {
-  stroke-dasharray: 1;
-  animation: draw-curve 5.2s var(--ease-out-quart) infinite;
-}
-@keyframes draw-dot {
-  0%,
-  100% {
-    transform: scale(0.85);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-}
-.draw-dot {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: draw-dot 2.6s ease-in-out infinite;
-}
-.draw-dot-late {
-  animation-delay: 1.3s;
-}
-@keyframes swatch-pop {
-  0%,
-  70%,
-  100% {
-    transform: translateY(0);
-  }
-  80% {
-    transform: translateY(-18%);
-  }
-}
-.swatch-pop {
-  animation: swatch-pop 4s var(--ease-out-quart) infinite;
-  animation-delay: calc(var(--i, 0) * 120ms);
-}
-
-/* Glasses catch the light now and then. */
-@keyframes glint {
-  0%,
-  86%,
-  100% {
-    opacity: 0;
-  }
-  90% {
-    opacity: 1;
-  }
-}
-.glint {
-  animation: glint 5s ease-in-out infinite;
-}
-.glint-late {
-  animation-delay: 0.12s;
-}
-
-/* Point at a portrait and the pug tilts his head, the way the logo's head does. */
+/* Point at a portrait and the dog tilts its head, the way the logo's mark does. */
 .pug-tilt {
   transition: transform 600ms var(--ease-spring);
   transform-origin: 50% 90%;
@@ -916,22 +797,6 @@ html.js [data-reveal][data-visible='true'] .clip-rise {
 @media (hover: hover) and (pointer: fine) {
   .team-pug:hover .pug-tilt {
     transform: rotate(-4deg) translateY(-1.5%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .prop-float,
-  .type-line,
-  .caret,
-  .bar-grow,
-  .draw-curve,
-  .draw-dot,
-  .swatch-pop,
-  .glint {
-    animation: none !important;
-  }
-  .draw-curve {
-    stroke-dashoffset: 0;
   }
 }
 

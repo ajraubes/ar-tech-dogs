@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-import { Logo, Pug, TAGLINE } from '@/components/Logo/Logo'
-import { Steam } from '@/components/site/Coffee'
+import { Collie, Logo, TAGLINE } from '@/components/Logo/Logo'
 import { Reveal } from '@/components/site/Reveal'
 import { footerNavigation, navigation } from '@/content/seedData'
 import { getPublishedPostCount, getServices, getSiteSettings } from '@/lib/data'
@@ -43,8 +42,8 @@ export async function Footer() {
     <footer
       className="mt-auto overflow-hidden"
       data-theme="dark"
-      // One tone deeper than the espresso sections above it, so the close reads as its own surface.
-      style={{ '--background': '#231c18' } as React.CSSProperties}
+      // Charcoal, one step deeper than the espresso sections above it, so the close reads as its own surface.
+      style={{ '--background': '#1f1f1f', '--card': '#2a2522' } as React.CSSProperties}
     >
       <div className="container grid grid-cols-2 gap-x-8 gap-y-14 pb-16 pt-20 md:grid-cols-12 md:pb-20 md:pt-24">
         <div className="col-span-2 md:col-span-5">
@@ -57,7 +56,7 @@ export async function Footer() {
             {contact?.email && (
               <li>
                 <a
-                  className="inline-flex min-h-11 items-center break-all text-[clamp(1.5rem,1.2rem+1.2vw,2.25rem)] font-bold tracking-[-0.02em] text-brand-text underline decoration-transparent underline-offset-[0.18em] transition-[text-decoration-color] duration-200 hover:decoration-current"
+                  className="inline-flex min-h-11 items-center break-all font-[family-name:var(--font-display)] text-[clamp(1.5rem,1.2rem+1.2vw,2.25rem)] font-bold tracking-[-0.02em] text-brand-text underline decoration-transparent underline-offset-[0.18em] transition-[text-decoration-color] duration-200 hover:decoration-current"
                   href={`mailto:${contact.email}`}
                 >
                   {contact.email}
@@ -121,16 +120,15 @@ export async function Footer() {
         )}
       </div>
 
-      {/* The stacked logo, set at full width: the pug sits on the wordmark, as on the brand board. */}
+      {/* The primary lockup, set at full width: the mark, then the name, as on the brand guide. */}
       <Reveal className="container select-none">
-        <div aria-hidden className="relative">
-          <div className="land-late absolute bottom-[78%] right-[1.5%] w-[13%] min-w-16">
-            <div className="pug-breathe relative">
-              <Pug className="h-auto w-full" sizes="(min-width: 1024px) 180px, 16vw" />
-              <Steam className="absolute left-[49.5%] top-[48.5%] w-[10%] text-cream/80" />
+        <div aria-hidden className="flex items-end gap-[2.5%]">
+          <div className="land-late w-[16%] shrink-0">
+            <div className="pug-breathe">
+              <Collie className="h-auto w-full" sizes="(min-width: 1024px) 240px, 17vw" />
             </div>
           </div>
-          <p className="rise-letters -ml-[0.04em] whitespace-nowrap text-[min(14.2vw,12.75rem)] font-extrabold uppercase leading-[0.8] tracking-[-0.035em] text-crema">
+          <p className="rise-letters whitespace-nowrap pb-[0.12em] font-[family-name:var(--font-wordmark)] text-[min(9.6vw,9.25rem)] font-bold leading-none tracking-[-0.05em] text-beige">
             {'AR Tech Dogs'.split('').map((ch, i) => (
               <span key={i} style={{ '--i': i } as React.CSSProperties}>
                 {ch === ' ' ? '\u00a0' : ch}
@@ -143,7 +141,7 @@ export async function Footer() {
       <div className="container">
         <div className="flex flex-col gap-x-8 gap-y-1 py-8 text-sm text-muted-foreground sm:flex-row sm:justify-between">
           <p>© {year} AR Tech Dogs. All rights reserved.</p>
-          <p>Made in Cape Town, one sip at a time.</p>
+          <p>Develop · Design · Build · Grow. Made in Cape Town.</p>
         </div>
       </div>
     </footer>

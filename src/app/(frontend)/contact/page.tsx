@@ -71,7 +71,7 @@ export default async function ContactPage({ searchParams }: Args) {
                     <dt className="sr-only">Email</dt>
                     <dd>
                       <a
-                        className="inline-flex min-h-11 items-center break-all text-[clamp(1.375rem,1.2rem+0.6vw,1.75rem)] font-bold tracking-[-0.015em] text-brand-text underline decoration-transparent underline-offset-[0.18em] transition-[text-decoration-color] duration-200 hover:decoration-current"
+                        className="inline-flex min-h-11 items-center break-all font-[family-name:var(--font-display)] text-[clamp(1.375rem,1.2rem+0.6vw,1.75rem)] font-bold tracking-[-0.015em] text-brand-text underline decoration-transparent underline-offset-[0.18em] transition-[text-decoration-color] duration-200 hover:decoration-current"
                         href={`mailto:${contact.email}`}
                       >
                         {contact.email}

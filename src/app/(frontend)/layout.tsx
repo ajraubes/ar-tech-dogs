@@ -18,16 +18,19 @@ import { draftMode } from 'next/headers'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
-// Barlow, the face of the logo's wordmark. Self-hosted so builds never depend on Google Fonts.
-const barlow = localFont({
-  src: [
-    { path: '../../fonts/Barlow-400.woff2', weight: '400', style: 'normal' },
-    { path: '../../fonts/Barlow-500.woff2', weight: '500', style: 'normal' },
-    { path: '../../fonts/Barlow-600.woff2', weight: '600', style: 'normal' },
-    { path: '../../fonts/Barlow-700.woff2', weight: '700', style: 'normal' },
-    { path: '../../fonts/Barlow-800.woff2', weight: '800', style: 'normal' },
-  ],
-  variable: '--font-barlow',
+// The brand guide's pair: Montserrat for headings and the wordmark, Inter for body and UI.
+// Both are variable fonts, self-hosted so builds never depend on Google Fonts.
+const montserrat = localFont({
+  src: '../../fonts/Montserrat-var.woff2',
+  weight: '100 900',
+  variable: '--font-montserrat',
+  display: 'swap',
+  fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+})
+const inter = localFont({
+  src: '../../fonts/Inter-var.woff2',
+  weight: '100 900',
+  variable: '--font-inter',
   display: 'swap',
   fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
 })
@@ -42,7 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html
-      className={cn(barlow.variable, GeistMono.variable)}
+      className={cn(montserrat.variable, inter.variable, GeistMono.variable)}
       data-theme="light"
       lang="en-ZA"
       suppressHydrationWarning
@@ -82,7 +85,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 url,
                 logo: `${url}/brand/logo.png`,
                 image: `${url}/og`,
-                slogan: 'Design. Develop. Deliver, one sip at a time.',
+                slogan: 'Custom development and websites with a Shopify focus.',
                 email: settings?.contact?.email || undefined,
                 telephone: settings?.contact?.phone || undefined,
                 areaServed: ['ZA', 'Worldwide'],
@@ -119,7 +122,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 
 export const viewport: Viewport = {
-  themeColor: '#f2eee3',
+  themeColor: '#faf8f5',
   colorScheme: 'light',
   viewportFit: 'cover',
 }

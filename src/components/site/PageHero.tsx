@@ -1,13 +1,13 @@
 import { cn } from '@/utilities/ui'
 import React from 'react'
 
-import { Pug } from '@/components/Logo/Logo'
-import { Steam } from './Coffee'
+import { Collie } from '@/components/Logo/Logo'
 import { SplitWords } from './SplitWords'
+import type { Art } from './art'
 
 /**
- * Interior page hero. One h1 per page, in the shared type scale. On wide screens the
- * pug sits on the hero's bottom edge, the way he sits on the wordmark in the logo.
+ * Interior page hero. One h1 per page, in the shared type scale. On wide screens Jinx's
+ * laptop rests on the hero's bottom edge, the way it rests on the line in the logo.
  */
 export const PageHero: React.FC<{
   title: string
@@ -15,7 +15,9 @@ export const PageHero: React.FC<{
   children?: React.ReactNode
   className?: string
   pug?: boolean
-}> = ({ title, lead, children, className, pug = true }) => (
+  /** A brand illustration in place of the mark, for pages about one service. */
+  art?: Art
+}> = ({ title, lead, children, className, pug = true, art }) => (
   <div className={cn('relative bg-card', className)}>
     <div className="container relative grid gap-10 pb-14 pt-14 md:pb-20 md:pt-24 lg:grid-cols-12 lg:items-end">
       <div className="lg:col-span-9">
@@ -36,13 +38,28 @@ export const PageHero: React.FC<{
           </div>
         )}
       </div>
-      {pug && (
+      {art && (
         <div
           aria-hidden
-          className="pug-sit pointer-events-none absolute bottom-0 right-10 z-10 hidden w-44 translate-y-[10%] lg:block xl:w-52"
+          className="pug-sit pointer-events-none absolute bottom-10 right-10 hidden w-64 lg:block xl:w-80"
         >
-          <Pug className="h-auto w-full" priority sizes="208px" />
-          <Steam className="steam-late absolute left-[49.5%] top-[48.5%] w-[10%] text-[#b89a63]" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt=""
+            className="h-auto w-full mix-blend-multiply"
+            decoding="async"
+            height={art.height}
+            src={art.src}
+            width={art.width}
+          />
+        </div>
+      )}
+      {pug && !art && (
+        <div
+          aria-hidden
+          className="pug-sit pointer-events-none absolute bottom-0 right-10 z-10 hidden w-56 translate-y-[4%] lg:block xl:w-64"
+        >
+          <Collie className="h-auto w-full" priority sizes="256px" />
         </div>
       )}
     </div>

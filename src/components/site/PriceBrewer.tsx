@@ -75,7 +75,7 @@ export const PriceBrewer: React.FC<{ options: BrewOption[]; titleId?: string }> 
 
       <div aria-live="polite" className="mt-12 md:mt-16" data-instant={instant || undefined}>
         <p
-          className="text-[clamp(2.75rem,1rem+6.6vw,7.5rem)] font-bold leading-[0.95] tracking-[-0.035em]"
+          className="font-[family-name:var(--font-display)] text-[clamp(2.5rem,1rem+5.4vw,6.5rem)] font-bold leading-[1] tracking-[-0.04em]"
           id={titleId}
           key={current.id}
         >

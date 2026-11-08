@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-import { PugTile } from '@/components/site/Coffee'
+import { CollieTile } from '@/components/site/Coffee'
 import { Button } from '@/components/ui/button'
 
 export default function NotFound() {
@@ -31,7 +31,7 @@ export default function NotFound() {
         </div>
       </div>
       <div className="mx-auto w-full max-w-xs lg:col-span-4 lg:col-start-9">
-        <PugTile className="aspect-[4/4.4]" sizes="320px" />
+        <CollieTile className="aspect-[4/4.4]" sizes="320px" />
       </div>
     </div>
   )

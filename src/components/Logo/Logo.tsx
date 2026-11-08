@@ -1,9 +1,13 @@
 import { cn } from '@/utilities/ui'
 import React from 'react'
 
-export const TAGLINE = 'Design. Develop. Deliver, one sip at a time.'
+export const TAGLINE = 'Custom development and websites, with a Shopify focus.'
+export const LOCKUP_LINE = 'Development · Websites · Shopify'
 
-/** The pug's head from the brand board. Used as the small mark; the favicon puts it on a crema tile. */
+/**
+ * The icon mark from the brand guide: Jinx the border collie at the laptop, coffee in front.
+ * Transparent, so it sits on any light or espresso ground.
+ */
 export const LogoMark = ({ className, priority }: { className?: string; priority?: boolean }) => (
   /* eslint-disable-next-line @next/next/no-img-element */
   <img
@@ -11,15 +15,15 @@ export const LogoMark = ({ className, priority }: { className?: string; priority
     className={cn('h-10 w-auto shrink-0', className)}
     decoding="async"
     fetchPriority={priority ? 'high' : 'auto'}
-    height={256}
+    height={244}
     loading={priority ? 'eager' : 'lazy'}
     src="/brand/mark.png"
     width={256}
   />
 )
 
-/** The stacked logo's pug, sitting with his coffee. Traced to vector, exported at 1000px. */
-export const Pug = ({
+/** The full icon mark at large sizes (1000px master). */
+export const Collie = ({
   className,
   priority,
   sizes = '(min-width: 1024px) 40vw, 80vw',
@@ -30,21 +34,22 @@ export const Pug = ({
 }) => (
   /* eslint-disable-next-line @next/next/no-img-element */
   <img
-    alt="The AR Tech Dogs pug, sitting with a cup of coffee"
+    alt="Jinx, the AR Tech Dogs border collie, at a laptop with a cup of coffee"
     className={className}
     decoding="async"
     fetchPriority={priority ? 'high' : 'auto'}
-    height={1110}
+    height={955}
     loading={priority ? 'eager' : 'lazy'}
     sizes={sizes}
-    src="/brand/pug.webp"
+    src="/brand/collie.webp"
     width={1000}
   />
 )
 
 /**
- * The horizontal lockup from the brand board: head, "AR TECH DOGS" in Barlow ExtraBold, and
- * the tagline underneath on wide screens. The head tilts a little on hover, like he heard you.
+ * The primary horizontal lockup: the mark, "AR Tech Dogs" in Montserrat Bold, and the
+ * lockup line underneath on wide screens. The mark tilts a little on hover, like a dog
+ * that heard its name.
  */
 export const Logo = ({
   className,
@@ -55,21 +60,21 @@ export const Logo = ({
   priority?: boolean
   tagline?: boolean
 }) => (
-  <span className={cn('group/logo inline-flex items-center gap-2.5', className)}>
-    <LogoMark className="logo-head" priority={priority} />
+  <span className={cn('group/logo inline-flex items-center gap-3', className)}>
+    <LogoMark className="logo-head h-11 md:h-12" priority={priority} />
     <span className="flex flex-col">
       <span
         aria-hidden
-        className="font-[family-name:var(--font-wordmark)] text-[1.25rem] font-extrabold uppercase leading-none tracking-[-0.01em]"
+        className="font-[family-name:var(--font-wordmark)] text-[1.3125rem] font-bold leading-none tracking-[-0.035em]"
       >
         AR Tech Dogs
       </span>
       {tagline && (
         <span
           aria-hidden
-          className="mt-1 hidden text-[0.75rem] font-medium leading-none text-muted-foreground xl:block"
+          className="mt-1.5 hidden text-[0.75rem] font-medium leading-none text-muted-foreground xl:block"
         >
-          {TAGLINE}
+          {LOCKUP_LINE}
         </span>
       )}
     </span>

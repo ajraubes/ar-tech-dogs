@@ -61,7 +61,7 @@ export default async function WorkPage() {
                 <h3 className="text-lg font-semibold">
                   Before AR Tech Dogs, the founder built for
                 </h3>
-                <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[clamp(1.75rem,1.3rem+1.8vw,3rem)] font-bold leading-[1.1] tracking-[-0.025em]">
+                <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-[family-name:var(--font-display)] text-[clamp(1.75rem,1.3rem+1.8vw,3rem)] font-bold leading-[1.1] tracking-[-0.025em]">
                   {brands.map((b) => (
                     <li key={b}>{b}</li>
                   ))}

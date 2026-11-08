@@ -15,6 +15,9 @@ import { ProjectCard } from '@/components/site/ProjectCard'
 import { Reveal } from '@/components/site/Reveal'
 import { Section, SectionHeader } from '@/components/site/Section'
 import { SplitWords } from '@/components/site/SplitWords'
+import { serviceArt } from '@/components/site/art'
+import { portraitFor, TeamPortrait } from '@/components/site/TeamPortrait'
+import { jinx } from '@/content/seedData'
 import {
   formatPrice,
   getCompany,
@@ -112,6 +115,18 @@ export default async function HomePage() {
   ]
   const fromBy = new Map(brew.map((o) => [o.id, o]))
 
+  // The pack for the team strip: Jinx, the founder, then everyone with a portrait.
+  const withJinx = team.some((m) => /^jinx\b/i.test(m.name))
+    ? team
+    : [{ name: jinx.name, role: jinx.role, type: 'core' as const }, ...team]
+  const pack = [...withJinx]
+    .filter((m) => portraitFor(m.name))
+    .sort(
+      (a, b) =>
+        (/^jinx\b/i.test(a.name) ? 0 : a.type === 'founder' ? 1 : 2) -
+        (/^jinx\b/i.test(b.name) ? 0 : b.type === 'founder' ? 1 : 2),
+    )
+
   return (
     <>
       <HomeHero
@@ -142,16 +157,27 @@ export default async function HomePage() {
             <ul className="overflow-hidden rounded-[var(--radius-xl)] bg-background">
               {services.map((s, i) => {
                 const price = fromBy.get(s.id)
+                const pic = serviceArt(s.slug)
                 return (
                   <Reveal as="li" className="mt-1 first:mt-0" delay={i * 50} key={s.id}>
                     <Link
-                      className="menu-row group grid items-center gap-x-10 gap-y-2 bg-card px-6 py-7 active:bg-secondary md:px-10 md:py-9 lg:grid-cols-12"
+                      className="menu-row group grid items-center gap-x-10 gap-y-2 bg-card px-6 py-7 active:bg-secondary md:px-10 md:py-8 lg:grid-cols-12"
                       href={`/solutions/${s.slug}`}
                     >
-                      <h3 className="menu-title text-[clamp(1.5rem,1.2rem+1.1vw,2.25rem)] font-bold leading-[1.05] tracking-[-0.02em] lg:col-span-5">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        alt=""
+                        className="mb-3 hidden h-auto w-36 mix-blend-multiply transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-1 sm:block lg:col-span-2 lg:mb-0 lg:w-full lg:max-w-40"
+                        decoding="async"
+                        height={pic.height}
+                        loading="lazy"
+                        src={pic.src}
+                        width={pic.width}
+                      />
+                      <h3 className="menu-title font-[family-name:var(--font-display)] text-[clamp(1.375rem,1.15rem+0.9vw,2rem)] font-bold leading-[1.1] tracking-[-0.03em] lg:col-span-4">
                         {s.title}
                       </h3>
-                      <p className="max-w-[46ch] leading-relaxed text-muted-foreground lg:col-span-4">
+                      <p className="max-w-[46ch] leading-relaxed text-muted-foreground lg:col-span-3">
                         {s.summary}
                       </p>
                       <p className="mt-3 flex items-center justify-between gap-4 lg:col-span-3 lg:mt-0 lg:justify-end">
@@ -180,9 +206,9 @@ export default async function HomePage() {
       {(home?.positioning || (company?.differentiators?.length ?? 0) > 0) && (
         <Section aria-labelledby="why-title" tone="raised">
           <div className="container grid gap-14 lg:grid-cols-12 lg:gap-10">
-            <div className="lg:col-span-6">
+            <div className="min-w-0 lg:col-span-6">
               <Reveal>
-                <h2 className="text-h1 max-w-[14ch]" id="why-title">
+                <h2 className="text-h2 max-w-[18ch]" id="why-title">
                   <SplitWords step={55} text="Built properly, by the person you speak to." />
                 </h2>
               </Reveal>
@@ -207,7 +233,7 @@ export default async function HomePage() {
                         >
                           {experience.map((brand) => (
                             <li
-                              className="flex items-center whitespace-nowrap px-2 text-[clamp(1.5rem,1.2rem+1vw,2.25rem)] font-bold tracking-[-0.02em]"
+                              className="flex items-center whitespace-nowrap px-2 font-[family-name:var(--font-display)] text-[clamp(1.5rem,1.2rem+1vw,2.25rem)] font-bold tracking-[-0.03em]"
                               key={brand}
                             >
                               {brand}
@@ -271,6 +297,50 @@ export default async function HomePage() {
               steps={company.process!}
               title="One sip at a time."
             />
+          </div>
+        </Section>
+      )}
+
+      {/* The pack, from the brand's team banner: the people (and their dogs) behind the work. */}
+      {pack.length > 0 && (
+        <Section aria-labelledby="pack-title">
+          <div className="container grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-10">
+            <Reveal className="lg:col-span-4" stagger>
+              <h2 className="text-h2 max-w-[14ch]" id="pack-title">
+                <SplitWords text="A small, senior pack." />
+              </h2>
+              <p className="text-lead mt-6 max-w-[38ch]">
+                Developers, a designer and a marketer who care about your growth. You speak to the
+                people doing the work.
+              </p>
+              <Link
+                className="mt-8 inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-foreground/30 underline-offset-4 transition-colors hover:decoration-foreground"
+                href="/meet-the-team"
+              >
+                Meet the team
+                <ArrowRight aria-hidden className="size-[1.05em]" strokeWidth={2.25} />
+              </Link>
+            </Reveal>
+            <Reveal
+              as="ul"
+              className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:col-span-8 lg:grid-cols-5"
+              delay={80}
+              stagger
+            >
+              {pack.map((m) => (
+                <li key={m.name}>
+                  <Link className="group block" href="/meet-the-team">
+                    <TeamPortrait bare name={m.name} sizes="(min-width: 1024px) 160px, 45vw" />
+                    <span className="mt-3 block text-center font-[family-name:var(--font-display)] font-bold leading-tight tracking-[-0.02em]">
+                      {m.name.split(' ')[0]}
+                    </span>
+                    <span className="mt-0.5 block text-center text-sm leading-snug text-muted-foreground">
+                      {m.role}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </Reveal>
           </div>
         </Section>
       )}

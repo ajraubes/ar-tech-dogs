@@ -2,7 +2,7 @@ import { cn } from '@/utilities/ui'
 import React from 'react'
 
 export const TAGLINE = 'Custom development and websites, with a Shopify focus.'
-export const LOCKUP_LINE = 'Development · Websites · Shopify'
+export const LOCKUP_LINE = 'Design. Develop. Deliver, one sip at a time.'
 
 /**
  * The icon mark from the brand guide: Jinx the border collie at the laptop, coffee in front.

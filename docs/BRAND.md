@@ -21,7 +21,7 @@ Clear, expert, approachable, practical. Say what it is, then what it costs. "You
 | `public/favicon.ico`, `favicon-64.png` | Favicon (16, 32, 48, 64) on espresso, as in the brand guide. |
 | `public/apple-touch-icon.png`, `icon-192.png`, `icon-512.png` | The mark on a full espresso square, inside the maskable safe zone. |
 
-The horizontal lockup is live text: the mark, then "AR Tech Dogs" in Montserrat Bold (sentence case, tight tracking), with "Development · Websites · Shopify" underneath on wide screens.
+The horizontal lockup is live text: the mark, then "AR Tech Dogs" in Montserrat Bold (sentence case, tight tracking), with "Design. Develop. Deliver, one sip at a time." underneath on wide screens.
 
 Rules (from the brand guide):
 
